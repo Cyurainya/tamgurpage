@@ -34,11 +34,11 @@ links: {
 
 ## 主题接入
 
-页面提供浅色、深色、自动三种模式。自动模式按以下优先级解析：
+页面不提供独立的主题按钮，而是跟随 NewAPI 导航栏。同步顺序为：
 
-1. URL 参数：`?theme=light`、`?theme=dark` 或 `?theme=auto`
+1. 同源 NewAPI 父页面的 `.light` / `.dark` 类
 2. 宿主页面发送的 `postMessage`
-3. 同源父页面的 `data-theme`、`data-color-mode`、`.dark` 或 `color-scheme`
+3. URL 参数：`?theme=light` 或 `?theme=dark`
 4. 系统 `prefers-color-scheme`
 
 跨域宿主可以发送：
@@ -54,9 +54,9 @@ iframe.contentWindow.postMessage(
 
 ## 语言接入
 
-支持简体中文、English、Français、Русский、日本語和 Tiếng Việt。
+支持简体中文、English、Français、Русский、日本語和 Tiếng Việt。页面不显示独立语言菜单，而是读取 NewAPI 使用的 `i18nextLng`。
 
-语言按 URL、`postMessage`、同源父页面、本页保存值、浏览器语言的顺序解析。URL 可使用：
+语言按同源 NewAPI 的 `localStorage.i18nextLng`、`postMessage`、URL、浏览器语言的顺序解析。URL 可使用：
 
 ```text
 ?lang=zh-CN
@@ -77,3 +77,5 @@ iframe.contentWindow.postMessage(
 ```
 
 页面加载后会向父页面发送 `{ type: 'icon-locale-ready' }`，宿主可据此返回当前语言。
+
+> NewAPI 使用 iframe 加载外部首页。若首页与 NewAPI 不同域，浏览器会禁止读取父页面的主题和语言；此时需要 NewAPI 通过 `postMessage` 传递状态，或把首页部署在 NewAPI 同一域名下。

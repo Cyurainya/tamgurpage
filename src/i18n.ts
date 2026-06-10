@@ -3,7 +3,6 @@ import { useEffect, useState } from 'react';
 export type Locale = 'zh-CN' | 'en' | 'fr' | 'ru' | 'ja' | 'vi';
 
 export type Messages = {
-  localeName: string;
   eyebrow: string;
   titleLead: string;
   titleTail: string;
@@ -14,26 +13,10 @@ export type Messages = {
   trust: string;
   unifiedApi: string;
   operational: string;
-  theme: {
-    light: string;
-    dark: string;
-    auto: string;
-    action: string;
-  };
 };
-
-export const localeOptions: Array<{ value: Locale; label: string }> = [
-  { value: 'zh-CN', label: '简体中文' },
-  { value: 'en', label: 'English' },
-  { value: 'fr', label: 'Français' },
-  { value: 'ru', label: 'Русский' },
-  { value: 'ja', label: '日本語' },
-  { value: 'vi', label: 'Tiếng Việt' },
-];
 
 export const messages: Record<Locale, Messages> = {
   'zh-CN': {
-    localeName: '简体中文',
     eyebrow: '统一智能基础设施',
     titleLead: '一个接口，',
     titleTail: '连接所有',
@@ -44,10 +27,8 @@ export const messages: Record<Locale, Messages> = {
     trust: '一个密钥 · 所有模型 · 随时可用',
     unifiedApi: '统一 API',
     operational: '所有系统运行正常',
-    theme: { light: '浅色', dark: '深色', auto: '自动', action: '点击切换主题' },
   },
   en: {
-    localeName: 'English',
     eyebrow: 'Unified intelligence infrastructure',
     titleLead: 'One interface,',
     titleTail: 'every',
@@ -58,10 +39,8 @@ export const messages: Record<Locale, Messages> = {
     trust: 'One key · Every model · Always ready',
     unifiedApi: 'Unified API',
     operational: 'All systems operational',
-    theme: { light: 'Light', dark: 'Dark', auto: 'Auto', action: 'Switch theme' },
   },
   fr: {
-    localeName: 'Français',
     eyebrow: "Infrastructure d'intelligence unifiée",
     titleLead: 'Une interface,',
     titleTail: 'toutes les',
@@ -72,10 +51,8 @@ export const messages: Record<Locale, Messages> = {
     trust: 'Une clé · Tous les modèles · Toujours disponible',
     unifiedApi: 'API unifiée',
     operational: 'Tous les systèmes sont opérationnels',
-    theme: { light: 'Clair', dark: 'Sombre', auto: 'Auto', action: 'Changer de thème' },
   },
   ru: {
-    localeName: 'Русский',
     eyebrow: 'Единая инфраструктура искусственного интеллекта',
     titleLead: 'Один интерфейс,',
     titleTail: 'все модели',
@@ -86,10 +63,8 @@ export const messages: Record<Locale, Messages> = {
     trust: 'Один ключ · Все модели · Всегда доступны',
     unifiedApi: 'Единый API',
     operational: 'Все системы работают',
-    theme: { light: 'Светлая', dark: 'Тёмная', auto: 'Авто', action: 'Сменить тему' },
   },
   ja: {
-    localeName: '日本語',
     eyebrow: '統合インテリジェンス基盤',
     titleLead: 'ひとつの API で、',
     titleTail: 'すべての',
@@ -100,10 +75,8 @@ export const messages: Record<Locale, Messages> = {
     trust: 'ひとつのキー · すべてのモデル · いつでも利用可能',
     unifiedApi: '統合 API',
     operational: 'すべてのシステムは正常です',
-    theme: { light: 'ライト', dark: 'ダーク', auto: '自動', action: 'テーマを切り替え' },
   },
   vi: {
-    localeName: 'Tiếng Việt',
     eyebrow: 'Hạ tầng trí tuệ hợp nhất',
     titleLead: 'Một giao diện,',
     titleTail: 'mọi mô hình',
@@ -114,11 +87,8 @@ export const messages: Record<Locale, Messages> = {
     trust: 'Một khóa · Mọi mô hình · Luôn sẵn sàng',
     unifiedApi: 'API hợp nhất',
     operational: 'Tất cả hệ thống hoạt động bình thường',
-    theme: { light: 'Sáng', dark: 'Tối', auto: 'Tự động', action: 'Đổi giao diện' },
   },
 };
-
-const STORAGE_KEY = 'icon-locale';
 
 function normalizeLocale(value: unknown): Locale | null {
   if (typeof value !== 'string') return null;
@@ -143,6 +113,7 @@ function readParentLocale(): Locale | null {
     const root = window.parent.document.documentElement;
     const body = window.parent.document.body;
     return normalizeLocale(
+      window.parent.localStorage.getItem('i18nextLng') ||
       root.lang ||
       root.dataset.locale ||
       root.dataset.language ||
@@ -173,11 +144,8 @@ export function useLocale() {
   const [urlLocale] = useState<Locale | null>(() => readUrlLocale());
   const [messageLocale, setMessageLocale] = useState<Locale | null>(null);
   const [parentLocale, setParentLocale] = useState<Locale | null>(() => readParentLocale());
-  const [selectedLocale, setSelectedLocale] = useState<Locale | null>(() =>
-    normalizeLocale(window.localStorage.getItem(STORAGE_KEY)),
-  );
   const browserLocale = normalizeLocale(window.navigator.language) ?? 'en';
-  const locale = urlLocale ?? messageLocale ?? parentLocale ?? selectedLocale ?? browserLocale;
+  const locale = parentLocale ?? messageLocale ?? urlLocale ?? browserLocale;
 
   useEffect(() => {
     const onMessage = (event: MessageEvent) => {
@@ -191,6 +159,7 @@ export function useLocale() {
   useEffect(() => {
     if (window.parent === window) return;
     let observer: MutationObserver | undefined;
+    let pollTimer = 0;
     try {
       const root = window.parent.document.documentElement;
       const body = window.parent.document.body;
@@ -207,11 +176,25 @@ export function useLocale() {
         });
       }
       sync();
+      pollTimer = window.setInterval(sync, 300);
     } catch {
       // Cross-origin parents can respond through postMessage.
     }
     window.parent.postMessage({ type: 'icon-locale-ready' }, '*');
-    return () => observer?.disconnect();
+    return () => {
+      observer?.disconnect();
+      window.clearInterval(pollTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    const onStorage = (event: StorageEvent) => {
+      if (event.key === 'i18nextLng') {
+        setParentLocale(normalizeLocale(event.newValue));
+      }
+    };
+    window.addEventListener('storage', onStorage);
+    return () => window.removeEventListener('storage', onStorage);
   }, []);
 
   useEffect(() => {
@@ -219,10 +202,5 @@ export function useLocale() {
     document.title = `icon · ${messages[locale].eyebrow}`;
   }, [locale]);
 
-  const setLocale = (nextLocale: Locale) => {
-    setSelectedLocale(nextLocale);
-    window.localStorage.setItem(STORAGE_KEY, nextLocale);
-  };
-
-  return { locale, setLocale, t: messages[locale] };
+  return { locale, t: messages[locale] };
 }

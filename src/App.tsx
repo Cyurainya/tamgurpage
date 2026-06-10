@@ -2,10 +2,8 @@ import { useEffect, useRef } from 'react';
 import { ModelNetwork } from './ModelNetwork';
 import { ParticleTrail } from './ParticleTrail';
 import { siteConfig } from './config';
-import { localeOptions, useLocale } from './i18n';
-import { useTheme, type ThemeMode } from './theme';
-
-const themeModes: ThemeMode[] = ['light', 'dark', 'auto'];
+import { useLocale } from './i18n';
+import { useTheme } from './theme';
 
 function ArrowIcon() {
   return (
@@ -23,35 +21,9 @@ function CodeIcon() {
   );
 }
 
-function ThemeIcon({ mode }: { mode: ThemeMode }) {
-  if (mode === 'dark') {
-    return (
-      <svg viewBox="0 0 20 20" aria-hidden="true">
-        <path d="M16 12.4A6.7 6.7 0 0 1 7.6 4a6.7 6.7 0 1 0 8.4 8.4Z" />
-      </svg>
-    );
-  }
-
-  if (mode === 'light') {
-    return (
-      <svg viewBox="0 0 20 20" aria-hidden="true">
-        <circle cx="10" cy="10" r="3.2" />
-        <path d="M10 2v2M10 16v2M2 10h2M16 10h2M4.3 4.3l1.4 1.4M14.3 14.3l1.4 1.4M15.7 4.3l-1.4 1.4M5.7 14.3l-1.4 1.4" />
-      </svg>
-    );
-  }
-
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <rect x="2.5" y="3.5" width="15" height="11" rx="2" />
-      <path d="M7 17h6M10 14.5V17" />
-    </svg>
-  );
-}
-
 export default function App() {
-  const { mode, resolved, setMode } = useTheme();
-  const { locale, setLocale, t } = useLocale();
+  const { resolved } = useTheme();
+  const { t } = useLocale();
   const pageRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -78,47 +50,12 @@ export default function App() {
     };
   }, []);
 
-  const cycleTheme = () => {
-    const index = themeModes.indexOf(mode);
-    setMode(themeModes[(index + 1) % themeModes.length]);
-  };
-
-  const themeLabel = t.theme[mode];
-
   return (
     <div className="page" ref={pageRef}>
       <ParticleTrail theme={resolved} />
       <div className="cursor-glow" aria-hidden="true" />
       <div className="grid-background" aria-hidden="true" />
       <div className="top-glow" aria-hidden="true" />
-
-      <div className="floating-controls">
-        <label className="language-control">
-          <span className="language-icon" aria-hidden="true">文</span>
-          <select
-            value={locale}
-            onChange={(event) => setLocale(event.target.value as typeof locale)}
-            aria-label={t.localeName}
-          >
-            {localeOptions.map((option) => (
-              <option value={option.value} key={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </select>
-        </label>
-
-        <button
-          className="theme-toggle"
-          type="button"
-          onClick={cycleTheme}
-          aria-label={`${themeLabel} · ${t.theme.action}`}
-          title={`${themeLabel} · ${t.theme.action}`}
-        >
-          <ThemeIcon mode={mode} />
-          <span>{themeLabel}</span>
-        </button>
-      </div>
 
       <main className="hero">
         <section className="hero-copy">

@@ -3,7 +3,6 @@ import { useEffect, useMemo, useState } from 'react';
 export type ThemeMode = 'light' | 'dark' | 'auto';
 export type ResolvedTheme = Exclude<ThemeMode, 'auto'>;
 
-const STORAGE_KEY = 'icon-theme-mode';
 const VALID_MODES = new Set<ThemeMode>(['light', 'dark', 'auto']);
 
 function normalizeTheme(value: unknown): ThemeMode | null {
@@ -75,19 +74,11 @@ export function useTheme() {
   const [parentTheme, setParentTheme] = useState<ResolvedTheme | null>(
     () => readParentTheme(),
   );
-  const [mode, setModeState] = useState<ThemeMode>(() => {
-    const saved = normalizeTheme(window.localStorage.getItem(STORAGE_KEY));
-    return saved ?? 'auto';
-  });
-
   const resolved: ResolvedTheme =
-    mode === 'auto'
-      ? urlTheme === 'light' || urlTheme === 'dark'
-        ? urlTheme
-        : messageTheme === 'light' || messageTheme === 'dark'
-          ? messageTheme
-          : parentTheme ?? systemTheme
-      : mode;
+    parentTheme ??
+    (messageTheme === 'light' || messageTheme === 'dark' ? messageTheme : null) ??
+    (urlTheme === 'light' || urlTheme === 'dark' ? urlTheme : null) ??
+    systemTheme;
 
   useEffect(() => {
     const onSystemChange = (event: MediaQueryListEvent) => {
@@ -145,10 +136,5 @@ export function useTheme() {
       ?.setAttribute('content', resolved === 'dark' ? '#12100d' : '#f7f7f4');
   }, [resolved]);
 
-  const setMode = (nextMode: ThemeMode) => {
-    setModeState(nextMode);
-    window.localStorage.setItem(STORAGE_KEY, nextMode);
-  };
-
-  return { mode, resolved, setMode };
+  return { resolved };
 }
