@@ -1,0 +1,677 @@
+<!doctype html>
+<html lang="zh-CN" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#f5f7fa" />
+    <meta
+      name="description"
+      content="Tamgur icon 开放平台文档中心，提供 AI 应用配置、API 接口与 Codex 接入教程。"
+    />
+    <title>开放平台文档中心 | icon</title>
+    <style>
+      :root {
+        color-scheme: light;
+        --bg: #f5f7fa;
+        --surface: rgba(255, 255, 255, 0.68);
+        --surface-strong: rgba(255, 255, 255, 0.92);
+        --text: #111827;
+        --text-soft: #667085;
+        --text-muted: #8b95a7;
+        --border: rgba(255, 255, 255, 0.88);
+        --control-border: rgba(17, 24, 39, 0.09);
+        --shadow: 0 28px 90px rgba(31, 43, 66, 0.09);
+        --blue: #139ed9;
+        --purple: #9b3ee8;
+        --green: #148c7f;
+        --focus: rgba(19, 158, 217, 0.32);
+      }
+
+      html[data-theme="dark"] {
+        color-scheme: dark;
+        --bg: #0d1119;
+        --surface: rgba(22, 28, 40, 0.72);
+        --surface-strong: rgba(27, 34, 48, 0.96);
+        --text: #f5f7fb;
+        --text-soft: #a9b3c5;
+        --text-muted: #79859a;
+        --border: rgba(255, 255, 255, 0.08);
+        --control-border: rgba(255, 255, 255, 0.11);
+        --shadow: 0 30px 100px rgba(0, 0, 0, 0.34);
+        --blue: #42bff1;
+        --purple: #bd78ff;
+        --green: #4ac9b9;
+        --focus: rgba(66, 191, 241, 0.36);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+        min-width: 320px;
+        background: var(--bg);
+        scroll-behavior: smooth;
+      }
+
+      body {
+        min-height: 100vh;
+        margin: 0;
+        overflow-x: hidden;
+        color: var(--text);
+        background:
+          radial-gradient(circle at 8% 14%, rgba(80, 190, 235, 0.2), transparent 31rem),
+          radial-gradient(circle at 88% 82%, rgba(201, 91, 226, 0.17), transparent 32rem),
+          var(--bg);
+        font-family:
+          Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI",
+          "Noto Sans SC", "Noto Sans", Arial, sans-serif;
+        transition: color 220ms ease, background-color 220ms ease;
+      }
+
+      body::before {
+        position: fixed;
+        inset: 0;
+        z-index: -1;
+        pointer-events: none;
+        background-image:
+          linear-gradient(rgba(120, 135, 160, 0.045) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(120, 135, 160, 0.045) 1px, transparent 1px);
+        background-size: 52px 52px;
+        mask-image: linear-gradient(to bottom, black, transparent 88%);
+        content: "";
+      }
+
+      button,
+      a {
+        font: inherit;
+      }
+
+      a {
+        color: inherit;
+        text-decoration: none;
+      }
+
+      button:focus-visible,
+      a:focus-visible,
+      select:focus-visible {
+        outline: 3px solid var(--focus);
+        outline-offset: 3px;
+      }
+
+      .page {
+        position: relative;
+        display: flex;
+        width: min(1280px, calc(100% - 64px));
+        min-height: 100vh;
+        flex-direction: column;
+        justify-content: center;
+        margin: 0 auto;
+        padding: 124px 0 64px;
+      }
+
+      .toolbar {
+        position: absolute;
+        top: 30px;
+        right: 0;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .control {
+        height: 42px;
+        border: 1px solid var(--control-border);
+        border-radius: 14px;
+        color: var(--text);
+        background: var(--surface-strong);
+        box-shadow: 0 10px 30px rgba(24, 35, 54, 0.08);
+        backdrop-filter: blur(18px);
+      }
+
+      .language-select {
+        min-width: 142px;
+        padding: 0 38px 0 14px;
+        cursor: pointer;
+      }
+
+      .theme-button {
+        display: inline-grid;
+        width: 42px;
+        padding: 0;
+        cursor: pointer;
+        place-items: center;
+      }
+
+      .theme-button svg {
+        width: 19px;
+        height: 19px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.7;
+      }
+
+      .heading {
+        max-width: 860px;
+        margin: 0 auto 58px;
+        text-align: center;
+      }
+
+      .eyebrow {
+        color: var(--purple);
+        font-size: 11px;
+        font-weight: 750;
+        letter-spacing: 0.23em;
+      }
+
+      h1 {
+        margin: 17px 0 0;
+        font-size: clamp(42px, 5vw, 68px);
+        font-weight: 680;
+        letter-spacing: -0.06em;
+        line-height: 1.08;
+      }
+
+      .heading p {
+        margin: 22px 0 0;
+        color: var(--text-soft);
+        font-size: 17px;
+      }
+
+      .card-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 22px;
+      }
+
+      .card {
+        --accent: var(--blue);
+        --glow: rgba(43, 157, 216, 0.12);
+        display: flex;
+        min-height: 360px;
+        flex-direction: column;
+        padding: 36px;
+        overflow: hidden;
+        border: 1px solid color-mix(in srgb, var(--accent), transparent 81%);
+        border-radius: 28px;
+        background:
+          radial-gradient(circle at 16% 4%, var(--glow), transparent 38%),
+          var(--surface);
+        box-shadow: var(--shadow), inset 0 1px 0 var(--border);
+        backdrop-filter: blur(22px);
+        transition:
+          transform 220ms ease,
+          border-color 220ms ease,
+          box-shadow 220ms ease;
+      }
+
+      .card-api {
+        --accent: var(--purple);
+        --glow: rgba(155, 69, 231, 0.12);
+      }
+
+      .card-codex {
+        --accent: var(--green);
+        --glow: rgba(22, 143, 131, 0.12);
+      }
+
+      .card:hover {
+        border-color: color-mix(in srgb, var(--accent), transparent 52%);
+        box-shadow: 0 36px 100px color-mix(in srgb, var(--glow), rgba(10, 15, 24, 0.12) 35%);
+        transform: translateY(-7px);
+      }
+
+      .card-icon {
+        display: grid;
+        width: 58px;
+        height: 58px;
+        place-items: center;
+        border: 1px solid color-mix(in srgb, var(--accent), transparent 74%);
+        border-radius: 18px;
+        color: var(--accent);
+        background: var(--surface-strong);
+        box-shadow: 0 12px 36px var(--glow);
+      }
+
+      .card-icon svg {
+        width: 27px;
+        height: 27px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.7;
+      }
+
+      .card h2 {
+        margin: 38px 0 0;
+        font-size: 24px;
+        font-weight: 650;
+        letter-spacing: -0.04em;
+        line-height: 1.3;
+      }
+
+      .card p {
+        margin: 18px 0 0;
+        color: var(--text-soft);
+        font-size: 14px;
+        line-height: 1.85;
+      }
+
+      .card-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+        margin-top: auto;
+        padding-top: 28px;
+        color: var(--accent);
+        font-size: 13px;
+        font-weight: 680;
+      }
+
+      .arrow {
+        width: 16px;
+        height: 16px;
+        fill: none;
+        stroke: currentColor;
+        stroke-linecap: round;
+        stroke-linejoin: round;
+        stroke-width: 1.7;
+        transition: transform 180ms ease;
+      }
+
+      .card:hover .arrow {
+        transform: translateX(4px);
+      }
+
+      .back {
+        display: inline-flex;
+        align-items: center;
+        align-self: center;
+        gap: 8px;
+        margin-top: 38px;
+        color: var(--text-muted);
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .back .arrow {
+        transform: rotate(180deg);
+      }
+
+      .back:hover {
+        color: var(--text);
+      }
+
+      @media (max-width: 920px) {
+        .page {
+          width: min(100% - 40px, 660px);
+          justify-content: flex-start;
+          padding-top: 130px;
+        }
+
+        .card-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .card {
+          min-height: 275px;
+        }
+      }
+
+      @media (max-width: 560px) {
+        .page {
+          width: calc(100% - 30px);
+          padding: 104px 0 40px;
+        }
+
+        .toolbar {
+          top: 20px;
+        }
+
+        .language-select {
+          min-width: 132px;
+        }
+
+        .heading {
+          margin-bottom: 38px;
+          text-align: left;
+        }
+
+        h1 {
+          font-size: 40px;
+        }
+
+        .heading p {
+          font-size: 15px;
+        }
+
+        .card {
+          min-height: 290px;
+          padding: 27px;
+          border-radius: 23px;
+        }
+
+        .card h2 {
+          margin-top: 28px;
+          font-size: 21px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          scroll-behavior: auto !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <main class="page">
+      <div class="toolbar" aria-label="Page preferences">
+        <label>
+          <span hidden id="language-label">Language</span>
+          <select
+            class="control language-select"
+            id="language-select"
+            aria-labelledby="language-label"
+          >
+            <option value="zh-CN">简体中文</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="ru">Русский</option>
+            <option value="ja">日本語</option>
+            <option value="vi">Tiếng Việt</option>
+          </select>
+        </label>
+        <button class="control theme-button" id="theme-button" type="button">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" />
+            <circle cx="12" cy="12" r="4" />
+          </svg>
+        </button>
+      </div>
+
+      <header class="heading">
+        <span class="eyebrow" data-i18n="eyebrow">DOCUMENTATION</span>
+        <h1 data-i18n="title">开放平台文档中心</h1>
+        <p data-i18n="description">选择你需要接入的服务类型</p>
+      </header>
+
+      <section class="card-grid" aria-label="Documentation categories">
+        <a class="card card-apps" href="https://doc.tamgur.tech/toolTips">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="3" y="4" width="18" height="13" rx="2" />
+              <path d="M8 21h8M12 17v4" />
+            </svg>
+          </span>
+          <h2 data-i18n="appsTitle">AI 应用配置文档</h2>
+          <p data-i18n="appsDescription">OpenClaw、Claude Code、Codex 等 AI 应用集成方案</p>
+          <span class="card-link">
+            <span data-i18n="enter">进入查阅</span>
+            <svg class="arrow" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4 10h11M11 6l4 4-4 4" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="card card-api" href="https://api.tamgur.tech/docs/api">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m9 15 6-6M7.5 17.5l-1 1a3.5 3.5 0 0 1-5-5l4-4a3.5 3.5 0 0 1 5 0M16.5 6.5l1-1a3.5 3.5 0 0 1 5 5l-4 4a3.5 3.5 0 0 1-5 0" />
+            </svg>
+          </span>
+          <h2 data-i18n="apiTitle">新手指南 / API 接口文档</h2>
+          <p data-i18n="apiDescription">接入聊天、画图、视频生成等 AI 能力，兼容 OpenAI API 格式</p>
+          <span class="card-link">
+            <span data-i18n="enter">进入查阅</span>
+            <svg class="arrow" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4 10h11M11 6l4 4-4 4" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="card card-codex" href="https://api.tamgur.tech/docs/codex">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
+            </svg>
+          </span>
+          <h2 data-i18n="codexTitle">Codex 简单版对接 API 教程</h2>
+          <p data-i18n="codexDescription">快速配置 API 地址、密钥与模型，帮助 Codex 新用户完成基础接入</p>
+          <span class="card-link">
+            <span data-i18n="enter">进入查阅</span>
+            <svg class="arrow" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4 10h11M11 6l4 4-4 4" />
+            </svg>
+          </span>
+        </a>
+      </section>
+
+      <a class="back" href="https://api.tamgur.tech/">
+        <svg class="arrow" viewBox="0 0 20 20" aria-hidden="true">
+          <path d="M4 10h11M11 6l4 4-4 4" />
+        </svg>
+        <span data-i18n="back">返回首页</span>
+      </a>
+    </main>
+
+    <script>
+      (() => {
+        "use strict";
+
+        const translations = {
+          "zh-CN": {
+            eyebrow: "DOCUMENTATION",
+            title: "开放平台文档中心",
+            description: "选择你需要接入的服务类型",
+            appsTitle: "AI 应用配置文档",
+            appsDescription: "OpenClaw、Claude Code、Codex 等 AI 应用集成方案",
+            apiTitle: "新手指南 / API 接口文档",
+            apiDescription: "接入聊天、画图、视频生成等 AI 能力，兼容 OpenAI API 格式",
+            codexTitle: "Codex 简单版对接 API 教程",
+            codexDescription: "快速配置 API 地址、密钥与模型，帮助 Codex 新用户完成基础接入",
+            enter: "进入查阅",
+            back: "返回首页",
+            themeAuto: "主题：跟随系统",
+            themeLight: "主题：浅色",
+            themeDark: "主题：深色"
+          },
+          en: {
+            eyebrow: "DOCUMENTATION",
+            title: "Open Platform Documentation",
+            description: "Choose the service you want to integrate",
+            appsTitle: "AI application setup",
+            appsDescription: "Integration guides for OpenClaw, Claude Code, Codex and other AI apps",
+            apiTitle: "Getting started / API reference",
+            apiDescription: "Connect chat, image and video generation through an OpenAI-compatible API",
+            codexTitle: "Codex API quickstart",
+            codexDescription: "Configure the endpoint, key and model to get Codex connected quickly",
+            enter: "Explore",
+            back: "Back home",
+            themeAuto: "Theme: System",
+            themeLight: "Theme: Light",
+            themeDark: "Theme: Dark"
+          },
+          fr: {
+            eyebrow: "DOCUMENTATION",
+            title: "Centre de documentation",
+            description: "Choisissez le service que vous souhaitez intégrer",
+            appsTitle: "Configuration d'applications IA",
+            appsDescription: "Guides pour OpenClaw, Claude Code, Codex et d'autres applications",
+            apiTitle: "Guide de démarrage / API",
+            apiDescription: "Connectez le chat, les images et la vidéo via une API compatible OpenAI",
+            codexTitle: "Démarrage rapide Codex",
+            codexDescription: "Configurez l'adresse, la clé et le modèle pour connecter Codex",
+            enter: "Consulter",
+            back: "Retour à l'accueil",
+            themeAuto: "Thème : système",
+            themeLight: "Thème : clair",
+            themeDark: "Thème : sombre"
+          },
+          ru: {
+            eyebrow: "ДОКУМЕНТАЦИЯ",
+            title: "Центр документации",
+            description: "Выберите нужный тип интеграции",
+            appsTitle: "Настройка ИИ-приложений",
+            appsDescription: "Интеграция OpenClaw, Claude Code, Codex и других приложений",
+            apiTitle: "Начало работы / API",
+            apiDescription: "Чат, изображения и видео через API, совместимый с OpenAI",
+            codexTitle: "Быстрое подключение Codex",
+            codexDescription: "Настройте адрес API, ключ и модель для подключения Codex",
+            enter: "Открыть",
+            back: "На главную",
+            themeAuto: "Тема: системная",
+            themeLight: "Тема: светлая",
+            themeDark: "Тема: тёмная"
+          },
+          ja: {
+            eyebrow: "DOCUMENTATION",
+            title: "オープンプラットフォーム資料",
+            description: "接続するサービスを選択してください",
+            appsTitle: "AI アプリ設定ガイド",
+            appsDescription: "OpenClaw、Claude Code、Codex などの連携方法",
+            apiTitle: "入門ガイド / API リファレンス",
+            apiDescription: "OpenAI 互換 API でチャット、画像、動画生成に接続",
+            codexTitle: "Codex API クイックスタート",
+            codexDescription: "API アドレス、キー、モデルを設定して Codex を接続",
+            enter: "詳しく見る",
+            back: "ホームへ戻る",
+            themeAuto: "テーマ：システム",
+            themeLight: "テーマ：ライト",
+            themeDark: "テーマ：ダーク"
+          },
+          vi: {
+            eyebrow: "TÀI LIỆU",
+            title: "Trung tâm tài liệu nền tảng",
+            description: "Chọn dịch vụ bạn muốn tích hợp",
+            appsTitle: "Cấu hình ứng dụng AI",
+            appsDescription: "Hướng dẫn tích hợp OpenClaw, Claude Code, Codex và các ứng dụng khác",
+            apiTitle: "Bắt đầu / Tài liệu API",
+            apiDescription: "Kết nối chat, hình ảnh và video qua API tương thích OpenAI",
+            codexTitle: "Khởi động nhanh Codex API",
+            codexDescription: "Cấu hình địa chỉ API, khóa và mô hình để kết nối Codex",
+            enter: "Xem tài liệu",
+            back: "Về trang chủ",
+            themeAuto: "Giao diện: Hệ thống",
+            themeLight: "Giao diện: Sáng",
+            themeDark: "Giao diện: Tối"
+          }
+        };
+
+        const localeAliases = {
+          zh: "zh-CN",
+          "zh-cn": "zh-CN",
+          "zh-sg": "zh-CN",
+          en: "en",
+          fr: "fr",
+          ru: "ru",
+          ja: "ja",
+          vi: "vi"
+        };
+        const themeOrder = ["auto", "light", "dark"];
+        const params = new URLSearchParams(location.search);
+        const media = matchMedia("(prefers-color-scheme: dark)");
+        const languageSelect = document.getElementById("language-select");
+        const themeButton = document.getElementById("theme-button");
+        const themeMeta = document.querySelector('meta[name="theme-color"]');
+
+        const normalizeLocale = (value) => {
+          if (!value) return null;
+          const normalized = value.trim().toLowerCase().replace("_", "-");
+          return localeAliases[normalized] || localeAliases[normalized.split("-")[0]] || null;
+        };
+
+        const readStored = (key) => {
+          try {
+            return localStorage.getItem(key);
+          } catch {
+            return null;
+          }
+        };
+
+        const writeStored = (key, value) => {
+          try {
+            localStorage.setItem(key, value);
+          } catch {
+            // The page still works when storage is unavailable.
+          }
+        };
+
+        let locale =
+          normalizeLocale(params.get("lang")) ||
+          normalizeLocale(readStored("tamgur-docs-language")) ||
+          normalizeLocale(navigator.language) ||
+          "zh-CN";
+
+        const initialTheme = params.get("theme");
+        let themeMode =
+          themeOrder.includes(initialTheme) ? initialTheme :
+          themeOrder.includes(readStored("tamgur-docs-theme")) ? readStored("tamgur-docs-theme") :
+          "auto";
+
+        const updateUrl = (key, value, defaultValue) => {
+          const url = new URL(location.href);
+          if (value === defaultValue) {
+            url.searchParams.delete(key);
+          } else {
+            url.searchParams.set(key, value);
+          }
+          history.replaceState(null, "", url);
+        };
+
+        const applyLocale = () => {
+          const dictionary = translations[locale];
+          document.documentElement.lang = locale;
+          document.title = `${dictionary.title} | icon`;
+          document.querySelectorAll("[data-i18n]").forEach((element) => {
+            const value = dictionary[element.dataset.i18n];
+            if (value) element.textContent = value;
+          });
+          languageSelect.value = locale;
+          applyTheme();
+        };
+
+        const applyTheme = () => {
+          const resolved = themeMode === "auto" ? (media.matches ? "dark" : "light") : themeMode;
+          const dictionary = translations[locale];
+          const label = dictionary[
+            themeMode === "auto" ? "themeAuto" :
+            themeMode === "light" ? "themeLight" :
+            "themeDark"
+          ];
+          document.documentElement.dataset.theme = resolved;
+          themeButton.title = label;
+          themeButton.setAttribute("aria-label", label);
+          themeMeta.setAttribute("content", resolved === "dark" ? "#0d1119" : "#f5f7fa");
+        };
+
+        languageSelect.addEventListener("change", () => {
+          locale = normalizeLocale(languageSelect.value) || "zh-CN";
+          writeStored("tamgur-docs-language", locale);
+          updateUrl("lang", locale, "zh-CN");
+          applyLocale();
+        });
+
+        themeButton.addEventListener("click", () => {
+          themeMode = themeOrder[(themeOrder.indexOf(themeMode) + 1) % themeOrder.length];
+          writeStored("tamgur-docs-theme", themeMode);
+          updateUrl("theme", themeMode, "auto");
+          applyTheme();
+        });
+
+        media.addEventListener("change", () => {
+          if (themeMode === "auto") applyTheme();
+        });
+
+        applyLocale();
+      })();
+    </script>
+  </body>
+</html>

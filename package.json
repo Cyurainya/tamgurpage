@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
+    "build:docs": "rm -rf dist-docs && mkdir -p dist-docs && cp docs-site/index.html dist-docs/index.html",
     "preview": "vite preview",
     "typecheck": "tsc -b"
   },

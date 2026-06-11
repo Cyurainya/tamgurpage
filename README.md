@@ -17,6 +17,22 @@ npm run build
 
 最终文件为 `dist/index.html`。将它部署到 HTTPS 地址，然后把该地址配置为 NewAPI 自定义首页。
 
+## 独立文档中心
+
+文档中心是一个无需后端的独立单文件页面：
+
+```bash
+npm run build:docs
+```
+
+生成文件为 `dist-docs/index.html`，可直接上传到 `doc.tamgur.tech` 的宝塔站点根目录。页面支持六种语言、URL 参数和本地记忆：
+
+```text
+https://doc.tamgur.tech/?lang=en&theme=dark
+```
+
+支持的语言参数为 `zh-CN`、`en`、`fr`、`ru`、`ja`、`vi`；主题参数为 `auto`、`light`、`dark`。
+
 ## 自动部署到宝塔
 
 仓库包含 `.github/workflows/deploy.yml`。启用后，每次推送 `main` 都会构建并通过 SSH 上传 `dist/index.html`。
