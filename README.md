@@ -17,6 +17,112 @@ npm run build
 
 最终文件为 `dist/index.html`。将它部署到 HTTPS 地址，然后把该地址配置为 NewAPI 自定义首页。
 
+## 自动部署到宝塔
+
+仓库包含 `.github/workflows/deploy.yml`。启用后，每次推送 `main` 都会构建并通过 SSH 上传 `dist/index.html`。
+
+在 GitHub 仓库的 **Settings → Secrets and variables → Actions** 中添加：
+
+- `SERVER_HOST`：服务器公网 IP
+- `SERVER_PORT`：SSH 端口，通常是 `22`
+- `SERVER_USER`：部署用户
+- `SERVER_SSH_KEY`：部署用户私钥全文
+- `DEPLOY_PATH`：例如 `/www/wwwroot/tamgur-home`
+
+然后添加 Repository variable：
+
+- `DEPLOY_ENABLED`：设置为 `true`
+
+建议在 NewAPI 对应站点的 Nginx 配置中将 `/home/` 映射到 `/www/wwwroot/tamgur-home/`，并把 NewAPI 自定义首页地址设置为：
+
+```text
+https://api.tamgur.tech/home/index.html
+```
+
+## GitHub 自动部署到宝塔
+
+项目包含 `.github/workflows/deploy-baota.yml`。每次代码 push 到 GitHub 的
+`main` 分支后，GitHub Actions 会自动构建项目，并把单文件页面上传为
+宝塔站点目录中的 `homepage.html`。
+
+### 1. 在宝塔中准备站点
+
+假设站点域名是 `home.example.com`，站点根目录是：
+
+```text
+/www/wwwroot/home.example.com
+```
+
+在宝塔的“网站”中创建该站点并申请 SSL 证书。部署完成后，页面地址为：
+
+```text
+https://home.example.com/homepage.html
+```
+
+将这个完整地址填入 NewAPI 的自定义首页配置。
+
+### 2. 为 GitHub 创建服务器 SSH 密钥
+
+在本地终端生成一套专用于部署的密钥：
+
+```bash
+ssh-keygen -t ed25519 -C "github-actions-tamgurpage" -f ~/.ssh/tamgurpage_deploy
+```
+
+命令询问私钥密码时直接按两次回车，不要为这套自动部署密钥设置密码。
+
+把公钥安装到宝塔服务器。将下面的 `root` 和服务器地址替换成实际值：
+
+```bash
+ssh-copy-id -i ~/.ssh/tamgurpage_deploy.pub -p 22 root@服务器IP
+```
+
+先确认密钥能够正常登录：
+
+```bash
+ssh -i ~/.ssh/tamgurpage_deploy -p 22 root@服务器IP
+```
+
+### 3. 配置 GitHub Secrets
+
+进入 GitHub 仓库：
+
+```text
+Settings → Secrets and variables → Actions → New repository secret
+```
+
+添加以下 5 个 Secrets：
+
+| Secret | 示例值 | 说明 |
+| --- | --- | --- |
+| `BT_HOST` | `1.2.3.4` | 宝塔服务器公网 IP 或域名 |
+| `BT_PORT` | `22` | SSH 端口，不是宝塔面板端口 |
+| `BT_USER` | `root` | SSH 登录用户 |
+| `BT_DEPLOY_PATH` | `/www/wwwroot/home.example.com` | 宝塔站点根目录 |
+| `BT_SSH_KEY` | `-----BEGIN OPENSSH PRIVATE KEY-----...` | `~/.ssh/tamgurpage_deploy` 的完整内容 |
+
+查看私钥内容：
+
+```bash
+cat ~/.ssh/tamgurpage_deploy
+```
+
+私钥只能放入 GitHub Secret，不要提交到仓库。
+
+### 4. 触发部署
+
+提交代码并 push：
+
+```bash
+git add .
+git commit -m "Configure automatic Baota deployment"
+git push origin main
+```
+
+在 GitHub 仓库的 `Actions` 页面可以查看部署进度。以后每次 push 到
+`main`，`homepage.html` 都会自动更新。也可以在 Actions 页面选择
+`Deploy homepage to Baota`，点击 `Run workflow` 手动部署。
+
 ## 修改链接
 
 所有导航和按钮地址都集中在 `src/config.ts`：
