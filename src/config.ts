@@ -4,7 +4,7 @@ export const siteConfig = {
     models: '/pricing',
     pricing: '/pricing',
     docs: '?view=docs',
-    openClawDocs: 'https://api.tamgur.tech/docs/openclaw',
+    openClawDocs: 'https://doc.tamgur.tech/toolTips',
     apiDocs: 'https://api.tamgur.tech/docs/api',
     codexDocs: 'https://api.tamgur.tech/docs/codex',
     status: '/status',

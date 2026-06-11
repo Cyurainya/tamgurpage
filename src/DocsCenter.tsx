@@ -65,10 +65,10 @@ export function DocsCenter({ t }: { t: Messages }) {
       <div className="docs-orb docs-orb-left" />
       <div className="docs-orb docs-orb-right" />
 
-      <a className="docs-brand" href="?">
+      {/* <a className="docs-brand" href="?">
         <img src={logoUrl} alt="" />
         <span>{siteConfig.brand}</span>
-      </a>
+      </a> */}
 
       <section className="docs-heading">
         <span>{t.docsCenterEyebrow}</span>
@@ -82,6 +82,8 @@ export function DocsCenter({ t }: { t: Messages }) {
             className={`docs-card docs-card-${card.className}`}
             href={card.href}
             key={card.title}
+            target="_blank"
+            rel="noopener noreferrer"
           >
             <span className="docs-card-icon">{card.icon}</span>
             <h2>{card.title}</h2>

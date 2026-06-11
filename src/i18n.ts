@@ -99,7 +99,7 @@ export const messages: Record<Locale, Messages> = {
     ctaDescription: '一个密钥连接主流 AI 模型，让下一次调用更简单。',
     signupBonus: '注册即送免费 Tokens',
     docsCenterEyebrow: 'DOCUMENTATION',
-    docsCenterTitle: 'icon 开放平台文档中心',
+    docsCenterTitle: '开放平台文档中心',
     docsCenterDescription: '选择你需要接入的服务类型',
     docsAppsTitle: 'AI 应用配置文档',
     docsAppsDescription: 'OpenClaw、Claude Code、Codex 等 AI 应用集成方案',
@@ -152,7 +152,7 @@ export const messages: Record<Locale, Messages> = {
     ctaDescription: 'Connect leading AI models with one key and simplify every call.',
     signupBonus: 'Free tokens when you sign up',
     docsCenterEyebrow: 'DOCUMENTATION',
-    docsCenterTitle: 'icon Documentation Center',
+    docsCenterTitle: 'Documentation Center',
     docsCenterDescription: 'Choose the service you want to integrate',
     docsAppsTitle: 'AI application setup',
     docsAppsDescription: 'Integration guides for OpenClaw, Claude Code, Codex and other AI apps',
@@ -286,7 +286,7 @@ export const messages: Record<Locale, Messages> = {
     tokenReward: 'コミュニティ限定特典',
     telegramGroup: 'Telegram グループ',
     wechatGroup: 'WeChat グループ',
-    featuresEyebrow: 'icon が選ばれる理由',
+    featuresEyebrow: 'が選ばれる理由',
     featuresTitle: '安定した推論のために',
     featuresDescription: '個人開発から本番環境まで拡張できる、シンプルで透明性の高い AI 基盤。',
     openClawTitle: 'OpenClaw に完全対応',
@@ -311,7 +311,7 @@ export const messages: Record<Locale, Messages> = {
     ctaDescription: 'ひとつのキーで主要 AI モデルに接続できます。',
     signupBonus: '登録で無料トークンをプレゼント',
     docsCenterEyebrow: 'DOCUMENTATION',
-    docsCenterTitle: 'icon ドキュメントセンター',
+    docsCenterTitle: 'ドキュメントセンター',
     docsCenterDescription: '接続するサービスを選択してください',
     docsAppsTitle: 'AI アプリ設定ガイド',
     docsAppsDescription: 'OpenClaw、Claude Code、Codex などの連携方法',
@@ -486,7 +486,7 @@ export function useLocale() {
 
   useEffect(() => {
     document.documentElement.lang = locale;
-    document.title = `icon · ${messages[locale].eyebrow}`;
+    document.title = `· ${messages[locale].eyebrow}`;
   }, [locale]);
 
   return { locale, t: messages[locale] };

@@ -157,10 +157,10 @@ export default function App() {
 
       <main className="hero">
         <section className="hero-copy">
-          <div className="wordmark" aria-label={siteConfig.brand}>
+          {/* <div className="wordmark" aria-label={siteConfig.brand}>
             <span className="wordmark-dot" />
             {siteConfig.brand}
-          </div>
+          </div> */}
 
           <div className="eyebrow">
             <span>{t.eyebrow}</span>
