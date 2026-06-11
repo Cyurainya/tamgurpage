@@ -779,6 +779,12 @@ h1 {
   color: #347db9;
 }
 
+.deepseek-icon {
+  width: 20px;
+  height: 17px;
+  object-fit: contain;
+}
+
 .network-status {
   position: absolute;
   right: 23%;
