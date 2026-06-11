@@ -54,6 +54,9 @@ export type Messages = {
   docsCodexDescription: string;
   docsEnter: string;
   docsBack: string;
+  contactWechat: string;
+  copyWechat: string;
+  copiedWechat: string;
 };
 
 export const messages: Record<Locale, Messages> = {
@@ -109,6 +112,9 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: '快速配置 API 地址、密钥与模型，帮助 Codex 新用户完成基础接入',
     docsEnter: '进入查阅',
     docsBack: '返回首页',
+    contactWechat: '任何问题请联系 WeChat',
+    copyWechat: '复制微信号',
+    copiedWechat: '已复制',
   },
   en: {
     eyebrow: 'Unified intelligence infrastructure',
@@ -162,6 +168,9 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: 'Configure endpoint, key and model to get Codex connected quickly',
     docsEnter: 'Explore',
     docsBack: 'Back home',
+    contactWechat: 'Questions? Contact us on WeChat',
+    copyWechat: 'Copy WeChat ID',
+    copiedWechat: 'Copied',
   },
   fr: {
     eyebrow: "Infrastructure d'intelligence unifiée",
@@ -215,6 +224,9 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: "Configurez l'adresse, la clé et le modèle pour connecter Codex",
     docsEnter: 'Consulter',
     docsBack: "Retour à l'accueil",
+    contactWechat: 'Une question ? Contactez-nous sur WeChat',
+    copyWechat: "Copier l'identifiant WeChat",
+    copiedWechat: 'Copié',
   },
   ru: {
     eyebrow: 'Единая инфраструктура искусственного интеллекта',
@@ -268,6 +280,9 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: 'Настройте адрес API, ключ и модель для подключения Codex',
     docsEnter: 'Открыть',
     docsBack: 'На главную',
+    contactWechat: 'Есть вопросы? Напишите нам в WeChat',
+    copyWechat: 'Копировать WeChat ID',
+    copiedWechat: 'Скопировано',
   },
   ja: {
     eyebrow: '統合インテリジェンス基盤',
@@ -321,6 +336,9 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: 'API アドレス、キー、モデルを設定して Codex を接続',
     docsEnter: '詳しく見る',
     docsBack: 'ホームへ戻る',
+    contactWechat: 'ご質問は WeChat まで',
+    copyWechat: 'WeChat IDをコピー',
+    copiedWechat: 'コピーしました',
   },
   vi: {
     eyebrow: 'Hạ tầng trí tuệ hợp nhất',
@@ -374,6 +392,9 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: 'Cấu hình địa chỉ API, khóa và mô hình để kết nối Codex',
     docsEnter: 'Xem tài liệu',
     docsBack: 'Về trang chủ',
+    contactWechat: 'Có câu hỏi? Liên hệ qua WeChat',
+    copyWechat: 'Sao chép WeChat ID',
+    copiedWechat: 'Đã sao chép',
   },
 };
 

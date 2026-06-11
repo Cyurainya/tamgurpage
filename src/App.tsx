@@ -58,6 +58,23 @@ function ChevronIcon() {
   );
 }
 
+function CopyIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <rect x="6.5" y="6.5" width="9" height="9" rx="2" />
+      <path d="M13.5 6.5V5A1.5 1.5 0 0 0 12 3.5H5A1.5 1.5 0 0 0 3.5 5v7A1.5 1.5 0 0 0 5 13.5h1.5" />
+    </svg>
+  );
+}
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <path d="m4.5 10.5 3.4 3.4 7.6-7.6" />
+    </svg>
+  );
+}
+
 function TelegramIcon() {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -91,7 +108,9 @@ export default function App() {
   const { t } = useLocale();
   const pageRef = useRef<HTMLDivElement>(null);
   const communityRef = useRef<HTMLDivElement>(null);
+  const copyResetRef = useRef<number | null>(null);
   const [communityOpen, setCommunityOpen] = useState(false);
+  const [wechatCopied, setWechatCopied] = useState(false);
   const isDocsView = window.location.pathname === '/docs' || new URLSearchParams(window.location.search).get('view') === 'docs';
 
   useEffect(() => {
@@ -137,6 +156,33 @@ export default function App() {
       window.removeEventListener('keydown', onKeyDown);
     };
   }, [communityOpen]);
+
+  useEffect(() => {
+    return () => {
+      if (copyResetRef.current) window.clearTimeout(copyResetRef.current);
+    };
+  }, []);
+
+  const copyWechatId = async () => {
+    const wechatId = 'cyuCyin';
+
+    try {
+      await navigator.clipboard.writeText(wechatId);
+    } catch {
+      const input = document.createElement('textarea');
+      input.value = wechatId;
+      input.style.position = 'fixed';
+      input.style.opacity = '0';
+      document.body.appendChild(input);
+      input.select();
+      document.execCommand('copy');
+      input.remove();
+    }
+
+    setWechatCopied(true);
+    if (copyResetRef.current) window.clearTimeout(copyResetRef.current);
+    copyResetRef.current = window.setTimeout(() => setWechatCopied(false), 1800);
+  };
 
   if (isDocsView) {
     return (
@@ -258,6 +304,19 @@ export default function App() {
                 </div>
               )}
             </div>
+          </div>
+
+          <div className="hero-contact">
+            <span>{t.contactWechat}</span>
+            <strong>cyuCyin</strong>
+            <button
+              type="button"
+              onClick={copyWechatId}
+              aria-label={wechatCopied ? t.copiedWechat : t.copyWechat}
+              title={wechatCopied ? t.copiedWechat : t.copyWechat}
+            >
+              {wechatCopied ? <CheckIcon /> : <CopyIcon />}
+            </button>
           </div>
 
           <div className="trust-row">

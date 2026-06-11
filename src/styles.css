@@ -1130,6 +1130,55 @@ h1 {
   text-transform: none;
 }
 
+.hero-contact {
+  display: flex;
+  width: min(100%, 500px);
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding-left: 4px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.hero-contact strong {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.hero-contact button {
+  display: inline-grid;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  place-items: center;
+  border: 1px solid var(--border-strong);
+  border-radius: 9px;
+  color: var(--brand);
+  background: var(--surface);
+  cursor: pointer;
+  transition: border-color 160ms ease, background 160ms ease, transform 160ms ease;
+}
+
+.hero-contact button:hover {
+  border-color: color-mix(in srgb, var(--brand), transparent 55%);
+  background: var(--brand-soft);
+  transform: translateY(-1px);
+}
+
+.hero-contact button svg {
+  width: 13px;
+  height: 13px;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 1.6;
+}
+
 .docs-page-shell {
   min-height: 100vh;
 }
@@ -1512,6 +1561,14 @@ h1 {
   .site-footer {
     gap: 18px;
     flex-direction: column;
+  }
+
+  .hero-contact {
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    padding-left: 0;
   }
 
   .docs-page {
