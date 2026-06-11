@@ -74,6 +74,17 @@ function WechatIcon() {
   );
 }
 
+function FeatureIcon({ type }: { type: 'claw' | 'wallet' | 'globe' | 'shield' | 'code' }) {
+  const paths = {
+    claw: <><path d="M6 16c1.3-2.2 2-4.1 2-5.8V6.5M14 16c-1.3-2.2-2-4.1-2-5.8V6.5M8 8.5h4M7 4.5 5 2.5M13 4.5l2-2M5.5 6 2.5 5M14.5 6l3-1" /><circle cx="10" cy="6" r="2.5" /></>,
+    wallet: <><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H15v3H5.5a2.5 2.5 0 0 0 0 5H17v5H5a2 2 0 0 1-2-2V5.5Z" /><path d="M13 8h4v4h-4a2 2 0 1 1 0-4Z" /></>,
+    globe: <><circle cx="10" cy="10" r="7.5" /><path d="M2.8 10h14.4M10 2.5c2 2.1 3 4.6 3 7.5s-1 5.4-3 7.5c-2-2.1-3-4.6-3-7.5s1-5.4 3-7.5Z" /></>,
+    shield: <><path d="M10 2.5 16 5v4.6c0 3.8-2.4 6.5-6 7.9-3.6-1.4-6-4.1-6-7.9V5l6-2.5Z" /><path d="m7 10 2 2 4-4" /></>,
+    code: <><path d="m7.5 5-4 5 4 5M12.5 5l4 5-4 5" /><path d="m11.5 3-3 14" /></>,
+  };
+  return <svg viewBox="0 0 20 20" aria-hidden="true">{paths[type]}</svg>;
+}
+
 export default function App() {
   const { resolved } = useTheme();
   const { t } = useLocale();
@@ -142,6 +153,11 @@ export default function App() {
           <div className="eyebrow">
             <span>{t.eyebrow}</span>
             <span className="eyebrow-line" />
+          </div>
+
+          <div className="signup-bonus">
+            <span aria-hidden="true">✦</span>
+            {t.signupBonus}
           </div>
 
           <h1>
@@ -242,6 +258,94 @@ export default function App() {
           <ModelNetwork t={t} />
         </section>
       </main>
+
+      <section className="content-section features-section">
+        <div className="section-heading">
+          <span>{t.featuresEyebrow}</span>
+          <h2>{t.featuresTitle}</h2>
+          <p>{t.featuresDescription}</p>
+        </div>
+
+        <article className="openclaw-banner">
+          <div className="feature-symbol featured">
+            <FeatureIcon type="claw" />
+          </div>
+          <div>
+            <span className="card-kicker">OPENCLAW READY</span>
+            <h3>{t.openClawTitle}</h3>
+            <p>{t.openClawDescription}</p>
+          </div>
+          <div className="compatibility-code" aria-hidden="true">
+            <span>base_url</span>
+            <strong>icon / v1</strong>
+          </div>
+        </article>
+
+        <div className="feature-grid">
+          {[
+            ['wallet', t.flexibleTitle, t.flexibleDescription],
+            ['globe', t.modelsTitle, t.modelsDescription],
+            ['shield', t.supportTitle, t.supportDescription],
+            ['code', t.developerTitle, t.developerDescription],
+          ].map(([icon, title, description], index) => (
+            <article className="feature-card" key={title}>
+              <span className="feature-index">0{index + 1}</span>
+              <div className="feature-symbol">
+                <FeatureIcon type={icon as 'wallet' | 'globe' | 'shield' | 'code'} />
+              </div>
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="content-section steps-section">
+        <div className="section-heading compact">
+          <span>{t.stepsEyebrow}</span>
+          <h2>{t.stepsTitle}</h2>
+        </div>
+        <div className="steps-grid">
+          {[
+            [t.stepOneTitle, t.stepOneDescription, '01'],
+            [t.stepTwoTitle, t.stepTwoDescription, '02'],
+            [t.stepThreeTitle, t.stepThreeDescription, '03'],
+          ].map(([title, description, number]) => (
+            <article className="step-card" key={number}>
+              <span className="step-number">{number}</span>
+              <div className="step-line" />
+              <h3>{title}</h3>
+              <p>{description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="content-section cta-section">
+        <div>
+          <span className="card-kicker">BUILD WITH ICON</span>
+          <h2>{t.ctaTitle}</h2>
+          <p>{t.ctaDescription}</p>
+        </div>
+        <div className="cta-actions">
+          <a className="primary-button" href={siteConfig.links.console}>
+            {t.start}
+            <ArrowIcon />
+          </a>
+          <a className="secondary-button" href={siteConfig.links.docs}>
+            <CodeIcon />
+            {t.docs}
+          </a>
+        </div>
+      </section>
+
+      <footer className="site-footer">
+        <span className="wordmark footer-wordmark">
+          <span className="wordmark-dot" />
+          {siteConfig.brand}
+        </span>
+        <span>Unified intelligence infrastructure</span>
+      </footer>
     </div>
   );
 }
