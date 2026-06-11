@@ -7,6 +7,9 @@ export const siteConfig = {
     status: '/status',
     console: '/console',
     login: '/login',
+    recharge: '/console/topup',
+    imageGeneration: '/playground',
+    telegramGroup: 'https://t.me/your_group',
+    wechatGroup: '/wechat-group',
   },
 } as const;
-

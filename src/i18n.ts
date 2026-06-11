@@ -13,6 +13,12 @@ export type Messages = {
   trust: string;
   unifiedApi: string;
   operational: string;
+  recharge: string;
+  imageGeneration: string;
+  joinGroup: string;
+  tokenReward: string;
+  telegramGroup: string;
+  wechatGroup: string;
 };
 
 export const messages: Record<Locale, Messages> = {
@@ -27,6 +33,12 @@ export const messages: Record<Locale, Messages> = {
     trust: '一个密钥 · 所有模型 · 随时可用',
     unifiedApi: '统一 API',
     operational: '所有系统运行正常',
+    recharge: '额度充值',
+    imageGeneration: '在线生图',
+    joinGroup: '加入群领取 Token',
+    tokenReward: '社区专属福利',
+    telegramGroup: 'Telegram 群',
+    wechatGroup: '微信群',
   },
   en: {
     eyebrow: 'Unified intelligence infrastructure',
@@ -39,6 +51,12 @@ export const messages: Record<Locale, Messages> = {
     trust: 'One key · Every model · Always ready',
     unifiedApi: 'Unified API',
     operational: 'All systems operational',
+    recharge: 'Add credits',
+    imageGeneration: 'Generate images',
+    joinGroup: 'Join & claim tokens',
+    tokenReward: 'Community rewards',
+    telegramGroup: 'Telegram group',
+    wechatGroup: 'WeChat group',
   },
   fr: {
     eyebrow: "Infrastructure d'intelligence unifiée",
@@ -51,6 +69,12 @@ export const messages: Record<Locale, Messages> = {
     trust: 'Une clé · Tous les modèles · Toujours disponible',
     unifiedApi: 'API unifiée',
     operational: 'Tous les systèmes sont opérationnels',
+    recharge: 'Recharger',
+    imageGeneration: 'Générer des images',
+    joinGroup: 'Rejoindre et recevoir des tokens',
+    tokenReward: 'Avantages communautaires',
+    telegramGroup: 'Groupe Telegram',
+    wechatGroup: 'Groupe WeChat',
   },
   ru: {
     eyebrow: 'Единая инфраструктура искусственного интеллекта',
@@ -63,6 +87,12 @@ export const messages: Record<Locale, Messages> = {
     trust: 'Один ключ · Все модели · Всегда доступны',
     unifiedApi: 'Единый API',
     operational: 'Все системы работают',
+    recharge: 'Пополнить баланс',
+    imageGeneration: 'Создать изображение',
+    joinGroup: 'Вступить и получить токены',
+    tokenReward: 'Бонусы сообщества',
+    telegramGroup: 'Группа Telegram',
+    wechatGroup: 'Группа WeChat',
   },
   ja: {
     eyebrow: '統合インテリジェンス基盤',
@@ -75,6 +105,12 @@ export const messages: Record<Locale, Messages> = {
     trust: 'ひとつのキー · すべてのモデル · いつでも利用可能',
     unifiedApi: '統合 API',
     operational: 'すべてのシステムは正常です',
+    recharge: 'クレジットを追加',
+    imageGeneration: '画像を生成',
+    joinGroup: 'グループ参加でトークン獲得',
+    tokenReward: 'コミュニティ限定特典',
+    telegramGroup: 'Telegram グループ',
+    wechatGroup: 'WeChat グループ',
   },
   vi: {
     eyebrow: 'Hạ tầng trí tuệ hợp nhất',
@@ -87,6 +123,12 @@ export const messages: Record<Locale, Messages> = {
     trust: 'Một khóa · Mọi mô hình · Luôn sẵn sàng',
     unifiedApi: 'API hợp nhất',
     operational: 'Tất cả hệ thống hoạt động bình thường',
+    recharge: 'Nạp tín dụng',
+    imageGeneration: 'Tạo hình ảnh',
+    joinGroup: 'Tham gia nhận token',
+    tokenReward: 'Ưu đãi cộng đồng',
+    telegramGroup: 'Nhóm Telegram',
+    wechatGroup: 'Nhóm WeChat',
   },
 };
 

@@ -161,7 +161,9 @@ button {
 }
 
 .primary-button svg,
-.secondary-button svg {
+.secondary-button svg,
+.quick-entry svg,
+.community-menu svg {
   width: 17px;
   height: 17px;
   fill: none;
@@ -169,6 +171,165 @@ button {
   stroke-width: 1.7;
   stroke-linecap: round;
   stroke-linejoin: round;
+}
+
+.quick-entries {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin-top: 18px;
+}
+
+.quick-entry {
+  display: inline-flex;
+  min-height: 39px;
+  align-items: center;
+  gap: 8px;
+  padding: 5px 10px 5px 6px;
+  cursor: pointer;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text-secondary);
+  background: color-mix(in srgb, var(--surface), transparent 8%);
+  box-shadow: 0 8px 24px rgba(40, 35, 24, 0.035);
+  backdrop-filter: blur(14px);
+  font-size: 11px;
+  font-weight: 550;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background 180ms ease,
+    transform 180ms ease;
+}
+
+.quick-entry:hover,
+.community-entry.is-open .community-trigger {
+  color: var(--text);
+  border-color: color-mix(in srgb, var(--brand), transparent 58%);
+  background: color-mix(in srgb, var(--surface-solid), transparent 18%);
+  transform: translateY(-1px);
+}
+
+.quick-entry > svg {
+  width: 13px;
+  height: 13px;
+  margin-left: 1px;
+  opacity: 0.55;
+}
+
+.quick-entry-icon {
+  display: grid;
+  width: 27px;
+  height: 27px;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  color: var(--brand);
+  background: var(--brand-soft);
+}
+
+.quick-entry-icon svg {
+  width: 14px;
+  height: 14px;
+}
+
+.reward-icon {
+  color: #a96d1e;
+  background: color-mix(in srgb, var(--gold-pale), transparent 74%);
+}
+
+.community-entry {
+  position: relative;
+}
+
+.community-trigger {
+  font: inherit;
+}
+
+.community-trigger > svg {
+  transition: transform 180ms ease;
+}
+
+.community-entry.is-open .community-trigger > svg {
+  transform: rotate(180deg);
+}
+
+.community-menu {
+  position: absolute;
+  z-index: 50;
+  top: calc(100% + 9px);
+  right: 0;
+  width: 220px;
+  padding: 7px;
+  border: 1px solid var(--border-strong);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface-solid), transparent 5%);
+  box-shadow: 0 24px 70px rgba(30, 27, 21, 0.15);
+  backdrop-filter: blur(24px);
+  animation: menuReveal 160ms ease both;
+  transform-origin: top right;
+}
+
+.community-menu-label {
+  padding: 7px 9px 8px;
+  color: var(--text-muted);
+  font-size: 9px;
+  font-weight: 650;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.community-menu a {
+  display: grid;
+  grid-template-columns: 31px 1fr 14px;
+  align-items: center;
+  gap: 9px;
+  padding: 8px;
+  border-radius: 11px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 550;
+  transition: color 160ms ease, background 160ms ease;
+}
+
+.community-menu a:hover {
+  color: var(--text);
+  background: var(--brand-soft);
+}
+
+.community-menu a > svg {
+  width: 13px;
+  height: 13px;
+  opacity: 0.45;
+}
+
+.community-platform {
+  display: grid;
+  width: 31px;
+  height: 31px;
+  place-items: center;
+  border-radius: 10px;
+}
+
+.community-platform svg {
+  width: 17px;
+  height: 17px;
+}
+
+.community-platform.telegram {
+  color: #fff;
+  background: #279bd7;
+}
+
+.community-platform.telegram svg,
+.community-platform.wechat svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+.community-platform.wechat {
+  color: #fff;
+  background: #20b65a;
 }
 
 .hero {
@@ -298,7 +459,7 @@ h1 {
   display: flex;
   align-items: center;
   gap: 10px;
-  margin-top: 45px;
+  margin-top: 33px;
   color: var(--text-muted);
   font-size: 10px;
   font-weight: 600;
@@ -610,6 +771,17 @@ h1 {
   50% { opacity: .85; transform: scale(1.08); }
 }
 
+@keyframes menuReveal {
+  from {
+    opacity: 0;
+    transform: translateY(-5px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
 @media (max-width: 1080px) {
   .hero {
     width: min(100% - 40px, 940px);
@@ -644,6 +816,7 @@ h1 {
 
   .eyebrow,
   .hero-actions,
+  .quick-entries,
   .trust-row {
     justify-content: center;
   }
@@ -691,6 +864,35 @@ h1 {
   .primary-button,
   .secondary-button {
     width: 100%;
+  }
+
+  .quick-entries {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .quick-entry {
+    width: 100%;
+    justify-content: flex-start;
+  }
+
+  .community-entry {
+    grid-column: 1 / -1;
+  }
+
+  .community-trigger {
+    justify-content: flex-start;
+  }
+
+  .community-trigger > svg {
+    margin-left: auto;
+  }
+
+  .community-menu {
+    right: 0;
+    left: 0;
+    width: 100%;
+    transform-origin: top center;
   }
 
   .network-shell {
