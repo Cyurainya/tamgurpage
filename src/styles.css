@@ -1104,6 +1104,216 @@ h1 {
   text-transform: none;
 }
 
+.docs-page-shell {
+  min-height: 100vh;
+}
+
+.docs-page {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  width: min(1280px, calc(100% - 64px));
+  min-height: 100vh;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 68px 0 62px;
+}
+
+.docs-brand {
+  position: absolute;
+  top: 34px;
+  left: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 650;
+  letter-spacing: -0.04em;
+}
+
+.docs-brand img {
+  width: 31px;
+  height: 27px;
+  object-fit: contain;
+}
+
+.docs-heading {
+  position: relative;
+  z-index: 2;
+  max-width: 860px;
+  margin-bottom: 62px;
+  text-align: center;
+}
+
+.docs-heading > span {
+  color: var(--brand);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+}
+
+.docs-heading h1 {
+  margin: 17px 0 0;
+  font-size: clamp(42px, 4.8vw, 68px);
+  font-weight: 650;
+  letter-spacing: -0.06em;
+}
+
+.docs-heading p {
+  margin: 22px 0 0;
+  color: var(--text-secondary);
+  font-size: 17px;
+}
+
+.docs-card-grid {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 22px;
+  width: 100%;
+}
+
+.docs-card {
+  --card-accent: #2b9dd8;
+  --card-glow: rgba(43, 157, 216, 0.12);
+  display: flex;
+  min-height: 360px;
+  flex-direction: column;
+  padding: 36px;
+  border: 1px solid color-mix(in srgb, var(--card-accent), transparent 82%);
+  border-radius: 28px;
+  background:
+    radial-gradient(circle at 18% 8%, var(--card-glow), transparent 34%),
+    color-mix(in srgb, var(--surface), transparent 3%);
+  box-shadow:
+    0 28px 80px rgba(35, 32, 25, 0.075),
+    inset 0 1px 0 color-mix(in srgb, white, transparent 42%);
+  backdrop-filter: blur(22px);
+  transition: transform 220ms ease, border-color 220ms ease, box-shadow 220ms ease;
+}
+
+.docs-card:hover {
+  border-color: color-mix(in srgb, var(--card-accent), transparent 56%);
+  box-shadow: 0 36px 100px color-mix(in srgb, var(--card-glow), rgba(20, 18, 14, 0.08) 35%);
+  transform: translateY(-7px);
+}
+
+.docs-card-api {
+  --card-accent: #9b45e7;
+  --card-glow: rgba(155, 69, 231, 0.11);
+}
+
+.docs-card-codex {
+  --card-accent: #168f83;
+  --card-glow: rgba(22, 143, 131, 0.11);
+}
+
+.docs-card-icon {
+  display: grid;
+  width: 58px;
+  height: 58px;
+  place-items: center;
+  border: 1px solid color-mix(in srgb, var(--card-accent), transparent 78%);
+  border-radius: 18px;
+  color: var(--card-accent);
+  background: color-mix(in srgb, var(--surface-solid), transparent 4%);
+  box-shadow: 0 12px 36px var(--card-glow);
+}
+
+.docs-card-icon svg {
+  width: 27px;
+  height: 27px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.docs-card h2 {
+  margin: 38px 0 0;
+  color: var(--text);
+  font-size: 24px;
+  font-weight: 620;
+  letter-spacing: -0.04em;
+  line-height: 1.3;
+}
+
+.docs-card p {
+  margin: 18px 0 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  line-height: 1.85;
+}
+
+.docs-card-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: auto;
+  padding-top: 28px;
+  color: var(--card-accent);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.docs-card-link svg,
+.docs-back svg {
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.7;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 180ms ease;
+}
+
+.docs-card:hover .docs-card-link svg {
+  transform: translateX(4px);
+}
+
+.docs-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 36px;
+  color: var(--text-muted);
+  font-size: 12px;
+  font-weight: 550;
+}
+
+.docs-back svg {
+  transform: rotate(180deg);
+}
+
+.docs-orb {
+  position: fixed;
+  z-index: 0;
+  width: 540px;
+  height: 540px;
+  pointer-events: none;
+  border-radius: 50%;
+  filter: blur(85px);
+  opacity: 0.38;
+}
+
+.docs-orb-left {
+  top: -140px;
+  left: -180px;
+  background: rgba(81, 190, 235, 0.2);
+}
+
+.docs-orb-right {
+  right: -170px;
+  bottom: -160px;
+  background: rgba(191, 92, 228, 0.17);
+}
+
 @keyframes spin {
   to { transform: rotate(360deg); }
 }
@@ -1156,6 +1366,15 @@ h1 {
   .network-shell {
     transform: scale(.9);
     transform-origin: center;
+  }
+
+  .docs-page {
+    width: min(100% - 40px, 940px);
+  }
+
+  .docs-card {
+    min-height: 390px;
+    padding: 30px;
   }
 }
 
@@ -1267,6 +1486,20 @@ h1 {
   .site-footer {
     gap: 18px;
     flex-direction: column;
+  }
+
+  .docs-page {
+    justify-content: flex-start;
+    padding-top: 120px;
+  }
+
+  .docs-card-grid {
+    grid-template-columns: 1fr;
+    max-width: 620px;
+  }
+
+  .docs-card {
+    min-height: 275px;
   }
 }
 
@@ -1412,6 +1645,39 @@ h1 {
 
   .cta-actions a {
     width: 100%;
+  }
+
+  .docs-page {
+    width: calc(100% - 32px);
+    padding: 98px 0 45px;
+  }
+
+  .docs-brand {
+    top: 24px;
+  }
+
+  .docs-heading {
+    margin-bottom: 38px;
+    text-align: left;
+  }
+
+  .docs-heading h1 {
+    font-size: 40px;
+  }
+
+  .docs-heading p {
+    font-size: 15px;
+  }
+
+  .docs-card {
+    min-height: 290px;
+    padding: 27px;
+    border-radius: 23px;
+  }
+
+  .docs-card h2 {
+    margin-top: 28px;
+    font-size: 21px;
   }
 }
 

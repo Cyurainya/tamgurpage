@@ -43,6 +43,17 @@ export type Messages = {
   ctaTitle: string;
   ctaDescription: string;
   signupBonus: string;
+  docsCenterEyebrow: string;
+  docsCenterTitle: string;
+  docsCenterDescription: string;
+  docsAppsTitle: string;
+  docsAppsDescription: string;
+  docsApiTitle: string;
+  docsApiDescription: string;
+  docsCodexTitle: string;
+  docsCodexDescription: string;
+  docsEnter: string;
+  docsBack: string;
 };
 
 export const messages: Record<Locale, Messages> = {
@@ -87,6 +98,17 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: '准备好开始构建了吗？',
     ctaDescription: '一个密钥连接主流 AI 模型，让下一次调用更简单。',
     signupBonus: '注册即送免费 Tokens',
+    docsCenterEyebrow: 'DOCUMENTATION',
+    docsCenterTitle: 'icon 开放平台文档中心',
+    docsCenterDescription: '选择你需要接入的服务类型',
+    docsAppsTitle: 'AI 应用配置文档',
+    docsAppsDescription: 'OpenClaw、Claude Code、Codex 等 AI 应用集成方案',
+    docsApiTitle: '新手指南 / API 接口文档',
+    docsApiDescription: '接入聊天、画图、视频生成等 AI 能力，兼容 OpenAI API 格式',
+    docsCodexTitle: 'Codex 简单版对接 API 教程',
+    docsCodexDescription: '快速配置 API 地址、密钥与模型，帮助 Codex 新用户完成基础接入',
+    docsEnter: '进入查阅',
+    docsBack: '返回首页',
   },
   en: {
     eyebrow: 'Unified intelligence infrastructure',
@@ -129,6 +151,17 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: 'Ready to start building?',
     ctaDescription: 'Connect leading AI models with one key and simplify every call.',
     signupBonus: 'Free tokens when you sign up',
+    docsCenterEyebrow: 'DOCUMENTATION',
+    docsCenterTitle: 'icon Documentation Center',
+    docsCenterDescription: 'Choose the service you want to integrate',
+    docsAppsTitle: 'AI application setup',
+    docsAppsDescription: 'Integration guides for OpenClaw, Claude Code, Codex and other AI apps',
+    docsApiTitle: 'Getting started / API reference',
+    docsApiDescription: 'Connect chat, image and video generation through an OpenAI-compatible API',
+    docsCodexTitle: 'Codex API quickstart',
+    docsCodexDescription: 'Configure endpoint, key and model to get Codex connected quickly',
+    docsEnter: 'Explore',
+    docsBack: 'Back home',
   },
   fr: {
     eyebrow: "Infrastructure d'intelligence unifiée",
@@ -171,6 +204,17 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: 'Prêt à construire ?',
     ctaDescription: "Connectez les meilleurs modèles d'IA avec une seule clé.",
     signupBonus: "Tokens gratuits à l'inscription",
+    docsCenterEyebrow: 'DOCUMENTATION',
+    docsCenterTitle: 'Centre de documentation icon',
+    docsCenterDescription: 'Choisissez le service à intégrer',
+    docsAppsTitle: "Configuration d'applications IA",
+    docsAppsDescription: 'Guides pour OpenClaw, Claude Code, Codex et autres applications',
+    docsApiTitle: 'Guide de démarrage / API',
+    docsApiDescription: 'Connectez le chat, les images et la vidéo via une API compatible OpenAI',
+    docsCodexTitle: 'Démarrage rapide Codex',
+    docsCodexDescription: "Configurez l'adresse, la clé et le modèle pour connecter Codex",
+    docsEnter: 'Consulter',
+    docsBack: "Retour à l'accueil",
   },
   ru: {
     eyebrow: 'Единая инфраструктура искусственного интеллекта',
@@ -213,6 +257,17 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: 'Готовы начать?',
     ctaDescription: 'Подключите ведущие модели ИИ с помощью одного ключа.',
     signupBonus: 'Бесплатные токены за регистрацию',
+    docsCenterEyebrow: 'ДОКУМЕНТАЦИЯ',
+    docsCenterTitle: 'Центр документации icon',
+    docsCenterDescription: 'Выберите нужный тип интеграции',
+    docsAppsTitle: 'Настройка ИИ-приложений',
+    docsAppsDescription: 'Интеграция OpenClaw, Claude Code, Codex и других приложений',
+    docsApiTitle: 'Начало работы / API',
+    docsApiDescription: 'Чат, изображения и видео через API, совместимый с OpenAI',
+    docsCodexTitle: 'Быстрое подключение Codex',
+    docsCodexDescription: 'Настройте адрес API, ключ и модель для подключения Codex',
+    docsEnter: 'Открыть',
+    docsBack: 'На главную',
   },
   ja: {
     eyebrow: '統合インテリジェンス基盤',
@@ -255,6 +310,17 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: '構築を始めませんか？',
     ctaDescription: 'ひとつのキーで主要 AI モデルに接続できます。',
     signupBonus: '登録で無料トークンをプレゼント',
+    docsCenterEyebrow: 'DOCUMENTATION',
+    docsCenterTitle: 'icon ドキュメントセンター',
+    docsCenterDescription: '接続するサービスを選択してください',
+    docsAppsTitle: 'AI アプリ設定ガイド',
+    docsAppsDescription: 'OpenClaw、Claude Code、Codex などの連携方法',
+    docsApiTitle: '入門ガイド / API リファレンス',
+    docsApiDescription: 'OpenAI 互換 API でチャット、画像、動画生成に接続',
+    docsCodexTitle: 'Codex API クイックスタート',
+    docsCodexDescription: 'API アドレス、キー、モデルを設定して Codex を接続',
+    docsEnter: '詳しく見る',
+    docsBack: 'ホームへ戻る',
   },
   vi: {
     eyebrow: 'Hạ tầng trí tuệ hợp nhất',
@@ -297,6 +363,17 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: 'Sẵn sàng bắt đầu?',
     ctaDescription: 'Kết nối các mô hình AI hàng đầu chỉ với một khóa.',
     signupBonus: 'Đăng ký nhận token miễn phí',
+    docsCenterEyebrow: 'TÀI LIỆU',
+    docsCenterTitle: 'Trung tâm tài liệu icon',
+    docsCenterDescription: 'Chọn dịch vụ bạn muốn tích hợp',
+    docsAppsTitle: 'Cấu hình ứng dụng AI',
+    docsAppsDescription: 'Hướng dẫn tích hợp OpenClaw, Claude Code, Codex và các ứng dụng khác',
+    docsApiTitle: 'Bắt đầu / Tài liệu API',
+    docsApiDescription: 'Kết nối chat, hình ảnh và video qua API tương thích OpenAI',
+    docsCodexTitle: 'Khởi động nhanh Codex API',
+    docsCodexDescription: 'Cấu hình địa chỉ API, khóa và mô hình để kết nối Codex',
+    docsEnter: 'Xem tài liệu',
+    docsBack: 'Về trang chủ',
   },
 };
 

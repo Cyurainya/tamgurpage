@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
+import { DocsCenter } from './DocsCenter';
 import { ModelNetwork } from './ModelNetwork';
 import { ParticleTrail } from './ParticleTrail';
 import { siteConfig } from './config';
@@ -91,6 +92,7 @@ export default function App() {
   const pageRef = useRef<HTMLDivElement>(null);
   const communityRef = useRef<HTMLDivElement>(null);
   const [communityOpen, setCommunityOpen] = useState(false);
+  const isDocsView = new URLSearchParams(window.location.search).get('view') === 'docs';
 
   useEffect(() => {
     const root = pageRef.current;
@@ -135,6 +137,16 @@ export default function App() {
       window.removeEventListener('keydown', onKeyDown);
     };
   }, [communityOpen]);
+
+  if (isDocsView) {
+    return (
+      <div className="page docs-page-shell" ref={pageRef}>
+        <ParticleTrail theme={resolved} />
+        <div className="cursor-glow" aria-hidden="true" />
+        <DocsCenter t={t} />
+      </div>
+    );
+  }
 
   return (
     <div className="page" ref={pageRef}>
