@@ -1,0 +1,59 @@
+name: Deploy homepage to Baota
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: deploy-baota-homepage
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build single-file homepage
+        run: npm run build
+
+      - name: Configure SSH
+        env:
+          BT_HOST: ${{ secrets.BT_HOST }}
+          BT_PORT: ${{ secrets.BT_PORT }}
+          BT_SSH_KEY: ${{ secrets.BT_SSH_KEY }}
+        run: |
+          install -m 700 -d ~/.ssh
+          printf '%s\n' "$BT_SSH_KEY" > ~/.ssh/id_ed25519
+          chmod 600 ~/.ssh/id_ed25519
+          ssh-keyscan -p "$BT_PORT" -H "$BT_HOST" >> ~/.ssh/known_hosts
+
+      - name: Deploy homepage.html
+        env:
+          BT_HOST: ${{ secrets.BT_HOST }}
+          BT_PORT: ${{ secrets.BT_PORT }}
+          BT_USER: ${{ secrets.BT_USER }}
+          BT_DEPLOY_PATH: ${{ secrets.BT_DEPLOY_PATH }}
+        run: |
+          remote_file="${BT_DEPLOY_PATH%/}/homepage.html"
+          temp_file="${remote_file}.tmp"
+          ssh -p "$BT_PORT" "$BT_USER@$BT_HOST" "mkdir -p '$BT_DEPLOY_PATH'"
+          scp -P "$BT_PORT" dist/index.html "$BT_USER@$BT_HOST:$temp_file"
+          ssh -p "$BT_PORT" "$BT_USER@$BT_HOST" "mv '$temp_file' '$remote_file'"
