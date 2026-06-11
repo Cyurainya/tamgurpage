@@ -185,7 +185,7 @@ export default function App() {
           </p>
 
           <div className="hero-actions">
-            <a className="primary-button" href={siteConfig.links.console}>
+            <a className="primary-button" href={siteConfig.links.console} target="_top">
               {t.start}
               <ArrowIcon />
             </a>
@@ -340,7 +340,7 @@ export default function App() {
           <p>{t.ctaDescription}</p>
         </div>
         <div className="cta-actions">
-          <a className="primary-button" href={siteConfig.links.console}>
+          <a className="primary-button" href={siteConfig.links.console} target="_top">
             {t.start}
             <ArrowIcon />
           </a>
