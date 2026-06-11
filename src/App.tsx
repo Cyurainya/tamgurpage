@@ -173,7 +173,6 @@ export default function App() {
                 <WalletIcon />
               </span>
               <span>{t.recharge}</span>
-              <ArrowIcon />
             </a>
 
             <a className="quick-entry" href={siteConfig.links.imageGeneration}>
@@ -181,7 +180,6 @@ export default function App() {
                 <ImageIcon />
               </span>
               <span>{t.imageGeneration}</span>
-              <ArrowIcon />
             </a>
 
             <div
