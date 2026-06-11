@@ -2,11 +2,20 @@ import logoUrl from './assets/tamgurIcon.png';
 import type { Messages } from './i18n';
 
 const models = [
-  { name: 'GPT', className: 'node-gpt', icon: 'G' },
+  { name: 'ChatGPT', className: 'node-gpt', icon: 'chatgpt' },
   { name: 'Claude', className: 'node-claude', icon: 'C' },
   { name: 'Gemini', className: 'node-gemini', icon: '✦' },
   { name: 'DeepSeek', className: 'node-deepseek', icon: 'D' },
 ];
+
+function ChatGptIcon() {
+  return (
+    <svg className="chatgpt-icon" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 2.8a4.35 4.35 0 0 1 4.22 3.32 4.37 4.37 0 0 1 2.1 7.35 4.36 4.36 0 0 1-4.18 6.32 4.37 4.37 0 0 1-7.35-2.1 4.36 4.36 0 0 1-2.1-7.35A4.36 4.36 0 0 1 8.87 4.02 4.32 4.32 0 0 1 12 2.8Z" />
+      <path d="m8.85 6.35 6.25 3.6v7.2M15.15 17.65 8.9 14.05v-7.2M18.25 10.05 12 13.65l-6.25-3.6M5.75 13.95 12 10.35l6.25 3.6M12 3.85v7.2M12 20.15v-7.2" />
+    </svg>
+  );
+}
 
 export function ModelNetwork({ t }: { t: Messages }) {
   return (
@@ -70,7 +79,9 @@ export function ModelNetwork({ t }: { t: Messages }) {
 
       {models.map((model) => (
         <div className={`model-node ${model.className}`} key={model.name}>
-          <span className="model-icon">{model.icon}</span>
+          <span className="model-icon">
+            {model.icon === 'chatgpt' ? <ChatGptIcon /> : model.icon}
+          </span>
           <span>{model.name}</span>
           <i aria-hidden="true" />
         </div>
