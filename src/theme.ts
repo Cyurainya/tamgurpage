@@ -25,13 +25,25 @@ function readParentTheme(): ResolvedTheme | null {
   try {
     const root = window.parent.document.documentElement;
     const body = window.parent.document.body;
+    const rootClassTheme = root.classList.contains('dark')
+      ? 'dark'
+      : root.classList.contains('light')
+        ? 'light'
+        : '';
+    const bodyClassTheme = body?.classList.contains('dark')
+      ? 'dark'
+      : body?.classList.contains('light')
+        ? 'light'
+        : '';
     const values = [
       root.dataset.theme,
       root.dataset.colorMode,
       root.style.colorScheme,
-      root.classList.contains('dark') ? 'dark' : '',
+      rootClassTheme,
       body?.dataset.theme,
-      body?.classList.contains('dark') ? 'dark' : '',
+      body?.dataset.colorMode,
+      body?.style.colorScheme,
+      bodyClassTheme,
     ];
 
     for (const value of values) {
@@ -105,7 +117,7 @@ export function useTheme() {
       const root = window.parent.document.documentElement;
       const sync = () => {
         const nextParentTheme = readParentTheme();
-        if (nextParentTheme) setParentTheme(nextParentTheme);
+        setParentTheme(nextParentTheme);
       };
       observer = new MutationObserver(sync);
       observer.observe(root, {
@@ -115,7 +127,7 @@ export function useTheme() {
       if (window.parent.document.body) {
         observer.observe(window.parent.document.body, {
           attributes: true,
-          attributeFilter: ['class', 'data-theme'],
+          attributeFilter: ['class', 'style', 'data-theme', 'data-color-mode'],
         });
       }
       sync();

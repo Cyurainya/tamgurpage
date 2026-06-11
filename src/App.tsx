@@ -196,14 +196,14 @@ export default function App() {
           </div>
 
           <div className="quick-entries">
-            <a className="quick-entry" href={siteConfig.links.recharge}>
+            <a className="quick-entry" href={siteConfig.links.recharge} target="_top">
               <span className="quick-entry-icon">
                 <WalletIcon />
               </span>
               <span>{t.recharge}</span>
             </a>
 
-            <a className="quick-entry" href={siteConfig.links.imageGeneration}>
+            <a className="quick-entry" href={siteConfig.links.imageGeneration} target="_top">
               <span className="quick-entry-icon">
                 <ImageIcon />
               </span>
