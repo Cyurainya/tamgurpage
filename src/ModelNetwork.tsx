@@ -1,10 +1,11 @@
 import logoUrl from './assets/tamgurIcon.png';
 import deepSeekUrl from './assets/deepseek.png';
+import claudeUrl from './assets/claude.png';
 import type { Messages } from './i18n';
 
 const models = [
   { name: 'ChatGPT', className: 'node-gpt', icon: 'chatgpt' },
-  { name: 'Claude', className: 'node-claude', icon: 'C' },
+  { name: 'Claude', className: 'node-claude', icon: 'claude' },
   { name: 'Gemini', className: 'node-gemini', icon: '✦' },
   { name: 'DeepSeek', className: 'node-deepseek', icon: 'deepseek' },
 ];
@@ -83,6 +84,8 @@ export function ModelNetwork({ t }: { t: Messages }) {
           <span className="model-icon">
             {model.icon === 'chatgpt' ? (
               <ChatGptIcon />
+            ) : model.icon === 'claude' ? (
+              <img className="claude-icon" src={claudeUrl} alt="" />
             ) : model.icon === 'deepseek' ? (
               <img className="deepseek-icon" src={deepSeekUrl} alt="" />
             ) : (

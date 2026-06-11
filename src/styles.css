@@ -775,6 +775,12 @@ h1 {
   color: #dc7333;
 }
 
+.claude-icon {
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+}
+
 .node-deepseek .model-icon {
   color: #347db9;
 }
