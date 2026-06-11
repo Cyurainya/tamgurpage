@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
@@ -98,6 +98,61 @@
     .notice { margin-top: 16px; padding: 16px 18px; border-radius: 20px; border: 1px solid rgba(232,111,69,.26); background: linear-gradient(135deg, rgba(232,111,69,.12), rgba(255,255,255,.76)); color: var(--ink); line-height: 1.75; }
     .notice strong { color: var(--orange); }
     footer { padding: 22px 0 0; text-align: center; color: var(--muted); font-size: 13px; }
+
+    .float-banner {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #139ed9, #9b3ee8);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(19, 158, 217, 0.36);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: floatIn 0.5s ease 0.6s both;
+    }
+    .float-banner:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(155, 62, 232, 0.44);
+    }
+    .float-banner-close {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255,255,255,.22);
+      color: #fff;
+      font-size: 13px;
+      line-height: 22px;
+      cursor: pointer;
+      margin-left: 4px;
+      transition: background 0.18s;
+    }
+    .float-banner-close:hover { background: rgba(255,255,255,.36); }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 560px) {
+      .float-banner {
+        bottom: 12px;
+        right: 12px;
+        left: 12px;
+        justify-content: center;
+        font-size: 13px;
+        padding: 10px 14px;
+      }
+    }
     @media (max-width: 920px) { .hero-grid, .card, .grid2, .downloads { grid-template-columns: 1fr; } .quick-path { justify-content: flex-start; max-width: none; } }
     @media (max-width: 560px) { .page { width: min(100% - 22px, 1240px); padding-top: 14px; } .hero, .section { min-width: 0; border-radius: 22px; } h1 { font-size: 34px; } .lead { font-size: 16px; } .actions, .quick-path { min-width: 0; gap: 8px; } .btn, .path-item { width: 100%; min-width: 0; } .path-arrow { display: none; } .card { min-width: 0; padding: 16px; border-radius: 22px; } .note { min-width: 0; overflow: hidden; } .shot { border-radius: 16px; } }
   </style>
@@ -231,6 +286,25 @@ API 密钥：sk-xxxxxxxxxxxxxxxx</code></pre>
     </section>
     <footer>如果 Codex 没有立即切换，重新点击“启动应用”即可。使用时保持 EchoBird 后台运行。</footer>
   </main>
+
+  <a class="float-banner" id="floatBanner" href="https://api.tamgur.tech" target="_blank" rel="noopener">
+    🚀 高速稳定中转站，API丝滑，价格优惠
+    <button class="float-banner-close" id="floatBannerClose" aria-label="关闭">&times;</button>
+  </a>
+
+  <script>
+    (() => {
+      const banner = document.getElementById('floatBanner');
+      const closeBtn = document.getElementById('floatBannerClose');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          banner.style.display = 'none';
+        });
+      }
+    })();
+  </script>
 </body>
 </html>
 

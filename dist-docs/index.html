@@ -6,7 +6,7 @@
     <meta name="theme-color" content="#f5f7fa" />
     <meta
       name="description"
-      content="Tamgur icon 开放平台文档中心，提供 AI 应用配置、API 接口与 Codex 接入教程。"
+      content="Tamgur 开放平台文档中心，提供 AI 应用配置、API 接口与 Codex 接入教程。"
     />
     <link rel="icon" type="image/png" href="https://img.tamgur.tech/icons/tamgurIcon.png" />
     <title>Tamgur 开放平台文档中心</title>
@@ -108,7 +108,7 @@
         flex-direction: column;
         justify-content: center;
         margin: 0 auto;
-        padding: 124px 0 64px;
+        padding: 72px 0 48px;
       }
 
       .toolbar {
@@ -157,7 +157,7 @@
 
       .heading {
         max-width: 860px;
-        margin: 0 auto 58px;
+        margin: 0 auto 36px;
         text-align: center;
       }
 
@@ -166,21 +166,48 @@
         font-size: 11px;
         font-weight: 750;
         letter-spacing: 0.23em;
+        display: block;
+        margin-top: 12px;
+      }
+
+      .promo-banner {
+        display: inline-block;
+        margin-top: 0;
+        padding: 6px 20px;
+        background: linear-gradient(135deg, rgba(19, 158, 217, 0.13), rgba(155, 62, 232, 0.13));
+        border: 1px solid rgba(19, 158, 217, 0.28);
+        border-radius: 22px;
+        color: var(--blue);
+        font-size: 14px;
+        font-weight: 580;
+        text-decoration: none;
+        transition: background 220ms ease, border-color 220ms ease, transform 180ms ease;
+      }
+
+      .promo-banner:hover {
+        background: linear-gradient(135deg, rgba(19, 158, 217, 0.22), rgba(155, 62, 232, 0.22));
+        border-color: var(--purple);
+        transform: translateY(-1px);
+      }
+
+      html[data-theme="dark"] .promo-banner {
+        background: linear-gradient(135deg, rgba(66, 191, 241, 0.12), rgba(189, 120, 255, 0.12));
+        border-color: rgba(66, 191, 241, 0.32);
+      }
+
+      html[data-theme="dark"] .promo-banner:hover {
+        background: linear-gradient(135deg, rgba(66, 191, 241, 0.22), rgba(189, 120, 255, 0.22));
+        border-color: var(--purple);
       }
 
       h1 {
-        margin: 17px 0 0;
-        font-size: clamp(42px, 5vw, 68px);
+        margin: 10px 0 0;
+        font-size: clamp(34px, 4.5vw, 56px);
         font-weight: 680;
         letter-spacing: -0.06em;
         line-height: 1.08;
       }
 
-      .heading p {
-        margin: 22px 0 0;
-        color: var(--text-soft);
-        font-size: 17px;
-      }
 
       .card-grid {
         display: grid;
@@ -192,9 +219,9 @@
         --accent: var(--blue);
         --glow: rgba(43, 157, 216, 0.12);
         display: flex;
-        min-height: 360px;
+        min-height: 300px;
         flex-direction: column;
-        padding: 36px;
+        padding: 28px;
         overflow: hidden;
         border: 1px solid color-mix(in srgb, var(--accent), transparent 81%);
         border-radius: 28px;
@@ -311,7 +338,7 @@
         .page {
           width: min(100% - 40px, 660px);
           justify-content: flex-start;
-          padding-top: 130px;
+          padding-top: 88px;
         }
 
         .card-grid {
@@ -319,14 +346,14 @@
         }
 
         .card {
-          min-height: 275px;
+          min-height: 240px;
         }
       }
 
       @media (max-width: 560px) {
         .page {
           width: calc(100% - 30px);
-          padding: 104px 0 40px;
+          padding: 72px 0 32px;
         }
 
         .toolbar {
@@ -338,27 +365,24 @@
         }
 
         .heading {
-          margin-bottom: 38px;
+          margin-bottom: 28px;
           text-align: left;
         }
 
         h1 {
-          font-size: 40px;
+          font-size: 34px;
         }
 
-        .heading p {
-          font-size: 15px;
-        }
 
         .card {
-          min-height: 290px;
-          padding: 27px;
+          min-height: 240px;
+          padding: 24px;
           border-radius: 23px;
         }
 
         .card h2 {
-          margin-top: 28px;
-          font-size: 21px;
+          margin-top: 24px;
+          font-size: 20px;
         }
       }
 
@@ -399,9 +423,11 @@
       </div>
 
       <header class="heading">
+        <a class="promo-banner" href="https://api.tamgur.tech" target="_blank" rel="noopener" data-i18n="promoBanner">
+          🚀 高速稳定中转站，API 调用更丝滑 — 立即体验 Tamgur 中转站
+        </a>
         <span class="eyebrow" data-i18n="eyebrow">DOCUMENTATION</span>
         <h1 data-i18n="title">Tamgur 开放平台文档中心</h1>
-        <p data-i18n="description">选择你需要接入的服务类型</p>
       </header>
 
       <section class="card-grid" aria-label="Documentation categories">
@@ -473,9 +499,9 @@
 
         const translations = {
           "zh-CN": {
+            promoBanner: "🚀 高速稳定中转站，API 调用更丝滑 — 立即体验 Tamgur 中转站",
             eyebrow: "DOCUMENTATION",
             title: "Tamgur 开放平台文档中心",
-            description: "选择你需要接入的服务类型",
             appsTitle: "AI 应用配置文档",
             appsDescription: "OpenClaw、Claude Code、Codex 等 AI 应用集成方案",
             apiTitle: "新手指南 / API 接口文档",
@@ -489,9 +515,9 @@
             themeDark: "主题：深色"
           },
           en: {
+            promoBanner: "🚀 High-speed reliable relay — smoother API calls at Tamgur Relay",
             eyebrow: "DOCUMENTATION",
             title: "Tamgur Open Platform Documentation",
-            description: "Choose the service you want to integrate",
             appsTitle: "AI application setup",
             appsDescription: "Integration guides for OpenClaw, Claude Code, Codex and other AI apps",
             apiTitle: "Getting started / API reference",
@@ -505,9 +531,9 @@
             themeDark: "Theme: Dark"
           },
           fr: {
+            promoBanner: "🚀 Relais rapide et stable — des appels API plus fluides avec Tamgur Relay",
             eyebrow: "DOCUMENTATION",
             title: "Tamgur Centre de documentation",
-            description: "Choisissez le service que vous souhaitez intégrer",
             appsTitle: "Configuration d'applications IA",
             appsDescription: "Guides pour OpenClaw, Claude Code, Codex et d'autres applications",
             apiTitle: "Guide de démarrage / API",
@@ -521,9 +547,9 @@
             themeDark: "Thème : sombre"
           },
           ru: {
+            promoBanner: "🚀 Быстрый и надёжный релей — плавные API-вызовы через Tamgur Relay",
             eyebrow: "ДОКУМЕНТАЦИЯ",
             title: "Tamgur Центр документации",
-            description: "Выберите нужный тип интеграции",
             appsTitle: "Настройка ИИ-приложений",
             appsDescription: "Интеграция OpenClaw, Claude Code, Codex и других приложений",
             apiTitle: "Начало работы / API",
@@ -537,9 +563,9 @@
             themeDark: "Тема: тёмная"
           },
           ja: {
+            promoBanner: "🚀 高速・安定の中継ステーション — Tamgur Relay でスムーズなAPIコールを",
             eyebrow: "DOCUMENTATION",
             title: "Tamgur オープンプラットフォーム資料",
-            description: "接続するサービスを選択してください",
             appsTitle: "AI アプリ設定ガイド",
             appsDescription: "OpenClaw、Claude Code、Codex などの連携方法",
             apiTitle: "入門ガイド / API リファレンス",
@@ -553,9 +579,9 @@
             themeDark: "テーマ：ダーク"
           },
           vi: {
+            promoBanner: "🚀 Trạm chuyển tiếp tốc độ cao, ổn định — gọi API mượt mà hơn với Tamgur Relay",
             eyebrow: "TÀI LIỆU",
             title: "Tamgur Trung tâm tài liệu nền tảng",
-            description: "Chọn dịch vụ bạn muốn tích hợp",
             appsTitle: "Cấu hình ứng dụng AI",
             appsDescription: "Hướng dẫn tích hợp OpenClaw, Claude Code, Codex và các ứng dụng khác",
             apiTitle: "Bắt đầu / Tài liệu API",
