@@ -1,0 +1,238 @@
+﻿<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="EchoBird 4.8.6 下载与 Codex 中转站 API 配置教程。">
+  <title>EchoBird 配置 Codex 使用中转站 API 教程</title>
+  <style>
+    :root {
+      --paper: #fbf5ec;
+      --ink: #2d261f;
+      --muted: #74675c;
+      --line: rgba(75, 57, 42, .14);
+      --orange: #e86f45;
+      --orange2: #ffad72;
+      --blue: #3a6ff7;
+      --shadow: 0 26px 70px rgba(88, 60, 38, .16);
+      --soft: 0 12px 34px rgba(88, 60, 38, .1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 8% 4%, rgba(232, 111, 69, .22), transparent 26rem),
+        radial-gradient(circle at 92% 8%, rgba(58, 111, 247, .16), transparent 25rem),
+        linear-gradient(180deg, #fff9f1 0%, var(--paper) 48%, #f3eadf 100%);
+      min-height: 100vh;
+    }
+    .page { width: min(1240px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 54px; }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 34px;
+      padding: clamp(26px, 4vw, 48px);
+      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, rgba(255,255,255,.88), rgba(255,243,229,.72)), repeating-linear-gradient(135deg, rgba(232,111,69,.08) 0 1px, transparent 1px 18px);
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,111,69,.35), transparent 64%);
+      filter: blur(8px);
+    }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: end; }
+    .hero-grid > *, .grid2 > *, .downloads > * { min-width: 0; }
+    .tag { display: inline-flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 999px; background: rgba(45,38,31,.07); color: var(--muted); font-size: 13px; letter-spacing: .08em; }
+    .tag i { width: 9px; height: 9px; border-radius: 50%; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 0 0 6px rgba(232,111,69,.12); }
+    h1 { margin: 18px 0 14px; font-size: clamp(34px, 5vw, 58px); line-height: 1.02; letter-spacing: -.04em; }
+    .lead { margin: 0; max-width: 52ch; color: var(--muted); font-size: 18px; line-height: 1.7; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 18px; border-radius: 999px; font-weight: 800; text-decoration: none; border: 1px solid var(--line); transition: .18s ease; color: inherit; }
+    .btn:hover { transform: translateY(-2px); }
+    .primary { color: white; border: 0; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 16px 32px rgba(232,111,69,.26); }
+    .ghost { background: rgba(255,255,255,.68); }
+    .quick-path { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex-wrap: wrap; max-width: 420px; }
+    .path-item { padding: 11px 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.72); color: var(--muted); font-weight: 800; box-shadow: var(--soft); }
+    .path-arrow { color: rgba(45,38,31,.32); font-weight: 900; }
+    .section { margin-top: 22px; padding: clamp(18px, 3vw, 30px); border-radius: 30px; border: 1px solid rgba(255,255,255,.72); background: rgba(255,255,255,.6); box-shadow: var(--soft); backdrop-filter: blur(12px); }
+    .head { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 20px; flex-wrap: wrap; }
+    h2 { margin: 0; font-size: 26px; letter-spacing: -.02em; }
+    .sub { margin: 7px 0 0; color: var(--muted); line-height: 1.7; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { padding: 9px 13px; border-radius: 999px; background: rgba(45,38,31,.07); color: var(--muted); font-weight: 700; font-size: 13px; }
+    .steps { display: grid; grid-template-columns: 1fr; gap: 22px; }
+    .card { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 24px; align-items: center; padding: clamp(18px, 2.6vw, 28px); border-radius: 28px; border: 1px solid var(--line); background: linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,247,238,.9)); box-shadow: 0 16px 38px rgba(88,60,38,.1); }
+    .step-copy { display: flex; flex-direction: column; gap: 13px; }
+    .num { width: 54px; height: 54px; display: grid; place-items: center; border-radius: 17px; color: white; font-size: 20px; font-weight: 900; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 10px 20px rgba(232,111,69,.24); }
+    h3 { margin: 0; font-size: 24px; }
+    .card p, .note p, .note li { margin: 0; color: var(--muted); line-height: 1.78; }
+    .shot { overflow: hidden; border-radius: 22px; border: 1px solid rgba(75,57,42,.12); background: #fff; box-shadow: 0 18px 40px rgba(45,38,31,.1); }
+    .shot img { width: 100%; height: auto; display: block; transition: transform .35s ease; }
+    .card:hover .shot img { transform: scale(1.025); }
+    .caption { color: var(--muted); font-size: 14px; }
+    .mark { color: var(--orange); font-weight: 900; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .note { padding: 20px; border-radius: 24px; border: 1px solid var(--line); background: rgba(255,255,255,.78); }
+    .note h3 { margin-bottom: 12px; }
+    .note ul { margin: 0; padding-left: 20px; }
+    .code { margin-top: 14px; padding: 16px; border-radius: 18px; background: #201b17; color: #fff4e8; overflow: auto; line-height: 1.75; font-size: 14px; }
+    code { overflow-wrap: anywhere; font-family: "Cascadia Mono", Consolas, monospace; }
+    .downloads { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .download-card { position: relative; min-width: 0; overflow: hidden; padding: 20px; border-radius: 24px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,247,238,.9)); box-shadow: 0 10px 24px rgba(88,60,38,.08); }
+    .download-card:after { content: ""; position: absolute; right: -36px; top: -36px; width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, rgba(232,111,69,.22), transparent 65%); }
+    .download-card h3 { position: relative; z-index: 1; margin-bottom: 8px; }
+    .download-card p { position: relative; z-index: 1; margin: 0 0 16px; color: var(--muted); line-height: 1.7; }
+    .download-link { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 15px; border-radius: 999px; color: white; font-weight: 900; text-decoration: none; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 14px 28px rgba(232,111,69,.22); }
+    .file-meta { position: relative; z-index: 1; display: block; margin: -7px 0 15px; color: var(--muted); font-size: 12px; }
+    .checksum { position: relative; z-index: 1; display: block; max-width: 100%; margin-top: 14px; overflow: hidden; color: rgba(45,38,31,.52); font-family: "Cascadia Mono", Consolas, monospace; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .notice { margin-top: 16px; padding: 16px 18px; border-radius: 20px; border: 1px solid rgba(232,111,69,.26); background: linear-gradient(135deg, rgba(232,111,69,.12), rgba(255,255,255,.76)); color: var(--ink); line-height: 1.75; }
+    .notice strong { color: var(--orange); }
+    footer { padding: 22px 0 0; text-align: center; color: var(--muted); font-size: 13px; }
+    @media (max-width: 920px) { .hero-grid, .card, .grid2, .downloads { grid-template-columns: 1fr; } .quick-path { justify-content: flex-start; max-width: none; } }
+    @media (max-width: 560px) { .page { width: min(100% - 22px, 1240px); padding-top: 14px; } .hero, .section { min-width: 0; border-radius: 22px; } h1 { font-size: 34px; } .lead { font-size: 16px; } .actions, .quick-path { min-width: 0; gap: 8px; } .btn, .path-item { width: 100%; min-width: 0; } .path-arrow { display: none; } .card { min-width: 0; padding: 16px; border-radius: 22px; } .note { min-width: 0; overflow: hidden; } .shot { border-radius: 16px; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="tag"><i></i>EchoBird / Codex / 中转站 API</div>
+          <h1>Codex 中转站 API 配置</h1>
+          <p class="lead">3 步完成：添加模型、填写 API、绑定 Codex。配置后保持 EchoBird 后台运行即可。</p>
+          <div class="actions">
+            <a class="btn primary" href="#steps">查看三步流程</a>
+            <a class="btn ghost" href="#tips">查看配置要点</a>
+            <a class="btn ghost" href="#download">下载 EchoBird</a>
+            <a class="btn ghost" href="../">返回文档中心</a>
+          </div>
+        </div>
+        <div class="quick-path" aria-label="配置路径">
+          <span class="path-item">模型中心</span>
+          <span class="path-arrow">→</span>
+          <span class="path-item">编辑配置</span>
+          <span class="path-arrow">→</span>
+          <span class="path-item">应用管理</span>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="download">
+      <div class="head">
+        <div>
+          <h2>下载 EchoBird 4.8.6</h2>
+          <p class="sub">先安装 EchoBird，再按下面 3 步配置 Codex。</p>
+        </div>
+        <div class="chips"><span class="chip">Mac</span><span class="chip">Windows</span><span class="chip">后台运行</span></div>
+      </div>
+      <div class="downloads">
+        <article class="download-card">
+          <h3>Mac Apple 芯片版</h3>
+          <p>M1、M2、M3、M4 等 Apple Silicon 设备。</p>
+          <span class="file-meta">macOS ARM64 · 11 MB</span>
+          <a class="download-link" href="downloads/EchoBird_4.8.6_macOS_arm64.dmg" download>下载 DMG</a>
+          <span class="checksum" title="915c63f5074392188bd91d52ca93faa1a9251f68875810c08f89c00d164e355b">SHA-256: 915c63f5074392188bd91d52ca93faa1a9251f68875810c08f89c00d164e355b</span>
+        </article>
+        <article class="download-card">
+          <h3>Mac Intel 芯片版</h3>
+          <p>Intel 处理器的 Mac 设备。</p>
+          <span class="file-meta">macOS x64 · 12 MB</span>
+          <a class="download-link" href="downloads/EchoBird_4.8.6_macOS_x64.dmg" download>下载 DMG</a>
+          <span class="checksum" title="e79bf45a650f5757340c5cfe71f3ac6b52800996d037fa77ad8db20a6bb4016d">SHA-256: e79bf45a650f5757340c5cfe71f3ac6b52800996d037fa77ad8db20a6bb4016d</span>
+        </article>
+        <article class="download-card">
+          <h3>Windows x64 版</h3>
+          <p>64 位 Windows 系统。</p>
+          <span class="file-meta">Windows x64 · 7.2 MB</span>
+          <a class="download-link" href="downloads/echobird.exe" download>下载 EXE</a>
+          <span class="checksum" title="cd87130d1691d6884759f78598a75fac08318fda92cd04acfabf0f33f7427425">SHA-256: cd87130d1691d6884759f78598a75fac08318fda92cd04acfabf0f33f7427425</span>
+        </article>
+      </div>
+      <div class="notice"><strong>重要提醒：</strong>使用 Codex 时保持 EchoBird 后台运行，否则中转站模型可能无法正常调用。</div>
+    </section>
+
+    <section class="section" id="steps">
+      <div class="head">
+        <div>
+          <h2>三步完成配置</h2>
+          <p class="sub">每一步一张大图，照着截图操作即可。</p>
+        </div>
+        <div class="chips"><span class="chip">模型中心</span><span class="chip">编辑配置</span><span class="chip">应用管理</span></div>
+      </div>
+      <div class="steps">
+        <article class="card">
+          <div class="step-copy">
+            <div class="num">1</div>
+            <h3>添加模型</h3>
+            <p>进入 <span class="mark">模型中心</span>，点击“添加模型”，选择 OpenAI / Anthropic API 类型。</p>
+            <div class="caption">截图 1：在模型中心点击添加模型。</div>
+          </div>
+          <div class="shot"><img src="assets/step-1-add-model.png" alt="EchoBird 模型中心添加模型截图"></div>
+        </article>
+        <article class="card">
+          <div class="step-copy">
+            <div class="num">2</div>
+            <h3>填写 API 配置</h3>
+            <p><span class="mark">OpenAI 地址</span>填中转站接口并带 <code>/v1</code>；模型 ID 填模型名；API 密钥填令牌 Key。</p>
+            <div class="caption">截图 2：填写地址、模型 ID 和 API Key。</div>
+          </div>
+          <div class="shot"><img src="assets/step-2-edit-config.png" alt="EchoBird 编辑模型配置截图"></div>
+        </article>
+        <article class="card">
+          <div class="step-copy">
+            <div class="num">3</div>
+            <h3>绑定 Codex</h3>
+            <p>进入 <span class="mark">应用管理</span>，选择 Codex Desktop，绑定刚添加的模型，然后点击“启动应用”。</p>
+            <div class="caption">截图 3：为 Codex Desktop 选择模型并启动。</div>
+          </div>
+          <div class="shot"><img src="assets/step-3-select-codex.png" alt="EchoBird 应用管理选择 Codex 模型截图"></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="tips">
+      <div class="head">
+        <div>
+          <h2>配置要点</h2>
+          <p class="sub">填错最多的地方，按这里核对。</p>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="note">
+          <h3>填写规则</h3>
+          <ul>
+            <li>名称只是显示名，可以写成 GPT5.5、KK-GPT、Codex 中转站等。</li>
+            <li>OpenAI 地址填写 <code>https://api.tamgur.tech/v1</code>。</li>
+            <li>模型 ID 要和中转站后台支持的模型名称一致，建议直接复制。</li>
+            <li>API 密钥填中转站令牌 Key，如果有分组，记得选对分组权限。</li>
+          </ul>
+        </div>
+        <div class="note">
+          <h3>配置模板</h3>
+          <p>把下面内容替换成你自己的中转站信息即可。</p>
+          <pre class="code"><code>名称：GPT5.5
+OpenAI 地址：https://api.tamgur.tech/v1
+Anthropic 地址：不用可留空
+模型 ID：请从模型广场复制
+API 密钥：sk-xxxxxxxxxxxxxxxx</code></pre>
+        </div>
+      </div>
+    </section>
+    <footer>如果 Codex 没有立即切换，重新点击“启动应用”即可。使用时保持 EchoBird 后台运行。</footer>
+  </main>
+</body>
+</html>
+
+
+

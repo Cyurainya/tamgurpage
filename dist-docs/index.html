@@ -8,7 +8,8 @@
       name="description"
       content="Tamgur icon 开放平台文档中心，提供 AI 应用配置、API 接口与 Codex 接入教程。"
     />
-    <title>开放平台文档中心 | icon</title>
+    <link rel="icon" type="image/png" href="https://img.tamgur.tech/icons/tamgurIcon.png" />
+    <title>Tamgur 开放平台文档中心</title>
     <style>
       :root {
         color-scheme: light;
@@ -399,7 +400,7 @@
 
       <header class="heading">
         <span class="eyebrow" data-i18n="eyebrow">DOCUMENTATION</span>
-        <h1 data-i18n="title">开放平台文档中心</h1>
+        <h1 data-i18n="title">Tamgur 开放平台文档中心</h1>
         <p data-i18n="description">选择你需要接入的服务类型</p>
       </header>
 
@@ -421,7 +422,11 @@
           </span>
         </a>
 
-        <a class="card card-api" href="https://api.tamgur.tech/docs/api">
+        <a
+          class="card card-api"
+          id="api-docs-link"
+          href="https://doc.tamgur.tech/docs/api/zh"
+        >
           <span class="card-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m9 15 6-6M7.5 17.5l-1 1a3.5 3.5 0 0 1-5-5l4-4a3.5 3.5 0 0 1 5 0M16.5 6.5l1-1a3.5 3.5 0 0 1 5 5l-4 4a3.5 3.5 0 0 1-5 0" />
@@ -437,7 +442,7 @@
           </span>
         </a>
 
-        <a class="card card-codex" href="https://api.tamgur.tech/docs/codex">
+        <a class="card card-codex" href="https://doc.tamgur.tech/codex/">
           <span class="card-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m8 6-6 6 6 6M16 6l6 6-6 6" />
@@ -469,7 +474,7 @@
         const translations = {
           "zh-CN": {
             eyebrow: "DOCUMENTATION",
-            title: "开放平台文档中心",
+            title: "Tamgur 开放平台文档中心",
             description: "选择你需要接入的服务类型",
             appsTitle: "AI 应用配置文档",
             appsDescription: "OpenClaw、Claude Code、Codex 等 AI 应用集成方案",
@@ -485,7 +490,7 @@
           },
           en: {
             eyebrow: "DOCUMENTATION",
-            title: "Open Platform Documentation",
+            title: "Tamgur Open Platform Documentation",
             description: "Choose the service you want to integrate",
             appsTitle: "AI application setup",
             appsDescription: "Integration guides for OpenClaw, Claude Code, Codex and other AI apps",
@@ -501,7 +506,7 @@
           },
           fr: {
             eyebrow: "DOCUMENTATION",
-            title: "Centre de documentation",
+            title: "Tamgur Centre de documentation",
             description: "Choisissez le service que vous souhaitez intégrer",
             appsTitle: "Configuration d'applications IA",
             appsDescription: "Guides pour OpenClaw, Claude Code, Codex et d'autres applications",
@@ -517,7 +522,7 @@
           },
           ru: {
             eyebrow: "ДОКУМЕНТАЦИЯ",
-            title: "Центр документации",
+            title: "Tamgur Центр документации",
             description: "Выберите нужный тип интеграции",
             appsTitle: "Настройка ИИ-приложений",
             appsDescription: "Интеграция OpenClaw, Claude Code, Codex и других приложений",
@@ -533,7 +538,7 @@
           },
           ja: {
             eyebrow: "DOCUMENTATION",
-            title: "オープンプラットフォーム資料",
+            title: "Tamgur オープンプラットフォーム資料",
             description: "接続するサービスを選択してください",
             appsTitle: "AI アプリ設定ガイド",
             appsDescription: "OpenClaw、Claude Code、Codex などの連携方法",
@@ -549,7 +554,7 @@
           },
           vi: {
             eyebrow: "TÀI LIỆU",
-            title: "Trung tâm tài liệu nền tảng",
+            title: "Tamgur Trung tâm tài liệu nền tảng",
             description: "Chọn dịch vụ bạn muốn tích hợp",
             appsTitle: "Cấu hình ứng dụng AI",
             appsDescription: "Hướng dẫn tích hợp OpenClaw, Claude Code, Codex và các ứng dụng khác",
@@ -581,6 +586,7 @@
         const languageSelect = document.getElementById("language-select");
         const themeButton = document.getElementById("theme-button");
         const themeMeta = document.querySelector('meta[name="theme-color"]');
+        const apiDocsLink = document.getElementById("api-docs-link");
 
         const normalizeLocale = (value) => {
           if (!value) return null;
@@ -629,12 +635,16 @@
         const applyLocale = () => {
           const dictionary = translations[locale];
           document.documentElement.lang = locale;
-          document.title = `${dictionary.title} | icon`;
+          document.title = dictionary.title;
           document.querySelectorAll("[data-i18n]").forEach((element) => {
             const value = dictionary[element.dataset.i18n];
             if (value) element.textContent = value;
           });
           languageSelect.value = locale;
+          apiDocsLink.href =
+            locale === "zh-CN"
+              ? "https://doc.tamgur.tech/docs/api/zh"
+              : "https://doc.tamgur.tech/docs/api/en";
           applyTheme();
         };
 

@@ -33,6 +33,8 @@ https://doc.tamgur.tech/?lang=en&theme=dark
 
 支持的语言参数为 `zh-CN`、`en`、`fr`、`ru`、`ja`、`vi`；主题参数为 `auto`、`light`、`dark`。
 
+EchoBird/Codex 教程生成在 `dist-docs/codex/`，包含页面、教程截图和三个安装包。部署时需要将整个 `dist-docs/codex` 目录上传，而不只是其中的 `index.html`。
+
 ## 自动部署到宝塔
 
 仓库包含 `.github/workflows/deploy.yml`。启用后，每次推送 `main` 都会构建并通过 SSH 上传 `dist/index.html`。
