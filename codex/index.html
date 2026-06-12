@@ -30,6 +30,64 @@
       min-height: 100vh;
     }
     .page { width: min(1240px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 54px; }
+    .site-header {
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 18px;
+      background: rgba(255,255,255,.9);
+      box-shadow: var(--soft);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      color: var(--ink);
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      object-fit: contain;
+      padding: 5px;
+      border-radius: 9px;
+      background: #fff8ef;
+      box-shadow: 0 8px 18px rgba(232,111,69,.24);
+    }
+    .brand-copy { display: flex; min-width: 0; flex-direction: column; }
+    .brand-name { font-size: 16px; line-height: 1.1; }
+    .brand-back { margin-top: 3px; color: var(--muted); font-size: 11px; font-weight: 650; }
+    .language-switcher { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px; }
+    .language-button {
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--muted);
+      background: transparent;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .language-button:hover { color: var(--ink); background: rgba(45,38,31,.05); }
+    .language-button[aria-pressed="true"] {
+      border-color: rgba(232,111,69,.24);
+      color: var(--orange);
+      background: rgba(232,111,69,.09);
+    }
     .hero {
       position: relative;
       overflow: hidden;
@@ -76,6 +134,11 @@
     .num { width: 54px; height: 54px; display: grid; place-items: center; border-radius: 17px; color: white; font-size: 20px; font-weight: 900; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 10px 20px rgba(232,111,69,.24); }
     h3 { margin: 0; font-size: 24px; }
     .card p, .note p, .note li { margin: 0; color: var(--muted); line-height: 1.78; }
+    .form-tip { padding: 14px 15px; border: 1px solid rgba(232,111,69,.22); border-radius: 16px; background: rgba(232,111,69,.07); }
+    .form-tip > strong { display: block; margin-bottom: 8px; color: var(--orange); font-size: 14px; }
+    .form-tip ol { display: grid; gap: 6px; margin: 0; padding-left: 20px; }
+    .form-tip li { color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .form-tip code { color: var(--ink); font-weight: 750; }
     .shot { overflow: hidden; border-radius: 22px; border: 1px solid rgba(75,57,42,.12); background: #fff; box-shadow: 0 18px 40px rgba(45,38,31,.1); }
     .shot img { width: 100%; height: auto; display: block; transition: transform .35s ease; }
     .card:hover .shot img { transform: scale(1.025); }
@@ -97,6 +160,34 @@
     .checksum { position: relative; z-index: 1; display: block; max-width: 100%; margin-top: 14px; overflow: hidden; color: rgba(45,38,31,.52); font-family: "Cascadia Mono", Consolas, monospace; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
     .notice { margin-top: 16px; padding: 16px 18px; border-radius: 20px; border: 1px solid rgba(232,111,69,.26); background: linear-gradient(135deg, rgba(232,111,69,.12), rgba(255,255,255,.76)); color: var(--ink); line-height: 1.75; }
     .notice strong { color: var(--orange); }
+    .github-source { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .github-link {
+      display: inline-flex;
+      min-height: 42px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 1px solid rgba(45,38,31,.14);
+      border-radius: 10px;
+      color: var(--ink);
+      background: rgba(255,255,255,.78);
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .github-link:hover { background: #fff; transform: translateY(-1px); }
+    .macos-fix { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 14px; }
+    .macos-command {
+      display: block;
+      max-width: 100%;
+      padding: 11px 14px;
+      border-radius: 12px;
+      color: #fff4e8;
+      background: #201b17;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
     footer { padding: 22px 0 0; text-align: center; color: var(--muted); font-size: 13px; }
 
     .float-banner {
@@ -154,30 +245,47 @@
       }
     }
     @media (max-width: 920px) { .hero-grid, .card, .grid2, .downloads { grid-template-columns: 1fr; } .quick-path { justify-content: flex-start; max-width: none; } }
-    @media (max-width: 560px) { .page { width: min(100% - 22px, 1240px); padding-top: 14px; } .hero, .section { min-width: 0; border-radius: 22px; } h1 { font-size: 34px; } .lead { font-size: 16px; } .actions, .quick-path { min-width: 0; gap: 8px; } .btn, .path-item { width: 100%; min-width: 0; } .path-arrow { display: none; } .card { min-width: 0; padding: 16px; border-radius: 22px; } .note { min-width: 0; overflow: hidden; } .shot { border-radius: 16px; } }
+    @media (max-width: 700px) { .site-header { align-items: flex-start; flex-direction: column; } .language-switcher { justify-content: flex-start; } }
+    @media (max-width: 560px) { .page { width: min(100% - 22px, 1240px); padding-top: 14px; } .hero, .section { min-width: 0; border-radius: 22px; } h1 { font-size: 34px; } .lead { font-size: 16px; } .actions, .quick-path { min-width: 0; gap: 8px; } .btn, .path-item { width: 100%; min-width: 0; } .path-arrow { display: none; } .card { min-width: 0; padding: 16px; border-radius: 22px; } .note { min-width: 0; overflow: hidden; } .shot { border-radius: 16px; } .github-source { align-items: stretch; flex-direction: column; } .github-link { width: 100%; } .macos-fix { grid-template-columns: 1fr; } }
   </style>
 </head>
 <body>
   <main class="page">
+    <header class="site-header">
+      <a class="brand-link" href="https://api.tamgur.tech" target="_blank" rel="noopener">
+        <img class="brand-mark" src="assets/tamgurIcon.png" alt="Tamgur">
+        <span class="brand-copy">
+          <span class="brand-name">Tamgur</span>
+          <span class="brand-back" data-i18n="backToTamgur">返回 Tamgur 网站</span>
+        </span>
+      </a>
+      <nav class="language-switcher" aria-label="Language">
+        <button class="language-button" type="button" data-lang="zh-CN" aria-pressed="true">中文</button>
+        <button class="language-button" type="button" data-lang="en" aria-pressed="false">English</button>
+        <button class="language-button" type="button" data-lang="fr" aria-pressed="false">Français</button>
+        <button class="language-button" type="button" data-lang="ru" aria-pressed="false">Русский</button>
+        <button class="language-button" type="button" data-lang="ja" aria-pressed="false">日本語</button>
+      </nav>
+    </header>
     <section class="hero">
       <div class="hero-grid">
         <div>
-          <div class="tag"><i></i>EchoBird / Codex / 中转站 API</div>
-          <h1>Codex 中转站 API 配置</h1>
-          <p class="lead">3 步完成：添加模型、填写 API、绑定 Codex。配置后保持 EchoBird 后台运行即可。</p>
+          <div class="tag"><i></i><span data-i18n="tag">EchoBird / Codex / 中转站 API</span></div>
+          <h1 data-i18n="heroTitle">Codex 中转站 API 配置</h1>
+          <p class="lead" data-i18n="heroLead">3 步完成：添加模型、填写 API、绑定 Codex。配置后保持 EchoBird 后台运行即可。</p>
           <div class="actions">
-            <a class="btn primary" href="#steps">查看三步流程</a>
-            <a class="btn ghost" href="#tips">查看配置要点</a>
-            <a class="btn ghost" href="#download">下载 EchoBird</a>
-            <a class="btn ghost" href="../">返回文档中心</a>
+            <a class="btn primary" href="#steps" data-i18n="viewSteps">查看三步流程</a>
+            <a class="btn ghost" href="#tips" data-i18n="viewTips">查看配置要点</a>
+            <a class="btn ghost" href="#download" data-i18n="downloadEchoBird">下载 EchoBird</a>
+            <a class="btn ghost" href="../" data-i18n="backDocs">返回文档中心</a>
           </div>
         </div>
-        <div class="quick-path" aria-label="配置路径">
-          <span class="path-item">模型中心</span>
+        <div class="quick-path" data-i18n-aria-label="configPath">
+          <span class="path-item" data-i18n="modelCenter">模型中心</span>
           <span class="path-arrow">→</span>
-          <span class="path-item">编辑配置</span>
+          <span class="path-item" data-i18n="editConfig">编辑配置</span>
           <span class="path-arrow">→</span>
-          <span class="path-item">应用管理</span>
+          <span class="path-item" data-i18n="appManagement">应用管理</span>
         </div>
       </div>
     </section>
@@ -186,72 +294,90 @@
     <section class="section" id="download">
       <div class="head">
         <div>
-          <h2>下载 EchoBird 4.8.6</h2>
-          <p class="sub">先安装 EchoBird，再按下面 3 步配置 Codex。</p>
+          <h2 data-i18n="downloadTitle">下载 EchoBird 4.8.6</h2>
+          <p class="sub" data-i18n="downloadSub">先安装 EchoBird，再按下面 3 步配置 Codex。</p>
         </div>
-        <div class="chips"><span class="chip">Mac</span><span class="chip">Windows</span><span class="chip">后台运行</span></div>
+        <div class="chips"><span class="chip">Mac</span><span class="chip">Windows</span><span class="chip" data-i18n="backgroundRun">后台运行</span></div>
       </div>
       <div class="downloads">
         <article class="download-card">
-          <h3>Mac Apple 芯片版</h3>
-          <p>M1、M2、M3、M4 等 Apple Silicon 设备。</p>
+          <h3 data-i18n="macArmTitle">Mac Apple 芯片版</h3>
+          <p data-i18n="macArmDesc">M1、M2、M3、M4 等 Apple Silicon 设备。</p>
           <span class="file-meta">macOS ARM64 · 11 MB</span>
-          <a class="download-link" href="downloads/EchoBird_4.8.6_macOS_arm64.dmg" download>下载 DMG</a>
+          <a class="download-link" href="downloads/EchoBird_4.8.6_macOS_arm64.dmg" download data-i18n="downloadDmg">下载 DMG</a>
           <span class="checksum" title="915c63f5074392188bd91d52ca93faa1a9251f68875810c08f89c00d164e355b">SHA-256: 915c63f5074392188bd91d52ca93faa1a9251f68875810c08f89c00d164e355b</span>
         </article>
         <article class="download-card">
-          <h3>Mac Intel 芯片版</h3>
-          <p>Intel 处理器的 Mac 设备。</p>
+          <h3 data-i18n="macIntelTitle">Mac Intel 芯片版</h3>
+          <p data-i18n="macIntelDesc">Intel 处理器的 Mac 设备。</p>
           <span class="file-meta">macOS x64 · 12 MB</span>
-          <a class="download-link" href="downloads/EchoBird_4.8.6_macOS_x64.dmg" download>下载 DMG</a>
+          <a class="download-link" href="downloads/EchoBird_4.8.6_macOS_x64.dmg" download data-i18n="downloadDmg">下载 DMG</a>
           <span class="checksum" title="e79bf45a650f5757340c5cfe71f3ac6b52800996d037fa77ad8db20a6bb4016d">SHA-256: e79bf45a650f5757340c5cfe71f3ac6b52800996d037fa77ad8db20a6bb4016d</span>
         </article>
         <article class="download-card">
-          <h3>Windows x64 版</h3>
-          <p>64 位 Windows 系统。</p>
+          <h3 data-i18n="windowsTitle">Windows x64 版</h3>
+          <p data-i18n="windowsDesc">64 位 Windows 系统。</p>
           <span class="file-meta">Windows x64 · 7.2 MB</span>
-          <a class="download-link" href="downloads/echobird.exe" download>下载 EXE</a>
+          <a class="download-link" href="downloads/echobird.exe" download data-i18n="downloadExe">下载 EXE</a>
           <span class="checksum" title="cd87130d1691d6884759f78598a75fac08318fda92cd04acfabf0f33f7427425">SHA-256: cd87130d1691d6884759f78598a75fac08318fda92cd04acfabf0f33f7427425</span>
         </article>
       </div>
-      <div class="notice"><strong>重要提醒：</strong>使用 Codex 时保持 EchoBird 后台运行，否则中转站模型可能无法正常调用。</div>
+      <div class="notice github-source">
+        <div><strong data-i18n="githubTitle">官方项目与最新版本：</strong> <span data-i18n="githubBody">本页提供 EchoBird 4.8.6 直链下载；如需查看更新日志、获取更新版本或验证发布来源，请前往 GitHub Releases。</span></div>
+        <a class="github-link" href="https://github.com/edison7009/EchoBird/releases" target="_blank" rel="noopener noreferrer" data-i18n="githubAction">查看 GitHub Releases</a>
+      </div>
+      <div class="notice macos-fix">
+        <div><strong data-i18n="macDamagedTitle">macOS 首次打开若提示“已损坏”：</strong> <span data-i18n="macDamagedBody">请打开终端并执行以下命令，然后重新打开 EchoBird。</span></div>
+        <code class="macos-command">xattr -cr /Applications/EchoBird.app</code>
+      </div>
+      <div class="notice"><strong data-i18n="important">重要提醒：</strong><span data-i18n="runReminder">使用 Codex 时保持 EchoBird 后台运行，否则中转站模型可能无法正常调用。</span></div>
     </section>
 
     <section class="section" id="steps">
       <div class="head">
         <div>
-          <h2>三步完成配置</h2>
-          <p class="sub">每一步一张大图，照着截图操作即可。</p>
+          <h2 data-i18n="stepsTitle">三步完成配置</h2>
+          <p class="sub" data-i18n="stepsSub">每一步一张大图，照着截图操作即可。</p>
         </div>
-        <div class="chips"><span class="chip">模型中心</span><span class="chip">编辑配置</span><span class="chip">应用管理</span></div>
+        <div class="chips"><span class="chip" data-i18n="modelCenter">模型中心</span><span class="chip" data-i18n="editConfig">编辑配置</span><span class="chip" data-i18n="appManagement">应用管理</span></div>
       </div>
       <div class="steps">
         <article class="card">
           <div class="step-copy">
             <div class="num">1</div>
-            <h3>添加模型</h3>
-            <p>进入 <span class="mark">模型中心</span>，点击“添加模型”，选择 OpenAI / Anthropic API 类型。</p>
-            <div class="caption">截图 1：在模型中心点击添加模型。</div>
+            <h3 data-i18n="step1Title">添加模型</h3>
+            <p data-i18n="step1Body">进入模型中心，点击“添加模型”，选择 OpenAI / Anthropic API 类型。</p>
+            <div class="caption" data-i18n="step1Caption">截图 1：在模型中心点击添加模型。</div>
           </div>
-          <div class="shot"><img src="assets/step-1-add-model.png" alt="EchoBird 模型中心添加模型截图"></div>
+          <div class="shot"><img src="assets/step-1-add-model.png" alt="EchoBird 模型中心添加模型截图" data-i18n-alt="step1Alt"></div>
         </article>
         <article class="card">
           <div class="step-copy">
             <div class="num">2</div>
-            <h3>填写 API 配置</h3>
-            <p><span class="mark">OpenAI 地址</span>填中转站接口并带 <code>/v1</code>；模型 ID 填模型名；API 密钥填令牌 Key。</p>
-            <div class="caption">截图 2：填写地址、模型 ID 和 API Key。</div>
+            <h3 data-i18n="step2Title">填写 API 配置</h3>
+            <p data-i18n="step2Body">按下面的表单提示填写 Tamgur API 信息。</p>
+            <div class="form-tip">
+              <strong data-i18n="formTipTitle">表单填写 Tip</strong>
+              <ol>
+                <li><code>Name</code>：<span data-i18n="formTipName">随意填写，用于区分模型配置。</span></li>
+                <li><code>OpenAI URL</code>：<code>https://api.tamgur.tech/v1</code></li>
+                <li><code>Anthropic URL</code>：<span data-i18n="formTipAnthropic">留空。</span></li>
+                <li><code>Model ID</code>：<span data-i18n="formTipModel">填写需要使用的模型，直接从模型广场复制。</span></li>
+                <li><code>API Key</code>：<span data-i18n="formTipApiKey">填写你的 API Key，请记得选择正确的分组。</span></li>
+              </ol>
+            </div>
+            <div class="caption" data-i18n="step2Caption">截图 2：填写地址、模型 ID 和 API Key。</div>
           </div>
-          <div class="shot"><img src="assets/step-2-edit-config.png" alt="EchoBird 编辑模型配置截图"></div>
+          <div class="shot"><img src="assets/step-2-edit-config.png" alt="EchoBird 编辑模型配置截图" data-i18n-alt="step2Alt"></div>
         </article>
         <article class="card">
           <div class="step-copy">
             <div class="num">3</div>
-            <h3>绑定 Codex</h3>
-            <p>进入 <span class="mark">应用管理</span>，选择 Codex Desktop，绑定刚添加的模型，然后点击“启动应用”。</p>
-            <div class="caption">截图 3：为 Codex Desktop 选择模型并启动。</div>
+            <h3 data-i18n="step3Title">绑定 Codex</h3>
+            <p data-i18n="step3Body">进入应用管理，选择 Codex Desktop，绑定刚添加的模型，然后点击“启动应用”。</p>
+            <div class="caption" data-i18n="step3Caption">截图 3：为 Codex Desktop 选择模型并启动。</div>
           </div>
-          <div class="shot"><img src="assets/step-3-select-codex.png" alt="EchoBird 应用管理选择 Codex 模型截图"></div>
+          <div class="shot"><img src="assets/step-3-select-codex.png" alt="EchoBird 应用管理选择 Codex 模型截图" data-i18n-alt="step3Alt"></div>
         </article>
       </div>
     </section>
@@ -259,41 +385,231 @@
     <section class="section" id="tips">
       <div class="head">
         <div>
-          <h2>配置要点</h2>
-          <p class="sub">填错最多的地方，按这里核对。</p>
+          <h2 data-i18n="tipsTitle">配置要点</h2>
+          <p class="sub" data-i18n="tipsSub">填错最多的地方，按这里核对。</p>
         </div>
       </div>
       <div class="grid2">
         <div class="note">
-          <h3>填写规则</h3>
+          <h3 data-i18n="rulesTitle">填写规则</h3>
           <ul>
-            <li>名称只是显示名，可以写成 GPT5.5、KK-GPT、Codex 中转站等。</li>
-            <li>OpenAI 地址填写 <code>https://api.tamgur.tech/v1</code>。</li>
-            <li>模型 ID 要和中转站后台支持的模型名称一致，建议直接复制。</li>
-            <li>API 密钥填中转站令牌 Key，如果有分组，记得选对分组权限。</li>
+            <li data-i18n="rule1">名称只是显示名，可以写成 GPT5.5、KK-GPT、Codex 中转站等。</li>
+            <li><span data-i18n="rule2">OpenAI 地址填写</span> <code>https://api.tamgur.tech/v1</code>。</li>
+            <li data-i18n="rule3">模型 ID 要和中转站后台支持的模型名称一致，建议直接复制。</li>
+            <li data-i18n="rule4">API 密钥填中转站令牌 Key，如果有分组，记得选对分组权限。</li>
           </ul>
         </div>
         <div class="note">
-          <h3>配置模板</h3>
-          <p>把下面内容替换成你自己的中转站信息即可。</p>
-          <pre class="code"><code>名称：GPT5.5
+          <h3 data-i18n="templateTitle">配置模板</h3>
+          <p data-i18n="templateIntro">把下面内容替换成你自己的中转站信息即可。</p>
+          <pre class="code"><code data-i18n="templateCode">名称：GPT5.5
 OpenAI 地址：https://api.tamgur.tech/v1
-Anthropic 地址：不用可留空
+Anthropic 地址：留空
 模型 ID：请从模型广场复制
 API 密钥：sk-xxxxxxxxxxxxxxxx</code></pre>
         </div>
       </div>
     </section>
-    <footer>如果 Codex 没有立即切换，重新点击“启动应用”即可。使用时保持 EchoBird 后台运行。</footer>
+    <footer data-i18n="footer">如果 Codex 没有立即切换，重新点击“启动应用”即可。使用时保持 EchoBird 后台运行。</footer>
   </main>
 
   <a class="float-banner" id="floatBanner" href="https://api.tamgur.tech" target="_blank" rel="noopener">
-    🚀 高速稳定中转站，API丝滑，价格优惠，立即体验Tamgur中转站
-    <button class="float-banner-close" id="floatBannerClose" aria-label="关闭">&times;</button>
+    <span data-i18n="floatBanner">高速稳定中转站，API 流畅，价格优惠，立即体验 Tamgur</span>
+    <button class="float-banner-close" id="floatBannerClose" aria-label="关闭" data-i18n-aria-label="close">&times;</button>
   </a>
 
   <script>
     (() => {
+      const translations = {
+        'zh-CN': {
+          title: 'EchoBird 配置 Codex 使用 Tamgur API 教程',
+          description: 'EchoBird 4.8.6 下载与 Codex Tamgur API 配置教程。',
+          backToTamgur: '返回 Tamgur 网站',
+          tag: 'EchoBird / Codex / Tamgur API',
+          heroTitle: 'Codex Tamgur API 配置',
+          heroLead: '3 步完成：添加模型、填写 API、绑定 Codex。配置后保持 EchoBird 后台运行即可。',
+          viewSteps: '查看三步流程', viewTips: '查看配置要点', downloadEchoBird: '下载 EchoBird', backDocs: '返回文档中心',
+          configPath: '配置路径', modelCenter: '模型中心', editConfig: '编辑配置', appManagement: '应用管理',
+          downloadTitle: '下载 EchoBird 4.8.6', downloadSub: '先安装 EchoBird，再按下面 3 步配置 Codex。', backgroundRun: '后台运行',
+          macArmTitle: 'Mac Apple 芯片版', macArmDesc: '适用于 M1、M2、M3、M4 等 Apple Silicon 设备。',
+          macIntelTitle: 'Mac Intel 芯片版', macIntelDesc: '适用于 Intel 处理器的 Mac 设备。',
+          windowsTitle: 'Windows x64 版', windowsDesc: '适用于 64 位 Windows 系统。',
+          downloadDmg: '下载 DMG', downloadExe: '下载 EXE',
+          githubTitle: '官方项目与最新版本：', githubBody: '本页提供 EchoBird 4.8.6 直链下载；如需查看更新日志、获取更新版本或验证发布来源，请前往 GitHub Releases。', githubAction: '查看 GitHub Releases',
+          macDamagedTitle: 'macOS 首次打开若提示“已损坏”：', macDamagedBody: '请打开终端并执行以下命令，然后重新打开 EchoBird。',
+          important: '重要提醒：', runReminder: '使用 Codex 时保持 EchoBird 后台运行，否则 Tamgur 模型可能无法正常调用。',
+          stepsTitle: '三步完成配置', stepsSub: '每一步一张大图，照着截图操作即可。',
+          step1Title: '添加模型', step1Body: '进入模型中心，点击“添加模型”，选择 OpenAI / Anthropic API 类型。', step1Caption: '截图 1：在模型中心点击添加模型。', step1Alt: 'EchoBird 模型中心添加模型截图',
+          step2Title: '填写 API 配置', step2Body: '按下面的表单提示填写 Tamgur API 信息。', step2Caption: '截图 2：填写地址、模型 ID 和 API Key。', step2Alt: 'EchoBird 编辑模型配置截图',
+          formTipTitle: '表单填写 Tip', formTipName: '随意填写，用于区分模型配置。', formTipAnthropic: '留空。', formTipModel: '填写需要使用的模型，直接从模型广场复制。', formTipApiKey: '填写你的 API Key，请记得选择正确的分组。',
+          step3Title: '绑定 Codex', step3Body: '进入应用管理，选择 Codex Desktop，绑定刚添加的模型，然后点击“启动应用”。', step3Caption: '截图 3：为 Codex Desktop 选择模型并启动。', step3Alt: 'EchoBird 应用管理选择 Codex 模型截图',
+          tipsTitle: '配置要点', tipsSub: '填错最多的地方，按这里核对。', rulesTitle: '填写规则',
+          rule1: '名称只是显示名，可以写成 GPT5.5、KK-GPT、Codex Tamgur 等。', rule2: 'OpenAI 地址填写', rule3: '模型 ID 要和 Tamgur 后台支持的模型名称一致，建议直接复制。', rule4: 'API 密钥填 Tamgur 令牌 Key，如果有分组，记得选对分组权限。',
+          templateTitle: '配置模板', templateIntro: '把下面内容替换成你自己的 Tamgur 信息即可。',
+          templateCode: '名称：GPT5.5\nOpenAI 地址：https://api.tamgur.tech/v1\nAnthropic 地址：留空\n模型 ID：请从模型广场复制\nAPI 密钥：sk-xxxxxxxxxxxxxxxx',
+          footer: '如果 Codex 没有立即切换，重新点击“启动应用”即可。使用时保持 EchoBird 后台运行。',
+          floatBanner: '高速稳定 API，价格优惠，立即体验 Tamgur', close: '关闭'
+        },
+        en: {
+          title: 'Configure Codex with the Tamgur API using EchoBird',
+          description: 'Download EchoBird 4.8.6 and configure Codex with the Tamgur API.',
+          backToTamgur: 'Return to the Tamgur website',
+          tag: 'EchoBird / Codex / Tamgur API',
+          heroTitle: 'Configure Codex with Tamgur API',
+          heroLead: 'Complete setup in 3 steps: add a model, enter the API details, and connect Codex. Keep EchoBird running in the background.',
+          viewSteps: 'View the 3 steps', viewTips: 'Configuration tips', downloadEchoBird: 'Download EchoBird', backDocs: 'Back to docs',
+          configPath: 'Configuration path', modelCenter: 'Model Center', editConfig: 'Edit Configuration', appManagement: 'App Management',
+          downloadTitle: 'Download EchoBird 4.8.6', downloadSub: 'Install EchoBird first, then configure Codex with the 3 steps below.', backgroundRun: 'Background service',
+          macArmTitle: 'Mac for Apple silicon', macArmDesc: 'For Apple silicon devices including M1, M2, M3, and M4.',
+          macIntelTitle: 'Mac for Intel', macIntelDesc: 'For Mac computers with an Intel processor.',
+          windowsTitle: 'Windows x64', windowsDesc: 'For 64-bit Windows systems.',
+          downloadDmg: 'Download DMG', downloadExe: 'Download EXE',
+          githubTitle: 'Official project and latest releases: ', githubBody: 'This page provides direct downloads for EchoBird 4.8.6. Visit GitHub Releases for changelogs, newer versions, or release verification.', githubAction: 'View GitHub Releases',
+          macDamagedTitle: 'If macOS says the app is “damaged” on first launch:', macDamagedBody: 'Open Terminal, run the command below, then reopen EchoBird.',
+          important: 'Important: ', runReminder: 'Keep EchoBird running while using Codex, or Tamgur models may not work.',
+          stepsTitle: 'Configure in three steps', stepsSub: 'Follow the large screenshot shown for each step.',
+          step1Title: 'Add a model', step1Body: 'Open Model Center, click “Add Model,” and select the OpenAI / Anthropic API type.', step1Caption: 'Screenshot 1: Add a model in Model Center.', step1Alt: 'Adding a model in EchoBird Model Center',
+          step2Title: 'Enter API settings', step2Body: 'Complete the Tamgur API form using the tips below.', step2Caption: 'Screenshot 2: Enter the URL, model ID, and API key.', step2Alt: 'Editing model settings in EchoBird',
+          formTipTitle: 'Form tips', formTipName: 'Enter any display name to identify this model configuration.', formTipAnthropic: 'Leave blank.', formTipModel: 'Enter the model you need by copying its ID directly from the model marketplace.', formTipApiKey: 'Enter your API key and make sure the correct group is selected.',
+          step3Title: 'Connect Codex', step3Body: 'Open App Management, select Codex Desktop, bind the model you added, and click “Launch App.”', step3Caption: 'Screenshot 3: Select a model for Codex Desktop and launch it.', step3Alt: 'Selecting a Codex model in EchoBird App Management',
+          tipsTitle: 'Configuration tips', tipsSub: 'Check these common sources of configuration errors.', rulesTitle: 'Input rules',
+          rule1: 'The name is only a display label, such as GPT5.5, KK-GPT, or Codex Tamgur.', rule2: 'Set the OpenAI URL to', rule3: 'The model ID must match a model name supported by Tamgur. Copy it directly when possible.', rule4: 'Use your Tamgur token as the API key and select the correct group permissions when applicable.',
+          templateTitle: 'Configuration template', templateIntro: 'Replace the sample values below with your own Tamgur information.',
+          templateCode: 'Name: GPT5.5\nOpenAI URL: https://api.tamgur.tech/v1\nAnthropic URL: leave blank\nModel ID: copy from the model marketplace\nAPI key: sk-xxxxxxxxxxxxxxxx',
+          footer: 'If Codex does not switch immediately, click “Launch App” again. Keep EchoBird running while in use.',
+          floatBanner: 'Fast, stable, and affordable API access. Try Tamgur now', close: 'Close'
+        },
+        fr: {
+          title: "Configurer Codex avec l’API Tamgur via EchoBird",
+          description: "Téléchargez EchoBird 4.8.6 et configurez Codex avec l’API Tamgur.",
+          backToTamgur: 'Retourner sur le site Tamgur',
+          tag: 'EchoBird / Codex / API Tamgur',
+          heroTitle: 'Configurer Codex avec l’API Tamgur',
+          heroLead: 'Configuration en 3 étapes : ajouter un modèle, renseigner l’API et connecter Codex. Laissez EchoBird fonctionner en arrière-plan.',
+          viewSteps: 'Voir les 3 étapes', viewTips: 'Conseils de configuration', downloadEchoBird: 'Télécharger EchoBird', backDocs: 'Retour à la documentation',
+          configPath: 'Parcours de configuration', modelCenter: 'Centre des modèles', editConfig: 'Modifier la configuration', appManagement: 'Gestion des applications',
+          downloadTitle: 'Télécharger EchoBird 4.8.6', downloadSub: 'Installez EchoBird, puis configurez Codex avec les 3 étapes ci-dessous.', backgroundRun: 'Arrière-plan',
+          macArmTitle: 'Mac avec puce Apple', macArmDesc: 'Pour les appareils Apple Silicon M1, M2, M3, M4, etc.',
+          macIntelTitle: 'Mac avec processeur Intel', macIntelDesc: 'Pour les Mac équipés d’un processeur Intel.',
+          windowsTitle: 'Windows x64', windowsDesc: 'Pour les systèmes Windows 64 bits.',
+          downloadDmg: 'Télécharger le DMG', downloadExe: 'Télécharger l’EXE',
+          githubTitle: 'Projet officiel et dernières versions : ', githubBody: 'Cette page propose EchoBird 4.8.6 en téléchargement direct. Consultez GitHub Releases pour les nouveautés, les versions récentes ou la vérification des fichiers.', githubAction: 'Voir GitHub Releases',
+          macDamagedTitle: 'Si macOS indique que l’application est « endommagée » au premier lancement :', macDamagedBody: 'Ouvrez Terminal, exécutez la commande ci-dessous, puis relancez EchoBird.',
+          important: 'Important : ', runReminder: 'Gardez EchoBird actif pendant l’utilisation de Codex, sinon les modèles Tamgur peuvent ne pas fonctionner.',
+          stepsTitle: 'Configuration en trois étapes', stepsSub: 'Suivez la grande capture d’écran de chaque étape.',
+          step1Title: 'Ajouter un modèle', step1Body: 'Ouvrez le Centre des modèles, cliquez sur « Ajouter un modèle » et choisissez le type d’API OpenAI / Anthropic.', step1Caption: 'Capture 1 : ajouter un modèle dans le Centre des modèles.', step1Alt: 'Ajout d’un modèle dans EchoBird',
+          step2Title: 'Renseigner l’API', step2Body: 'Remplissez le formulaire Tamgur API à l’aide des conseils ci-dessous.', step2Caption: 'Capture 2 : renseigner l’adresse, le modèle et la clé API.', step2Alt: 'Modification de la configuration du modèle dans EchoBird',
+          formTipTitle: 'Conseils de saisie', formTipName: 'Saisissez le nom de votre choix pour identifier cette configuration.', formTipAnthropic: 'Laissez ce champ vide.', formTipModel: 'Copiez directement depuis la liste des modèles l’identifiant du modèle souhaité.', formTipApiKey: 'Saisissez votre clé API et sélectionnez le bon groupe.',
+          step3Title: 'Connecter Codex', step3Body: 'Ouvrez la Gestion des applications, choisissez Codex Desktop, associez le modèle ajouté et cliquez sur « Lancer l’application ».', step3Caption: 'Capture 3 : choisir un modèle Codex et lancer l’application.', step3Alt: 'Sélection du modèle Codex dans EchoBird',
+          tipsTitle: 'Conseils de configuration', tipsSub: 'Vérifiez ici les erreurs de configuration les plus courantes.', rulesTitle: 'Règles de saisie',
+          rule1: 'Le nom est seulement un libellé, par exemple GPT5.5, KK-GPT ou Codex Tamgur.', rule2: 'Adresse OpenAI', rule3: 'L’identifiant doit correspondre à un modèle pris en charge par Tamgur. Copiez-le directement si possible.', rule4: 'Utilisez votre jeton Tamgur comme clé API et choisissez les bonnes autorisations de groupe.',
+          templateTitle: 'Modèle de configuration', templateIntro: 'Remplacez les exemples par vos propres informations Tamgur.',
+          templateCode: 'Nom : GPT5.5\nAdresse OpenAI : https://api.tamgur.tech/v1\nAdresse Anthropic : laisser vide\nID du modèle : copier depuis la liste des modèles\nClé API : sk-xxxxxxxxxxxxxxxx',
+          footer: 'Si Codex ne change pas immédiatement, cliquez à nouveau sur « Lancer l’application ». Gardez EchoBird actif.',
+          floatBanner: 'Une API rapide, stable et économique. Essayez Tamgur', close: 'Fermer'
+        },
+        ru: {
+          title: 'Настройка Codex с API Tamgur через EchoBird',
+          description: 'Скачайте EchoBird 4.8.6 и настройте Codex для работы с API Tamgur.',
+          backToTamgur: 'Вернуться на сайт Tamgur',
+          tag: 'EchoBird / Codex / API Tamgur',
+          heroTitle: 'Настройка Codex с API Tamgur',
+          heroLead: 'Три шага: добавьте модель, укажите API и подключите Codex. EchoBird должен работать в фоновом режиме.',
+          viewSteps: 'Посмотреть 3 шага', viewTips: 'Советы по настройке', downloadEchoBird: 'Скачать EchoBird', backDocs: 'Назад к документации',
+          configPath: 'Путь настройки', modelCenter: 'Центр моделей', editConfig: 'Настройка', appManagement: 'Управление приложениями',
+          downloadTitle: 'Скачать EchoBird 4.8.6', downloadSub: 'Сначала установите EchoBird, затем выполните три шага ниже.', backgroundRun: 'Фоновая работа',
+          macArmTitle: 'Mac с процессором Apple', macArmDesc: 'Для устройств Apple Silicon M1, M2, M3, M4 и новее.',
+          macIntelTitle: 'Mac с процессором Intel', macIntelDesc: 'Для компьютеров Mac с процессором Intel.',
+          windowsTitle: 'Windows x64', windowsDesc: 'Для 64-разрядных систем Windows.',
+          downloadDmg: 'Скачать DMG', downloadExe: 'Скачать EXE',
+          githubTitle: 'Официальный проект и новые версии: ', githubBody: 'На этой странице доступны прямые ссылки на EchoBird 4.8.6. В GitHub Releases можно найти журнал изменений, новые версии и проверить источник файлов.', githubAction: 'Открыть GitHub Releases',
+          macDamagedTitle: 'Если при первом запуске macOS сообщает, что приложение «повреждено»:', macDamagedBody: 'Откройте Терминал, выполните команду ниже и снова запустите EchoBird.',
+          important: 'Важно: ', runReminder: 'Не закрывайте EchoBird при работе с Codex, иначе модели Tamgur могут быть недоступны.',
+          stepsTitle: 'Настройка в три шага', stepsSub: 'На каждом шаге следуйте большой иллюстрации.',
+          step1Title: 'Добавьте модель', step1Body: 'Откройте Центр моделей, нажмите «Добавить модель» и выберите тип API OpenAI / Anthropic.', step1Caption: 'Снимок 1: добавление модели в Центре моделей.', step1Alt: 'Добавление модели в EchoBird',
+          step2Title: 'Укажите параметры API', step2Body: 'Заполните форму Tamgur API по подсказкам ниже.', step2Caption: 'Снимок 2: адрес, ID модели и ключ API.', step2Alt: 'Редактирование модели в EchoBird',
+          formTipTitle: 'Подсказки по заполнению', formTipName: 'Введите любое имя для этой конфигурации модели.', formTipAnthropic: 'Оставьте поле пустым.', formTipModel: 'Скопируйте ID нужной модели прямо из каталога моделей.', formTipApiKey: 'Введите ключ API и убедитесь, что выбрана правильная группа.',
+          step3Title: 'Подключите Codex', step3Body: 'Откройте Управление приложениями, выберите Codex Desktop, привяжите модель и нажмите «Запустить приложение».', step3Caption: 'Снимок 3: выбор модели Codex и запуск.', step3Alt: 'Выбор модели Codex в EchoBird',
+          tipsTitle: 'Советы по настройке', tipsSub: 'Проверьте наиболее частые причины ошибок.', rulesTitle: 'Правила заполнения',
+          rule1: 'Название служит только меткой, например GPT5.5, KK-GPT или Codex Tamgur.', rule2: 'Адрес OpenAI', rule3: 'ID модели должен совпадать с названием модели, поддерживаемой Tamgur.', rule4: 'В качестве ключа API используйте токен Tamgur и выберите правильные разрешения группы.',
+          templateTitle: 'Шаблон настройки', templateIntro: 'Замените примеры ниже своими данными Tamgur.',
+          templateCode: 'Название: GPT5.5\nАдрес OpenAI: https://api.tamgur.tech/v1\nАдрес Anthropic: оставьте пустым\nID модели: скопируйте из списка моделей\nКлюч API: sk-xxxxxxxxxxxxxxxx',
+          footer: 'Если Codex не переключился сразу, снова нажмите «Запустить приложение». Не закрывайте EchoBird.',
+          floatBanner: 'Быстрый, стабильный и выгодный API. Попробуйте Tamgur', close: 'Закрыть'
+        },
+        ja: {
+          title: 'EchoBird で Codex に Tamgur API を設定する方法',
+          description: 'EchoBird 4.8.6 をダウンロードし、Codex に Tamgur API を設定します。',
+          backToTamgur: 'Tamgur サイトに戻る',
+          tag: 'EchoBird / Codex / Tamgur API',
+          heroTitle: 'Codex に Tamgur API を設定',
+          heroLead: 'モデル追加、API 入力、Codex 接続の 3 ステップです。設定後は EchoBird をバックグラウンドで起動しておいてください。',
+          viewSteps: '3 ステップを見る', viewTips: '設定のポイント', downloadEchoBird: 'EchoBird をダウンロード', backDocs: 'ドキュメントに戻る',
+          configPath: '設定手順', modelCenter: 'モデルセンター', editConfig: '設定を編集', appManagement: 'アプリ管理',
+          downloadTitle: 'EchoBird 4.8.6 をダウンロード', downloadSub: 'EchoBird をインストールしてから、以下の 3 ステップで Codex を設定します。', backgroundRun: 'バックグラウンド動作',
+          macArmTitle: 'Mac Apple シリコン版', macArmDesc: 'M1、M2、M3、M4 などの Apple Silicon デバイス向け。',
+          macIntelTitle: 'Mac Intel 版', macIntelDesc: 'Intel プロセッサ搭載 Mac 向け。',
+          windowsTitle: 'Windows x64 版', windowsDesc: '64 ビット Windows 向け。',
+          downloadDmg: 'DMG をダウンロード', downloadExe: 'EXE をダウンロード',
+          githubTitle: '公式プロジェクトと最新リリース：', githubBody: 'このページでは EchoBird 4.8.6 を直接ダウンロードできます。更新履歴、最新バージョン、配布元の確認は GitHub Releases をご覧ください。', githubAction: 'GitHub Releases を見る',
+          macDamagedTitle: 'macOS の初回起動時に「壊れている」と表示された場合：', macDamagedBody: 'ターミナルを開いて以下のコマンドを実行し、EchoBird を再度開いてください。',
+          important: '重要：', runReminder: 'Codex の使用中は EchoBird を起動したままにしてください。停止すると Tamgur モデルを呼び出せない場合があります。',
+          stepsTitle: '3 ステップで設定', stepsSub: '各ステップの大きなスクリーンショットに沿って操作してください。',
+          step1Title: 'モデルを追加', step1Body: 'モデルセンターを開き、「モデルを追加」をクリックして OpenAI / Anthropic API タイプを選択します。', step1Caption: '画面 1：モデルセンターでモデルを追加。', step1Alt: 'EchoBird モデルセンターでモデルを追加',
+          step2Title: 'API 設定を入力', step2Body: '以下のヒントに沿って Tamgur API フォームを入力します。', step2Caption: '画面 2：URL、モデル ID、API キーを入力。', step2Alt: 'EchoBird のモデル設定を編集',
+          formTipTitle: 'フォーム入力のヒント', formTipName: 'モデル設定を区別するための任意の名前を入力します。', formTipAnthropic: '空欄にします。', formTipModel: '使用するモデル ID をモデル一覧から直接コピーします。', formTipApiKey: 'API キーを入力し、正しいグループが選択されていることを確認します。',
+          step3Title: 'Codex を接続', step3Body: 'アプリ管理で Codex Desktop を選び、追加したモデルを紐付けて「アプリを起動」をクリックします。', step3Caption: '画面 3：Codex のモデルを選択して起動。', step3Alt: 'EchoBird で Codex モデルを選択',
+          tipsTitle: '設定のポイント', tipsSub: '間違えやすい項目を確認してください。', rulesTitle: '入力ルール',
+          rule1: '名前は表示用です。GPT5.5、KK-GPT、Codex Tamgur などを使用できます。', rule2: 'OpenAI URL', rule3: 'モデル ID は Tamgur が対応するモデル名と一致させてください。', rule4: 'API キーには Tamgur のトークンを入力し、必要に応じて正しいグループ権限を選択します。',
+          templateTitle: '設定テンプレート', templateIntro: '以下を自分の Tamgur 情報に置き換えてください。',
+          templateCode: '名前：GPT5.5\nOpenAI URL：https://api.tamgur.tech/v1\nAnthropic URL：空欄\nモデル ID：モデル一覧からコピー\nAPI キー：sk-xxxxxxxxxxxxxxxx',
+          footer: 'Codex がすぐに切り替わらない場合は、「アプリを起動」をもう一度クリックしてください。EchoBird は起動したままにします。',
+          floatBanner: '高速・安定・低価格の API。Tamgur を今すぐ試す', close: '閉じる'
+        }
+      };
+
+      const supportedLanguages = Object.keys(translations);
+      const languageButtons = document.querySelectorAll('[data-lang]');
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const urlLanguage = new URLSearchParams(window.location.search).get('lang');
+      const savedLanguage = localStorage.getItem('tamgurCodexLanguage');
+      const browserLanguage = navigator.language.toLowerCase();
+      const detectedLanguage = browserLanguage.startsWith('zh') ? 'zh-CN'
+        : supportedLanguages.find((language) => browserLanguage.startsWith(language)) || 'en';
+      let currentLanguage = supportedLanguages.includes(urlLanguage) ? urlLanguage
+        : supportedLanguages.includes(savedLanguage) ? savedLanguage
+        : detectedLanguage;
+
+      const setLanguage = (language) => {
+        const messages = translations[language] || translations.en;
+        currentLanguage = language;
+        document.documentElement.lang = language;
+        document.title = messages.title;
+        if (metaDescription) metaDescription.setAttribute('content', messages.description);
+
+        document.querySelectorAll('[data-i18n]').forEach((element) => {
+          const value = messages[element.dataset.i18n];
+          if (value !== undefined) element.textContent = value;
+        });
+        document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+          const value = messages[element.dataset.i18nAlt];
+          if (value !== undefined) element.setAttribute('alt', value);
+        });
+        document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+          const value = messages[element.dataset.i18nAriaLabel];
+          if (value !== undefined) element.setAttribute('aria-label', value);
+        });
+        languageButtons.forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.lang === language));
+        });
+        localStorage.setItem('tamgurCodexLanguage', language);
+      };
+
+      languageButtons.forEach((button) => {
+        button.addEventListener('click', () => setLanguage(button.dataset.lang));
+      });
+      setLanguage(currentLanguage);
+
       const banner = document.getElementById('floatBanner');
       const closeBtn = document.getElementById('floatBannerClose');
       if (closeBtn) {
@@ -307,6 +623,3 @@ API 密钥：sk-xxxxxxxxxxxxxxxx</code></pre>
   </script>
 </body>
 </html>
-
-
-
