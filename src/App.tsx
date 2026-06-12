@@ -211,9 +211,15 @@ export default function App() {
             <span className="eyebrow-line" />
           </div>
 
-          <div className="signup-bonus">
-            <span aria-hidden="true">✦</span>
-            {t.signupBonus}
+          <div className="hero-promotions">
+            <div className="signup-bonus">
+              <span aria-hidden="true">✦</span>
+              {t.signupBonus}
+            </div>
+            <div className="enterprise-discount">
+              <span aria-hidden="true">◆</span>
+              {t.enterpriseDiscount}
+            </div>
           </div>
 
           <h1>

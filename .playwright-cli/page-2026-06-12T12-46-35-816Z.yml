@@ -1,0 +1,131 @@
+- generic [ref=e3]:
+  - main [ref=e4]:
+    - generic [ref=e5]:
+      - generic [ref=e7]: 统一智能基础设施
+      - generic [ref=e9]:
+        - generic [ref=e10]:
+          - generic [ref=e11]: ✦
+          - text: 注册即送免费 Token
+        - generic [ref=e12]:
+          - generic [ref=e13]: ◆
+          - text: 企业批量订购享专属折扣
+      - heading "一个接口， 连接所有 AI" [level=1] [ref=e14]:
+        - text: 一个接口，
+        - text: 连接所有 AI
+      - paragraph [ref=e15]:
+        - text: 聚合全球主流大模型，兼容 OpenAI API 格式。
+        - text: 更稳定的链路，更透明的成本，为每一次调用而设计。
+      - generic [ref=e16]:
+        - link "立即接入 API" [ref=e17] [cursor=pointer]:
+          - /url: https://api.tamgur.tech/dashboard/models
+          - text: 立即接入 API
+          - img [ref=e18]
+        - link "查看教程文档" [ref=e20] [cursor=pointer]:
+          - /url: https://doc.tamgur.tech/
+          - img [ref=e21]
+          - text: 查看教程文档
+      - generic [ref=e23]:
+        - link "额度充值" [ref=e24] [cursor=pointer]:
+          - /url: https://api.tamgur.tech/wallet
+          - img [ref=e26]
+          - generic [ref=e29]: 额度充值
+        - link "在线生图" [ref=e30] [cursor=pointer]:
+          - /url: /playground
+          - img [ref=e32]
+          - generic [ref=e36]: 在线生图
+        - button "加入群领取 Token" [ref=e38] [cursor=pointer]:
+          - img [ref=e40]
+          - generic [ref=e43]: 加入群领取 Token
+          - img [ref=e44]
+      - generic [ref=e46]:
+        - generic [ref=e47]: 任何问题请联系 WeChat
+        - strong [ref=e48]: cyuCyin
+        - button "复制微信号" [ref=e49] [cursor=pointer]:
+          - img [ref=e50]
+        - generic [ref=e53]: Telegram
+        - strong [ref=e54]: +86 17722241523
+        - button "Copy Telegram number" [ref=e55] [cursor=pointer]:
+          - img [ref=e56]
+      - generic [ref=e61]: 一个密钥 · 所有模型 · 随时可用
+    - generic "icon 连接多个主流 AI 模型" [ref=e63]:
+      - generic [ref=e77]:
+        - img "icon 刺猬标志" [ref=e81]
+        - generic [ref=e82]: 统一 API
+      - generic [ref=e83]:
+        - img [ref=e85]
+        - generic [ref=e88]: ChatGPT
+      - generic [ref=e92]: Claude
+      - generic [ref=e94]:
+        - generic [ref=e95]: ✦
+        - generic [ref=e96]: Gemini
+      - generic [ref=e100]: DeepSeek
+      - generic [ref=e102]: 所有系统运行正常
+  - generic [ref=e104]:
+    - generic [ref=e105]:
+      - text: 为什么选择 icon
+      - heading "为稳定调用而生" [level=2] [ref=e106]
+      - paragraph [ref=e107]: 从个人项目到企业级业务，用一套简单、透明且可靠的 AI 基础设施持续扩展。
+    - article [ref=e108]:
+      - img [ref=e110]
+      - generic [ref=e113]:
+        - text: OPENCLAW READY
+        - heading "完美适配 OpenClaw" [level=3] [ref=e114]
+        - paragraph [ref=e115]: 只需修改 Base URL 和 API Key，即可为智能体接入多家主流模型，随时切换更合适的能力。
+      - generic [ref=e116]:
+        - generic [ref=e117]: base_url
+        - strong [ref=e118]: icon / v1
+    - generic [ref=e119]:
+      - article [ref=e120]:
+        - generic [ref=e121]: "01"
+        - img [ref=e123]
+        - heading "灵活透明计费" [level=3] [ref=e126]
+        - paragraph [ref=e127]: 按实际 Token 用量精确计费，余额长期有效，成本清晰可控。
+      - article [ref=e128]:
+        - generic [ref=e129]: "02"
+        - img [ref=e131]
+        - heading "全球模型聚合" [level=3] [ref=e134]
+        - paragraph [ref=e135]: 一个 API Key 解锁 GPT、Claude、Gemini、DeepSeek 等主流模型。
+      - article [ref=e136]:
+        - generic [ref=e137]: "03"
+        - img [ref=e139]
+        - heading "稳定服务保障" [level=3] [ref=e142]
+        - paragraph [ref=e143]: 多线路智能调度与故障切换，为高并发和关键业务提供稳定支撑。
+      - article [ref=e144]:
+        - generic [ref=e145]: "04"
+        - img [ref=e147]
+        - heading "开发者友好" [level=3] [ref=e150]
+        - paragraph [ref=e151]: 兼容 OpenAI 接口协议，无需重写代码即可接入现有项目和工具。
+  - generic [ref=e152]:
+    - generic [ref=e153]:
+      - text: 快速开始
+      - heading "三步连接智能世界" [level=2] [ref=e154]
+    - generic [ref=e155]:
+      - article [ref=e156]:
+        - generic [ref=e157]: "01"
+        - heading "创建 API Key" [level=3] [ref=e158]
+        - paragraph [ref=e159]: 进入控制台创建密钥，并按需设置额度与权限。
+      - article [ref=e160]:
+        - generic [ref=e161]: "02"
+        - heading "替换接口地址" [level=3] [ref=e162]
+        - paragraph [ref=e163]: 沿用熟悉的 OpenAI SDK，只需替换 Base URL。
+      - article [ref=e164]:
+        - generic [ref=e165]: "03"
+        - heading "选择模型调用" [level=3] [ref=e166]
+        - paragraph [ref=e167]: 自由切换模型，让每个任务使用更合适的智能能力。
+  - generic [ref=e168]:
+    - generic [ref=e169]:
+      - text: BUILD WITH ICON
+      - heading "准备好开始构建了吗？" [level=2] [ref=e170]
+      - paragraph [ref=e171]: 一个密钥连接主流 AI 模型，让下一次调用更简单。
+    - generic [ref=e172]:
+      - link "立即接入 API" [ref=e173] [cursor=pointer]:
+        - /url: https://api.tamgur.tech/dashboard/models
+        - text: 立即接入 API
+        - img [ref=e174]
+      - link "查看教程文档" [ref=e176] [cursor=pointer]:
+        - /url: https://doc.tamgur.tech/
+        - img [ref=e177]
+        - text: 查看教程文档
+  - contentinfo [ref=e179]:
+    - generic [ref=e180]: icon
+    - generic [ref=e182]: Unified intelligence infrastructure

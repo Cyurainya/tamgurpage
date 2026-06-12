@@ -406,12 +406,20 @@ button {
   background: linear-gradient(90deg, var(--brand), transparent);
 }
 
-.signup-bonus {
+.hero-promotions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.signup-bonus,
+.enterprise-discount {
   display: inline-flex;
   min-height: 30px;
   align-items: center;
   gap: 8px;
-  margin-bottom: 18px;
   padding: 5px 11px;
   border: 1px solid color-mix(in srgb, var(--brand), transparent 70%);
   border-radius: 999px;
@@ -423,9 +431,22 @@ button {
   letter-spacing: 0.02em;
 }
 
-.signup-bonus span {
+.enterprise-discount {
+  border-color: color-mix(in srgb, #d59624, transparent 62%);
+  color: color-mix(in srgb, #d59624, var(--text) 22%);
+  background: color-mix(in srgb, #d59624, transparent 91%);
+  box-shadow: none;
+}
+
+.signup-bonus span,
+.enterprise-discount span {
   color: var(--brand-bright);
   font-size: 13px;
+}
+
+.enterprise-discount span {
+  color: #d59624;
+  font-size: 10px;
 }
 
 h1 {
@@ -1471,6 +1492,7 @@ h1 {
   }
 
   .eyebrow,
+  .hero-promotions,
   .hero-actions,
   .trust-row {
     justify-content: center;

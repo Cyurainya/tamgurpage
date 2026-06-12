@@ -43,6 +43,7 @@ export type Messages = {
   ctaTitle: string;
   ctaDescription: string;
   signupBonus: string;
+  enterpriseDiscount: string;
   docsCenterEyebrow: string;
   docsCenterTitle: string;
   docsCenterDescription: string;
@@ -101,6 +102,7 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: '准备好开始构建了吗？',
     ctaDescription: '一个密钥连接主流 AI 模型，让下一次调用更简单。',
     signupBonus: '注册即送免费 Token',
+    enterpriseDiscount: '企业批量订购享专属折扣',
     docsCenterEyebrow: 'DOCUMENTATION',
     docsCenterTitle: 'Tamgur开放平台文档中心',
     docsCenterDescription: '选择你需要接入的服务类型',
@@ -157,6 +159,7 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: 'Ready to start building?',
     ctaDescription: 'Connect leading AI models with one key and simplify every call.',
     signupBonus: 'Free Token when you sign up',
+    enterpriseDiscount: 'Exclusive discounts for enterprise orders',
     docsCenterEyebrow: 'DOCUMENTATION',
     docsCenterTitle: 'Tamgur Documentation Center',
     docsCenterDescription: 'Choose the service you want to integrate',
@@ -213,6 +216,7 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: 'Prêt à construire ?',
     ctaDescription: "Connectez les meilleurs modèles d'IA avec une seule clé.",
     signupBonus: "Token gratuits à l'inscription",
+    enterpriseDiscount: 'Tarifs préférentiels pour les entreprises',
     docsCenterEyebrow: 'DOCUMENTATION',
     docsCenterTitle: 'Tamgur Centre de documentation icon',
     docsCenterDescription: 'Choisissez le service à intégrer',
@@ -269,6 +273,7 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: 'Готовы начать?',
     ctaDescription: 'Подключите ведущие модели ИИ с помощью одного ключа.',
     signupBonus: 'Бесплатные токены за регистрацию',
+    enterpriseDiscount: 'Специальные скидки для корпоративных заказов',
     docsCenterEyebrow: 'ДОКУМЕНТАЦИЯ',
     docsCenterTitle: 'Tamgur Центр документации icon',
     docsCenterDescription: 'Выберите нужный тип интеграции',
@@ -325,6 +330,7 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: '構築を始めませんか？',
     ctaDescription: 'ひとつのキーで主要 AI モデルに接続できます。',
     signupBonus: '登録で無料トークンをプレゼント',
+    enterpriseDiscount: '法人一括購入限定割引',
     docsCenterEyebrow: 'DOCUMENTATION',
     docsCenterTitle: 'Tamgur ドキュメントセンター',
     docsCenterDescription: '接続するサービスを選択してください',
@@ -381,6 +387,7 @@ export const messages: Record<Locale, Messages> = {
     ctaTitle: 'Sẵn sàng bắt đầu?',
     ctaDescription: 'Kết nối các mô hình AI hàng đầu chỉ với một khóa.',
     signupBonus: 'Đăng ký nhận token miễn phí',
+    enterpriseDiscount: 'Ưu đãi riêng cho đơn hàng doanh nghiệp',
     docsCenterEyebrow: 'TÀI LIỆU',
     docsCenterTitle: 'Tamgur Trung tâm tài liệu icon',
     docsCenterDescription: 'Chọn dịch vụ bạn muốn tích hợp',
