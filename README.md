@@ -1,4 +1,4 @@
-# icon NewAPI Homepage
+# Tamgur AI API Homepage
 
 一个使用 Vite、React 和 TypeScript 构建的动态 NewAPI 首页。生产构建会将脚本、样式和 Logo 全部内嵌到单个 HTML 文件。
 
@@ -16,6 +16,40 @@ npm run build
 ```
 
 最终文件为 `dist/index.html`。将它部署到 HTTPS 地址，然后把该地址配置为 NewAPI 自定义首页。
+
+构建还会生成：
+
+- `dist/sitemap.xml`：搜索引擎站点地图
+- `dist/robots.txt`：抓取规则模板
+- `dist/llms.txt`：面向 AI 搜索和智能体的站点说明
+
+正式 SEO 地址为：
+
+```text
+https://api.tamgur.tech/home/index.html
+```
+
+由于搜索引擎只读取域名根目录的 `/robots.txt`，需要在 Nginx 中把根路径映射到本项目生成的文件。路径请按实际部署目录调整：
+
+```nginx
+location = /robots.txt {
+    alias /www/wwwroot/tamgur-home/robots.txt;
+}
+
+location = /sitemap.xml {
+    alias /www/wwwroot/tamgur-home/sitemap.xml;
+}
+
+location = /llms.txt {
+    alias /www/wwwroot/tamgur-home/llms.txt;
+}
+```
+
+上线后应在 Google Search Console 和 Bing Webmaster Tools 中提交：
+
+```text
+https://api.tamgur.tech/home/sitemap.xml
+```
 
 ## 独立文档中心
 

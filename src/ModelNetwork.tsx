@@ -21,7 +21,7 @@ function ChatGptIcon() {
 
 export function ModelNetwork({ t }: { t: Messages }) {
   return (
-    <div className="network-shell" aria-label="icon 连接多个主流 AI 模型">
+    <div className="network-shell" aria-label="Tamgur unified AI model network">
       <div className="network-aura network-aura-one" />
       <div className="network-aura network-aura-two" />
 
@@ -74,7 +74,7 @@ export function ModelNetwork({ t }: { t: Messages }) {
         <span className="core-ring core-ring-one" />
         <span className="core-ring core-ring-two" />
         <div className="logo-stage">
-          <img src={logoUrl} alt="icon 刺猬标志" />
+          <img src={logoUrl} alt="Tamgur" />
         </div>
         <span className="core-label">{t.unifiedApi}</span>
       </div>

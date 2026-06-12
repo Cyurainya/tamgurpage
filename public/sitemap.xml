@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  <url>
+    <loc>https://api.tamgur.tech/home/index.html</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://api.tamgur.tech/home/index.html" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://api.tamgur.tech/home/index.html" />
+    <xhtml:link rel="alternate" hreflang="zh-CN" href="https://api.tamgur.tech/home/index.html?lang=zh-CN" />
+    <xhtml:link rel="alternate" hreflang="fr" href="https://api.tamgur.tech/home/index.html?lang=fr" />
+    <xhtml:link rel="alternate" hreflang="ru" href="https://api.tamgur.tech/home/index.html?lang=ru" />
+    <xhtml:link rel="alternate" hreflang="ja" href="https://api.tamgur.tech/home/index.html?lang=ja" />
+    <xhtml:link rel="alternate" hreflang="vi" href="https://api.tamgur.tech/home/index.html?lang=vi" />
+  </url>
+  <url>
+    <loc>https://api.tamgur.tech/home/index.html?lang=zh-CN</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://api.tamgur.tech/home/index.html?lang=fr</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://api.tamgur.tech/home/index.html?lang=ru</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://api.tamgur.tech/home/index.html?lang=ja</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://api.tamgur.tech/home/index.html?lang=vi</loc>
+    <lastmod>2026-06-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+</urlset>

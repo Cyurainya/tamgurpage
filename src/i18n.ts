@@ -2,13 +2,28 @@ import { useEffect, useState } from 'react';
 
 export type Locale = 'zh-CN' | 'en' | 'fr' | 'ru' | 'ja' | 'vi';
 
+type ContentItem = {
+  title: string;
+  description: string;
+};
+
+type ProviderItem = {
+  name: string;
+  models: string;
+};
+
+type FaqItem = {
+  question: string;
+  answer: string;
+};
+
 export type Messages = {
   eyebrow: string;
-  titleLead: string;
-  titleTail: string;
-  descriptionLine1: string;
-  descriptionLine2: string;
+  heroTitle: string;
+  heroHighlight: string;
+  heroDescription: string;
   start: string;
+  viewPricing: string;
   docs: string;
   trust: string;
   unifiedApi: string;
@@ -19,31 +34,48 @@ export type Messages = {
   tokenReward: string;
   telegramGroup: string;
   wechatGroup: string;
+  signupBonus: string;
+  enterpriseDiscount: string;
+  priceCardKicker: string;
+  officialUsage: string;
+  priceCardDescription: string;
+  saveAbout: string;
   featuresEyebrow: string;
   featuresTitle: string;
   featuresDescription: string;
-  openClawTitle: string;
-  openClawDescription: string;
-  flexibleTitle: string;
-  flexibleDescription: string;
+  features: ContentItem[];
+  modelsEyebrow: string;
   modelsTitle: string;
   modelsDescription: string;
-  supportTitle: string;
-  supportDescription: string;
-  developerTitle: string;
-  developerDescription: string;
-  stepsEyebrow: string;
-  stepsTitle: string;
-  stepOneTitle: string;
-  stepOneDescription: string;
-  stepTwoTitle: string;
-  stepTwoDescription: string;
-  stepThreeTitle: string;
-  stepThreeDescription: string;
+  providers: ProviderItem[];
+  availableNow: string;
+  integrationTitle: string;
+  pricingEyebrow: string;
+  pricingTitle: string;
+  pricingDescription: string;
+  pricingPoints: string[];
+  globalPlan: string;
+  youPay: string;
+  oneTimeUsage: string;
+  officialPriceBasis: string;
+  pricingNote: string;
+  buyCredits: string;
+  audienceEyebrow: string;
+  audienceTitle: string;
+  audiences: ContentItem[];
+  faqEyebrow: string;
+  faqTitle: string;
+  faqDescription: string;
+  faqs: FaqItem[];
   ctaTitle: string;
   ctaDescription: string;
-  signupBonus: string;
-  enterpriseDiscount: string;
+  footerTagline: string;
+  footerPowered: string;
+  contactWechat: string;
+  copyWechat: string;
+  copiedWechat: string;
+  copyTelegram: string;
+  copiedTelegram: string;
   docsCenterEyebrow: string;
   docsCenterTitle: string;
   docsCenterDescription: string;
@@ -55,56 +87,110 @@ export type Messages = {
   docsCodexDescription: string;
   docsEnter: string;
   docsBack: string;
-  contactWechat: string;
-  copyWechat: string;
-  copiedWechat: string;
 };
 
 export const messages: Record<Locale, Messages> = {
   'zh-CN': {
-    eyebrow: '统一智能基础设施',
-    titleLead: '一个接口，',
-    titleTail: '连接所有',
-    descriptionLine1: '聚合全球主流大模型，兼容 OpenAI API 格式。',
-    descriptionLine2: '更稳定的链路，更透明的成本，为每一次调用而设计。',
-    start: '立即接入 API',
-    docs: '查看教程文档',
-    trust: '一个密钥 · 所有模型 · 随时可用',
+    eyebrow: '面向开发者的 AI API 平台',
+    heroTitle: '以更低成本接入 Claude、GPT-5、Codex 与',
+    heroHighlight: 'Gemini',
+    heroDescription: '稳定的统一 API、按量付费和即时开通，为真实开发与生产调用而设计。',
+    start: '立即开始',
+    viewPricing: '查看价格',
+    docs: '开发文档',
+    trust: '一个密钥 · 多家模型 · 全球可用',
     unifiedApi: '统一 API',
     operational: '所有系统运行正常',
     recharge: '额度充值',
-    imageGeneration: '在线生图',
-    joinGroup: '加入群领取 Token',
-    tokenReward: '社区专属福利',
+    imageGeneration: '在线生图（该功能仍在测试中）',
+    joinGroup: '加入社群',
+    tokenReward: '社群与 Token 福利',
     telegramGroup: 'Telegram 群',
     wechatGroup: '微信群',
-    featuresEyebrow: '为什么选择 icon',
-    featuresTitle: '为稳定调用而生',
-    featuresDescription: '从个人项目到企业级业务，用一套简单、透明且可靠的 AI 基础设施持续扩展。',
-    openClawTitle: '完美适配 OpenClaw',
-    openClawDescription: '只需修改 Base URL 和 API Key，即可为智能体接入多家主流模型，随时切换更合适的能力。',
-    flexibleTitle: '灵活透明计费',
-    flexibleDescription: '按实际 Token 用量精确计费，余额长期有效，成本清晰可控。',
-    modelsTitle: '全球模型聚合',
-    modelsDescription: '一个 API Key 解锁 GPT、Claude、Gemini、DeepSeek 等主流模型。',
-    supportTitle: '稳定服务保障',
-    supportDescription: '多线路智能调度与故障切换，为高并发和关键业务提供稳定支撑。',
-    developerTitle: '开发者友好',
-    developerDescription: '兼容 OpenAI 接口协议，无需重写代码即可接入现有项目和工具。',
-    stepsEyebrow: '快速开始',
-    stepsTitle: '三步连接智能世界',
-    stepOneTitle: '创建 API Key',
-    stepOneDescription: '进入控制台创建密钥，并按需设置额度与权限。',
-    stepTwoTitle: '替换接口地址',
-    stepTwoDescription: '沿用熟悉的 OpenAI SDK，只需替换 Base URL。',
-    stepThreeTitle: '选择模型调用',
-    stepThreeDescription: '自由切换模型，让每个任务使用更合适的智能能力。',
-    ctaTitle: '准备好开始构建了吗？',
-    ctaDescription: '一个密钥连接主流 AI 模型，让下一次调用更简单。',
     signupBonus: '注册即送免费 Token',
     enterpriseDiscount: '企业批量订购享专属折扣',
+    priceCardKicker: '简单透明的价格',
+    officialUsage: '官方价格等值用量',
+    priceCardDescription: '所有模型均按各提供商公开的官方 API 价格基准计算用量。',
+    saveAbout: '约省 70%',
+    featuresEyebrow: '为什么选择 Tamgur',
+    featuresTitle: '低成本，也要稳定可靠',
+    featuresDescription: '面向真实开发与生产环境，而不是一次性的廉价 Token。',
+    features: [
+      { title: '更低成本', description: '相比官方 API 价格节省约 70%，让每一笔模型调用更划算。' },
+      { title: '快速稳定', description: '优化路由与故障切换，为持续开发和生产调用提供可靠链路。' },
+      { title: '隐私优先', description: '不同客户的请求相互隔离，不会与其他客户共享。' },
+      { title: '按量付费', description: '无需订阅，只为实际消耗的模型用量付费。' },
+      { title: '全球访问', description: '面向全球用户，即时开通，一个密钥访问多家模型。' },
+    ],
+    modelsEyebrow: '可用模型',
+    modelsTitle: '一个平台，连接主流 AI',
+    modelsDescription: '通过统一、兼容 OpenAI 的接口访问不同模型提供商。',
+    providers: [
+      { name: 'Claude', models: 'Opus · Sonnet · Claude Code' },
+      { name: 'OpenAI & Codex', models: 'GPT-5 · GPT-5 Mini · Codex' },
+      { name: 'Gemini', models: 'Gemini Pro · Gemini Flash' },
+    ],
+    availableNow: '当前可用',
+    integrationTitle: '替换 Base URL 即可接入现有项目',
+    pricingEyebrow: '简单透明的计费',
+    pricingTitle: '支付 $2.99，获得 $10 官方价格等值用量',
+    pricingDescription: '不是官方充值卡。你的余额会根据所选模型的官方 API 公开价格计算消耗。',
+    pricingPoints: [
+      '适用于平台内全部可用模型',
+      '无需月费或长期订阅',
+      '充值后即可开始使用',
+    ],
+    globalPlan: '全球按量付费方案',
+    youPay: '你支付',
+    oneTimeUsage: '按量使用',
+    officialPriceBasis: '官方价格基准',
+    pricingNote: '示例：当模型调用按官方定价累计达到 $10 时，你在 Tamgur 的对应成本为 $2.99。',
+    buyCredits: '购买 API 用量',
+    audienceEyebrow: '适合谁',
+    audienceTitle: '为构建者准备',
+    audiences: [
+      { title: '开发者', description: '以更低成本构建、测试和运行 AI 应用。' },
+      { title: '创业团队', description: '在业务扩张时控制推理成本与基础设施复杂度。' },
+      { title: 'AI 构建者', description: '通过一个平台快速组合和切换不同模型。' },
+      { title: '学生', description: '无需昂贵订阅，也能持续实验主流模型。' },
+    ],
+    faqEyebrow: '常见问题',
+    faqTitle: '购买前需要了解的内容',
+    faqDescription: '关于价格、隐私、开通和 API 接入的直接回答。',
+    faqs: [
+      {
+        question: '“$10 官方价格等值用量”是什么意思？',
+        answer: 'Tamgur 按各模型提供商公开的官方 API 价格计算消耗。支付 $2.99 后，你可以使用相当于官方价格 $10 的模型调用量。',
+      },
+      {
+        question: '使用的是原厂官方模型吗？',
+        answer: '是。Tamgur 底层接入对应提供商的原厂官方模型，不使用替代模型，不套壳，也不会降低模型能力。在模型版本、请求参数和上下文设置一致的情况下，能力与官方模型保持一致；由于生成式 AI 本身具有随机性，每次返回的具体文字可能不同。',
+      },
+      {
+        question: '我的数据安全吗？',
+        answer: '用户请求相互隔离，不会与其他客户共享。请不要在请求中发送不必要的敏感信息。',
+      },
+      {
+        question: '付款后多久可以使用？',
+        answer: '通常付款完成后几秒内即可开通并在控制台中使用额度。',
+      },
+      {
+        question: '需要订阅吗？',
+        answer: '不需要。Tamgur 采用按量付费模式，你只需为实际使用的额度充值。',
+      },
+    ],
+    ctaTitle: '更快构建，更少支出',
+    ctaDescription: '用一个密钥接入 Claude、GPT、Codex 和 Gemini。',
+    footerTagline: '更快构建，更少支出',
+    footerPowered: 'Powered by Tamgur',
+    contactWechat: '联系 WeChat',
+    copyWechat: '复制微信号',
+    copiedWechat: '微信号已复制',
+    copyTelegram: '复制 Telegram 号码',
+    copiedTelegram: 'Telegram 号码已复制',
     docsCenterEyebrow: 'DOCUMENTATION',
-    docsCenterTitle: 'Tamgur开放平台文档中心',
+    docsCenterTitle: 'Tamgur 开放平台文档中心',
     docsCenterDescription: '选择你需要接入的服务类型',
     docsAppsTitle: 'AI 应用配置文档',
     docsAppsDescription: 'OpenClaw、Claude Code、Codex 等 AI 应用集成方案',
@@ -114,111 +200,219 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: '快速配置 API 地址、密钥与模型，帮助 Codex 新用户完成基础接入',
     docsEnter: '进入查阅',
     docsBack: '返回首页',
-    contactWechat: '任何问题请联系 WeChat',
-    copyWechat: '复制微信号',
-    copiedWechat: '已复制',
   },
   en: {
-    eyebrow: 'Unified intelligence infrastructure',
-    titleLead: 'One interface,',
-    titleTail: 'every',
-    descriptionLine1: 'Access leading AI models through one OpenAI-compatible API.',
-    descriptionLine2: 'Stable routing and transparent pricing, designed for every call.',
-    start: 'Connect API now',
-    docs: 'View tutorials',
-    trust: 'One key · Every model · Always ready',
+    eyebrow: 'AI API platform for developers',
+    heroTitle: 'Access Claude, GPT-5, Codex & Gemini at',
+    heroHighlight: 'Lower Cost',
+    heroDescription: 'Stable unified API access, pay-as-you-go billing, and instant activation for real development and production workloads.',
+    start: 'Get Started',
+    viewPricing: 'View Pricing',
+    docs: 'Documentation',
+    trust: 'One key · Multiple models · Global access',
     unifiedApi: 'Unified API',
     operational: 'All systems operational',
-    recharge: 'Add credits',
-    imageGeneration: 'Generate images',
-    joinGroup: 'Join & claim Token',
-    tokenReward: 'Community rewards',
+    recharge: 'Add Credits',
+    imageGeneration: 'Generate Images (still in testing)',
+    joinGroup: 'Join Community',
+    tokenReward: 'Community and Token rewards',
     telegramGroup: 'Telegram group',
     wechatGroup: 'WeChat group',
-    featuresEyebrow: 'Why icon',
-    featuresTitle: 'Built for reliable inference',
-    featuresDescription: 'A simple, transparent and dependable AI infrastructure that scales from side projects to production.',
-    openClawTitle: 'Ready for OpenClaw',
-    openClawDescription: 'Change the Base URL and API key to connect your agents with leading models and switch capabilities at any time.',
-    flexibleTitle: 'Transparent usage pricing',
-    flexibleDescription: 'Pay precisely for consumed Token. Credits stay available and costs remain predictable.',
-    modelsTitle: 'Global model access',
-    modelsDescription: 'Unlock GPT, Claude, Gemini, DeepSeek and more with a single API key.',
-    supportTitle: 'Reliable by design',
-    supportDescription: 'Intelligent routing and failover keep high-volume and critical workloads moving.',
-    developerTitle: 'Developer friendly',
-    developerDescription: 'OpenAI-compatible by default, so existing projects and tools connect without rewrites.',
-    stepsEyebrow: 'Quick start',
-    stepsTitle: 'Connect intelligence in three steps',
-    stepOneTitle: 'Create an API key',
-    stepOneDescription: 'Create a key in the console and configure limits and permissions.',
-    stepTwoTitle: 'Replace the endpoint',
-    stepTwoDescription: 'Keep your OpenAI SDK and update only the Base URL.',
-    stepThreeTitle: 'Choose and call',
-    stepThreeDescription: 'Switch models freely and match every task with the right capability.',
-    ctaTitle: 'Ready to start building?',
-    ctaDescription: 'Connect leading AI models with one key and simplify every call.',
     signupBonus: 'Free Token when you sign up',
     enterpriseDiscount: 'Exclusive discounts for enterprise orders',
+    priceCardKicker: 'Simple, transparent pricing',
+    officialUsage: 'official-price API usage',
+    priceCardDescription: 'Usage is calculated against each model provider’s published official API pricing.',
+    saveAbout: 'Save about 70%',
+    featuresEyebrow: 'Why developers choose Tamgur',
+    featuresTitle: 'Lower cost. Built to stay reliable.',
+    featuresDescription: 'Infrastructure for real development and production workloads, not disposable discount tokens.',
+    features: [
+      { title: 'Lower Cost', description: 'Save about 70% compared with official API pricing across supported models.' },
+      { title: 'Fast & Stable', description: 'Optimized routing and failover keep development and production requests moving.' },
+      { title: 'Privacy First', description: 'Customer requests are isolated and never shared with other customers.' },
+      { title: 'Pay As You Go', description: 'No subscription required. Pay only for the model usage you consume.' },
+      { title: 'Global Access', description: 'Activate instantly and reach multiple providers worldwide with one API key.' },
+    ],
+    modelsEyebrow: 'Available models',
+    modelsTitle: 'Leading AI, one platform',
+    modelsDescription: 'Reach multiple model providers through one unified, OpenAI-compatible interface.',
+    providers: [
+      { name: 'Claude', models: 'Opus · Sonnet · Claude Code' },
+      { name: 'OpenAI & Codex', models: 'GPT-5 · GPT-5 Mini · Codex' },
+      { name: 'Gemini', models: 'Gemini Pro · Gemini Flash' },
+    ],
+    availableNow: 'Available now',
+    integrationTitle: 'Connect existing projects by changing the Base URL',
+    pricingEyebrow: 'Simple, transparent pricing',
+    pricingTitle: 'Pay $2.99 for $10 of official-price API usage',
+    pricingDescription: 'This is not an official gift card. Your balance is consumed against each selected model’s published official API pricing.',
+    pricingPoints: [
+      'Applies across all models available on the platform',
+      'No monthly fee or long-term subscription',
+      'Start using your balance immediately after payment',
+    ],
+    globalPlan: 'Global pay-as-you-go plan',
+    youPay: 'You pay',
+    oneTimeUsage: 'pay as you go',
+    officialPriceBasis: 'Official price basis',
+    pricingNote: 'Example: when your model calls total $10 at published official API prices, the corresponding Tamgur cost is $2.99.',
+    buyCredits: 'Buy API Usage',
+    audienceEyebrow: 'Built for',
+    audienceTitle: 'Made for people who build',
+    audiences: [
+      { title: 'Developers', description: 'Build, test, and run AI applications with lower model costs.' },
+      { title: 'Startups', description: 'Control inference expenses and infrastructure complexity while scaling.' },
+      { title: 'AI Builders', description: 'Combine and switch between multiple models through one platform.' },
+      { title: 'Students', description: 'Experiment with leading models without expensive subscriptions.' },
+    ],
+    faqEyebrow: 'Frequently asked questions',
+    faqTitle: 'Know before you build',
+    faqDescription: 'Direct answers about pricing, privacy, activation, and API access.',
+    faqs: [
+      {
+        question: 'What does “$10 of official-price API usage” mean?',
+        answer: 'Tamgur measures usage against each provider’s published official API pricing. Paying $2.99 gives you the amount of model usage that would cost $10 at those official prices.',
+      },
+      {
+        question: 'Are these genuine models from the official providers?',
+        answer: 'Yes. Tamgur connects to the genuine models provided by their original vendors, without model substitution, wrappers that imitate another model, or capability downgrades. With the same model version, parameters, and context, capabilities are consistent with the provider’s model. Exact wording may still vary because generative AI is nondeterministic.',
+      },
+      {
+        question: 'Is my data private?',
+        answer: 'Customer requests are isolated and are not shared with other customers. Avoid sending unnecessary sensitive information in API requests.',
+      },
+      {
+        question: 'How fast is activation?',
+        answer: 'Access is usually activated within seconds after payment and appears in your dashboard.',
+      },
+      {
+        question: 'Do I need a monthly subscription?',
+        answer: 'No. Tamgur is pay as you go, so you only add balance for the usage you need.',
+      },
+    ],
+    ctaTitle: 'Build faster. Spend less.',
+    ctaDescription: 'Connect Claude, GPT, Codex, and Gemini with one API key.',
+    footerTagline: 'Build faster. Spend less.',
+    footerPowered: 'Powered by Tamgur',
+    contactWechat: 'Contact WeChat',
+    copyWechat: 'Copy WeChat ID',
+    copiedWechat: 'WeChat ID copied',
+    copyTelegram: 'Copy Telegram number',
+    copiedTelegram: 'Telegram number copied',
     docsCenterEyebrow: 'DOCUMENTATION',
     docsCenterTitle: 'Tamgur Documentation Center',
     docsCenterDescription: 'Choose the service you want to integrate',
     docsAppsTitle: 'AI application setup',
-    docsAppsDescription: 'Integration guides for OpenClaw, Claude Code, Codex and other AI apps',
+    docsAppsDescription: 'Integration guides for OpenClaw, Claude Code, Codex, and other AI apps',
     docsApiTitle: 'Getting started / API reference',
-    docsApiDescription: 'Connect chat, image and video generation through an OpenAI-compatible API',
+    docsApiDescription: 'Connect chat, image, and video generation through an OpenAI-compatible API',
     docsCodexTitle: 'Codex API quickstart',
-    docsCodexDescription: 'Configure endpoint, key and model to get Codex connected quickly',
+    docsCodexDescription: 'Configure endpoint, key, and model to get Codex connected quickly',
     docsEnter: 'Explore',
     docsBack: 'Back home',
-    contactWechat: 'Questions? Contact us on WeChat',
-    copyWechat: 'Copy WeChat ID',
-    copiedWechat: 'Copied',
   },
   fr: {
-    eyebrow: "Infrastructure d'intelligence unifiée",
-    titleLead: 'Une interface,',
-    titleTail: 'toutes les',
-    descriptionLine1: "Accédez aux principaux modèles d'IA via une API compatible OpenAI.",
-    descriptionLine2: 'Un routage stable et des tarifs transparents, à chaque appel.',
-    start: "Connecter l'API",
-    docs: 'Voir les tutoriels',
-    trust: 'Une clé · Tous les modèles · Toujours disponible',
+    eyebrow: "Plateforme d'API IA pour les développeurs",
+    heroTitle: 'Accédez à Claude, GPT-5, Codex et Gemini à',
+    heroHighlight: 'moindre coût',
+    heroDescription: "Une API unifiée stable, une facturation à l'usage et une activation immédiate pour le développement et la production.",
+    start: 'Commencer',
+    viewPricing: 'Voir les tarifs',
+    docs: 'Documentation',
+    trust: 'Une clé · Plusieurs modèles · Accès mondial',
     unifiedApi: 'API unifiée',
     operational: 'Tous les systèmes sont opérationnels',
-    recharge: 'Recharger',
-    imageGeneration: 'Générer des images',
-    joinGroup: 'Rejoindre et recevoir des Token',
-    tokenReward: 'Avantages communautaires',
+    recharge: 'Ajouter du crédit',
+    imageGeneration: 'Générer des images (fonction en test)',
+    joinGroup: 'Rejoindre la communauté',
+    tokenReward: 'Communauté et avantages Token',
     telegramGroup: 'Groupe Telegram',
     wechatGroup: 'Groupe WeChat',
-    featuresEyebrow: 'Pourquoi icon',
-    featuresTitle: 'Conçu pour une IA fiable',
-    featuresDescription: "Une infrastructure simple, transparente et fiable, du projet personnel jusqu'à la production.",
-    openClawTitle: 'Compatible avec OpenClaw',
-    openClawDescription: "Modifiez l'URL de base et la clé API pour connecter vos agents aux principaux modèles.",
-    flexibleTitle: 'Tarification transparente',
-    flexibleDescription: 'Payez uniquement les Token consommés, avec des crédits durables et des coûts prévisibles.',
-    modelsTitle: 'Accès mondial aux modèles',
-    modelsDescription: 'GPT, Claude, Gemini, DeepSeek et plus encore avec une seule clé API.',
-    supportTitle: 'Fiabilité intégrée',
-    supportDescription: 'Le routage intelligent et le basculement protègent les charges critiques.',
-    developerTitle: 'Pensé pour les développeurs',
-    developerDescription: "Compatible OpenAI, sans réécriture de vos projets et outils existants.",
-    stepsEyebrow: 'Démarrage rapide',
-    stepsTitle: "Connectez l'intelligence en trois étapes",
-    stepOneTitle: 'Créez une clé API',
-    stepOneDescription: 'Créez une clé dans la console et configurez les limites.',
-    stepTwoTitle: "Remplacez l'adresse",
-    stepTwoDescription: "Gardez votre SDK OpenAI et modifiez seulement l'URL de base.",
-    stepThreeTitle: 'Choisissez un modèle',
-    stepThreeDescription: 'Changez librement de modèle selon chaque besoin.',
-    ctaTitle: 'Prêt à construire ?',
-    ctaDescription: "Connectez les meilleurs modèles d'IA avec une seule clé.",
     signupBonus: "Token gratuits à l'inscription",
-    enterpriseDiscount: 'Tarifs préférentiels pour les entreprises',
+    enterpriseDiscount: 'Remises exclusives pour les entreprises',
+    priceCardKicker: 'Tarification simple et transparente',
+    officialUsage: "d'utilisation au tarif officiel",
+    priceCardDescription: "L'utilisation est calculée selon les tarifs API officiels publiés par chaque fournisseur.",
+    saveAbout: 'Environ 70 % économisés',
+    featuresEyebrow: 'Pourquoi choisir Tamgur',
+    featuresTitle: 'Moins cher, sans sacrifier la fiabilité',
+    featuresDescription: "Une infrastructure conçue pour le développement réel et la production.",
+    features: [
+      { title: 'Coût réduit', description: "Économisez environ 70 % par rapport aux tarifs API officiels." },
+      { title: 'Rapide et stable', description: 'Le routage optimisé et le basculement maintiennent vos requêtes disponibles.' },
+      { title: 'Confidentialité', description: 'Les requêtes de chaque client sont isolées et ne sont jamais partagées.' },
+      { title: "Paiement à l'usage", description: "Sans abonnement, payez uniquement l'utilisation réellement consommée." },
+      { title: 'Accès mondial', description: 'Activation immédiate et plusieurs fournisseurs avec une seule clé API.' },
+    ],
+    modelsEyebrow: 'Modèles disponibles',
+    modelsTitle: "Les meilleures IA sur une plateforme",
+    modelsDescription: "Accédez à plusieurs fournisseurs via une interface unifiée compatible OpenAI.",
+    providers: [
+      { name: 'Claude', models: 'Opus · Sonnet · Claude Code' },
+      { name: 'OpenAI & Codex', models: 'GPT-5 · GPT-5 Mini · Codex' },
+      { name: 'Gemini', models: 'Gemini Pro · Gemini Flash' },
+    ],
+    availableNow: 'Disponible',
+    integrationTitle: "Connectez vos projets en modifiant simplement l'URL de base",
+    pricingEyebrow: 'Tarification simple et transparente',
+    pricingTitle: "Payez 2,99 $ pour 10 $ d'utilisation au tarif officiel",
+    pricingDescription: "Il ne s'agit pas d'une carte cadeau officielle. Le solde est consommé selon le tarif API officiel publié du modèle choisi.",
+    pricingPoints: [
+      'Valable pour tous les modèles disponibles',
+      'Aucun abonnement mensuel',
+      'Utilisation immédiate après le paiement',
+    ],
+    globalPlan: "Offre mondiale à l'usage",
+    youPay: 'Vous payez',
+    oneTimeUsage: "paiement à l'usage",
+    officialPriceBasis: 'Base tarifaire officielle',
+    pricingNote: "Exemple : 10 $ d'appels calculés aux tarifs API officiels correspondent à un coût Tamgur de 2,99 $.",
+    buyCredits: "Acheter de l'utilisation API",
+    audienceEyebrow: 'Conçu pour',
+    audienceTitle: 'Pensé pour ceux qui construisent',
+    audiences: [
+      { title: 'Développeurs', description: 'Créez et exploitez des applications IA à moindre coût.' },
+      { title: 'Startups', description: "Maîtrisez les coûts d'inférence pendant votre croissance." },
+      { title: "Créateurs d'IA", description: 'Combinez et changez de modèle depuis une seule plateforme.' },
+      { title: 'Étudiants', description: 'Expérimentez sans souscriptions coûteuses.' },
+    ],
+    faqEyebrow: 'Questions fréquentes',
+    faqTitle: 'À savoir avant de commencer',
+    faqDescription: 'Des réponses directes sur les tarifs, la confidentialité et l’accès.',
+    faqs: [
+      {
+        question: "Que signifie « 10 $ d'utilisation au tarif officiel » ?",
+        answer: "Tamgur mesure l'utilisation selon les tarifs API officiels publiés. Pour 2,99 $, vous obtenez la quantité d'appels qui coûterait 10 $ à ces tarifs.",
+      },
+      {
+        question: "S'agit-il des modèles authentiques des fournisseurs officiels ?",
+        answer: "Oui. Tamgur se connecte aux modèles authentiques fournis par leurs éditeurs d'origine, sans substitution ni réduction de leurs capacités. Avec la même version, les mêmes paramètres et le même contexte, leurs capacités restent cohérentes avec celles du fournisseur. Le texte exact peut varier car l'IA générative est non déterministe.",
+      },
+      {
+        question: 'Mes données sont-elles privées ?',
+        answer: 'Les requêtes sont isolées et ne sont pas partagées avec les autres clients.',
+      },
+      {
+        question: "Quel est le délai d'activation ?",
+        answer: "L'accès est généralement activé quelques secondes après le paiement.",
+      },
+      {
+        question: 'Un abonnement est-il nécessaire ?',
+        answer: "Non. Tamgur fonctionne à l'usage, sans abonnement mensuel.",
+      },
+    ],
+    ctaTitle: 'Construisez plus vite. Dépensez moins.',
+    ctaDescription: 'Connectez Claude, GPT, Codex et Gemini avec une seule clé.',
+    footerTagline: 'Construisez plus vite. Dépensez moins.',
+    footerPowered: 'Propulsé par Tamgur',
+    contactWechat: 'Contact WeChat',
+    copyWechat: "Copier l'identifiant WeChat",
+    copiedWechat: 'Identifiant WeChat copié',
+    copyTelegram: 'Copier le numéro Telegram',
+    copiedTelegram: 'Numéro Telegram copié',
     docsCenterEyebrow: 'DOCUMENTATION',
-    docsCenterTitle: 'Tamgur Centre de documentation icon',
+    docsCenterTitle: 'Centre de documentation Tamgur',
     docsCenterDescription: 'Choisissez le service à intégrer',
     docsAppsTitle: "Configuration d'applications IA",
     docsAppsDescription: 'Guides pour OpenClaw, Claude Code, Codex et autres applications',
@@ -228,56 +422,110 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: "Configurez l'adresse, la clé et le modèle pour connecter Codex",
     docsEnter: 'Consulter',
     docsBack: "Retour à l'accueil",
-    contactWechat: 'Une question ? Contactez-nous sur WeChat',
-    copyWechat: "Copier l'identifiant WeChat",
-    copiedWechat: 'Copié',
   },
   ru: {
-    eyebrow: 'Единая инфраструктура искусственного интеллекта',
-    titleLead: 'Один интерфейс,',
-    titleTail: 'все модели',
-    descriptionLine1: 'Доступ к ведущим ИИ-моделям через API, совместимый с OpenAI.',
-    descriptionLine2: 'Стабильная маршрутизация и прозрачные цены для каждого запроса.',
-    start: 'Подключить API',
-    docs: 'Инструкции',
-    trust: 'Один ключ · Все модели · Всегда доступны',
+    eyebrow: 'Платформа AI API для разработчиков',
+    heroTitle: 'Claude, GPT-5, Codex и Gemini по',
+    heroHighlight: 'меньшей цене',
+    heroDescription: 'Стабильный единый API, оплата по мере использования и мгновенная активация для разработки и производственных нагрузок.',
+    start: 'Начать',
+    viewPricing: 'Посмотреть цены',
+    docs: 'Документация',
+    trust: 'Один ключ · Несколько моделей · Глобальный доступ',
     unifiedApi: 'Единый API',
     operational: 'Все системы работают',
     recharge: 'Пополнить баланс',
-    imageGeneration: 'Создать изображение',
-    joinGroup: 'Вступить и получить токены',
-    tokenReward: 'Бонусы сообщества',
+    imageGeneration: 'Создать изображение (функция тестируется)',
+    joinGroup: 'Вступить в сообщество',
+    tokenReward: 'Сообщество и бонусы Token',
     telegramGroup: 'Группа Telegram',
     wechatGroup: 'Группа WeChat',
-    featuresEyebrow: 'Почему icon',
-    featuresTitle: 'Надёжная инфраструктура ИИ',
-    featuresDescription: 'Простая и прозрачная платформа для проектов любого масштаба.',
-    openClawTitle: 'Совместимость с OpenClaw',
-    openClawDescription: 'Замените Base URL и API-ключ, чтобы подключить агентов к ведущим моделям.',
-    flexibleTitle: 'Прозрачная оплата',
-    flexibleDescription: 'Оплачивайте только использованные токены с понятным контролем расходов.',
-    modelsTitle: 'Все модели в одном месте',
-    modelsDescription: 'GPT, Claude, Gemini, DeepSeek и другие модели по одному API-ключу.',
-    supportTitle: 'Стабильная работа',
-    supportDescription: 'Умная маршрутизация и переключение каналов защищают важные нагрузки.',
-    developerTitle: 'Удобно разработчикам',
-    developerDescription: 'Совместимость с OpenAI позволяет подключаться без переписывания кода.',
-    stepsEyebrow: 'Быстрый старт',
-    stepsTitle: 'Три шага к миру ИИ',
-    stepOneTitle: 'Создайте API-ключ',
-    stepOneDescription: 'Создайте ключ в консоли и настройте лимиты.',
-    stepTwoTitle: 'Замените адрес',
-    stepTwoDescription: 'Оставьте OpenAI SDK и измените только Base URL.',
-    stepThreeTitle: 'Выберите модель',
-    stepThreeDescription: 'Свободно переключайте модели под каждую задачу.',
-    ctaTitle: 'Готовы начать?',
-    ctaDescription: 'Подключите ведущие модели ИИ с помощью одного ключа.',
-    signupBonus: 'Бесплатные токены за регистрацию',
-    enterpriseDiscount: 'Специальные скидки для корпоративных заказов',
+    signupBonus: 'Бесплатные Token при регистрации',
+    enterpriseDiscount: 'Специальные скидки для компаний',
+    priceCardKicker: 'Простые и прозрачные цены',
+    officialUsage: 'использования по официальной цене',
+    priceCardDescription: 'Расход рассчитывается по опубликованным официальным API-тарифам каждого провайдера.',
+    saveAbout: 'Экономия около 70%',
+    featuresEyebrow: 'Почему выбирают Tamgur',
+    featuresTitle: 'Ниже цена, стабильнее работа',
+    featuresDescription: 'Инфраструктура для разработки и реальных производственных нагрузок.',
+    features: [
+      { title: 'Ниже стоимость', description: 'Экономьте около 70% относительно официальных API-тарифов.' },
+      { title: 'Быстро и стабильно', description: 'Оптимизированная маршрутизация и резервирование поддерживают доступность.' },
+      { title: 'Конфиденциальность', description: 'Запросы клиентов изолированы и не передаются другим клиентам.' },
+      { title: 'Оплата по факту', description: 'Без подписки: платите только за фактически использованный объём.' },
+      { title: 'Глобальный доступ', description: 'Мгновенная активация и несколько провайдеров по одному ключу.' },
+    ],
+    modelsEyebrow: 'Доступные модели',
+    modelsTitle: 'Ведущие AI-модели на одной платформе',
+    modelsDescription: 'Единый интерфейс, совместимый с OpenAI, для нескольких провайдеров.',
+    providers: [
+      { name: 'Claude', models: 'Opus · Sonnet · Claude Code' },
+      { name: 'OpenAI & Codex', models: 'GPT-5 · GPT-5 Mini · Codex' },
+      { name: 'Gemini', models: 'Gemini Pro · Gemini Flash' },
+    ],
+    availableNow: 'Доступно',
+    integrationTitle: 'Подключите проект, изменив только Base URL',
+    pricingEyebrow: 'Простые и прозрачные цены',
+    pricingTitle: '$2.99 за $10 использования по официальным тарифам',
+    pricingDescription: 'Это не официальная подарочная карта. Баланс расходуется по опубликованной официальной API-цене выбранной модели.',
+    pricingPoints: [
+      'Действует для всех доступных моделей',
+      'Без ежемесячной платы и подписки',
+      'Использование сразу после оплаты',
+    ],
+    globalPlan: 'Глобальный план с оплатой по факту',
+    youPay: 'Вы платите',
+    oneTimeUsage: 'оплата по факту',
+    officialPriceBasis: 'Официальная цена',
+    pricingNote: 'Пример: вызовы на $10 по официальным API-тарифам соответствуют стоимости $2.99 в Tamgur.',
+    buyCredits: 'Купить API-объём',
+    audienceEyebrow: 'Для кого',
+    audienceTitle: 'Для тех, кто создаёт',
+    audiences: [
+      { title: 'Разработчики', description: 'Создавайте и запускайте AI-приложения с меньшими затратами.' },
+      { title: 'Стартапы', description: 'Контролируйте расходы на инференс при масштабировании.' },
+      { title: 'AI-разработчики', description: 'Комбинируйте и переключайте модели на одной платформе.' },
+      { title: 'Студенты', description: 'Экспериментируйте без дорогих подписок.' },
+    ],
+    faqEyebrow: 'Частые вопросы',
+    faqTitle: 'Что важно знать',
+    faqDescription: 'Прямые ответы о цене, приватности, активации и API.',
+    faqs: [
+      {
+        question: 'Что означает «$10 использования по официальной цене»?',
+        answer: 'Tamgur считает расход по опубликованным официальным API-тарифам. За $2.99 вы получаете объём вызовов, который по этим тарифам стоил бы $10.',
+      },
+      {
+        question: 'Используются настоящие модели официальных провайдеров?',
+        answer: 'Да. Tamgur подключается к настоящим моделям их исходных провайдеров без подмены, имитации другой модели или снижения возможностей. При одинаковой версии модели, параметрах и контексте возможности соответствуют модели провайдера. Точный текст ответа может различаться из-за недетерминированности генеративного ИИ.',
+      },
+      {
+        question: 'Мои данные конфиденциальны?',
+        answer: 'Запросы клиентов изолированы и не передаются другим клиентам.',
+      },
+      {
+        question: 'Как быстро происходит активация?',
+        answer: 'Обычно доступ активируется в течение нескольких секунд после оплаты.',
+      },
+      {
+        question: 'Нужна ежемесячная подписка?',
+        answer: 'Нет. Tamgur работает по модели оплаты за фактическое использование.',
+      },
+    ],
+    ctaTitle: 'Создавайте быстрее. Тратьте меньше.',
+    ctaDescription: 'Claude, GPT, Codex и Gemini по одному API-ключу.',
+    footerTagline: 'Создавайте быстрее. Тратьте меньше.',
+    footerPowered: 'Работает на Tamgur',
+    contactWechat: 'Связаться в WeChat',
+    copyWechat: 'Копировать WeChat ID',
+    copiedWechat: 'WeChat ID скопирован',
+    copyTelegram: 'Копировать номер Telegram',
+    copiedTelegram: 'Номер Telegram скопирован',
     docsCenterEyebrow: 'ДОКУМЕНТАЦИЯ',
-    docsCenterTitle: 'Tamgur Центр документации icon',
+    docsCenterTitle: 'Центр документации Tamgur',
     docsCenterDescription: 'Выберите нужный тип интеграции',
-    docsAppsTitle: 'Настройка ИИ-приложений',
+    docsAppsTitle: 'Настройка AI-приложений',
     docsAppsDescription: 'Интеграция OpenClaw, Claude Code, Codex и других приложений',
     docsApiTitle: 'Начало работы / API',
     docsApiDescription: 'Чат, изображения и видео через API, совместимый с OpenAI',
@@ -285,52 +533,106 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: 'Настройте адрес API, ключ и модель для подключения Codex',
     docsEnter: 'Открыть',
     docsBack: 'На главную',
-    contactWechat: 'Есть вопросы? Напишите нам в WeChat',
-    copyWechat: 'Копировать WeChat ID',
-    copiedWechat: 'Скопировано',
   },
   ja: {
-    eyebrow: '統合インテリジェンス基盤',
-    titleLead: 'ひとつの API で、',
-    titleTail: 'すべての',
-    descriptionLine1: 'OpenAI 互換 API で、主要な AI モデルへシームレスに接続。',
-    descriptionLine2: '安定したルーティングと透明な料金で、すべての呼び出しを支えます。',
-    start: 'API に接続',
-    docs: 'チュートリアル',
-    trust: 'ひとつのキー · すべてのモデル · いつでも利用可能',
+    eyebrow: '開発者向け AI API プラットフォーム',
+    heroTitle: 'Claude、GPT-5、Codex、Gemini を',
+    heroHighlight: 'より低コストで',
+    heroDescription: '安定した統合 API、従量課金、即時有効化。実際の開発と本番環境のために設計されています。',
+    start: '始める',
+    viewPricing: '料金を見る',
+    docs: 'ドキュメント',
+    trust: '1つのキー · 複数モデル · グローバルアクセス',
     unifiedApi: '統合 API',
     operational: 'すべてのシステムは正常です',
     recharge: 'クレジットを追加',
-    imageGeneration: '画像を生成',
-    joinGroup: 'グループ参加でトークン獲得',
-    tokenReward: 'コミュニティ限定特典',
+    imageGeneration: '画像を生成（テスト中）',
+    joinGroup: 'コミュニティに参加',
+    tokenReward: 'コミュニティと Token 特典',
     telegramGroup: 'Telegram グループ',
     wechatGroup: 'WeChat グループ',
-    featuresEyebrow: 'が選ばれる理由',
-    featuresTitle: '安定した推論のために',
-    featuresDescription: '個人開発から本番環境まで拡張できる、シンプルで透明性の高い AI 基盤。',
-    openClawTitle: 'OpenClaw に完全対応',
-    openClawDescription: 'Base URL と API キーを変更するだけで、主要モデルをエージェントに接続できます。',
-    flexibleTitle: '透明な従量課金',
-    flexibleDescription: '実際に使用した Token のみを課金。残高とコストを明確に管理できます。',
-    modelsTitle: '主要モデルを集約',
-    modelsDescription: 'ひとつの API キーで GPT、Claude、Gemini、DeepSeek などを利用できます。',
-    supportTitle: '安定したサービス',
-    supportDescription: 'インテリジェントなルーティングとフェイルオーバーで重要な処理を支えます。',
-    developerTitle: '開発者にやさしい',
-    developerDescription: 'OpenAI 互換のため、既存コードを書き直さずに接続できます。',
-    stepsEyebrow: 'クイックスタート',
-    stepsTitle: '3 ステップで AI に接続',
-    stepOneTitle: 'API キーを作成',
-    stepOneDescription: 'コンソールでキーを作成し、上限と権限を設定します。',
-    stepTwoTitle: '接続先を変更',
-    stepTwoDescription: 'OpenAI SDK はそのまま、Base URL のみ変更します。',
-    stepThreeTitle: 'モデルを選択',
-    stepThreeDescription: 'タスクに合わせて最適なモデルを自由に切り替えます。',
-    ctaTitle: '構築を始めませんか？',
-    ctaDescription: 'ひとつのキーで主要 AI モデルに接続できます。',
-    signupBonus: '登録で無料トークンをプレゼント',
-    enterpriseDiscount: '法人一括購入限定割引',
+    signupBonus: '登録で無料 Token',
+    enterpriseDiscount: '法人向け特別割引',
+    priceCardKicker: 'シンプルで透明な料金',
+    officialUsage: '公式価格換算の API 利用量',
+    priceCardDescription: '各プロバイダーが公開する公式 API 料金を基準に利用量を計算します。',
+    saveAbout: '約 70% 節約',
+    featuresEyebrow: 'Tamgur が選ばれる理由',
+    featuresTitle: '低コストと安定性を両立',
+    featuresDescription: '実際の開発と本番環境のための AI インフラです。',
+    features: [
+      { title: '低コスト', description: '公式 API 料金と比べて約 70% のコストを削減できます。' },
+      { title: '高速で安定', description: '最適化されたルーティングとフェイルオーバーで可用性を維持します。' },
+      { title: 'プライバシー重視', description: '顧客ごとのリクエストを分離し、他の顧客と共有しません。' },
+      { title: '従量課金', description: '月額契約は不要。実際に利用した分だけ支払います。' },
+      { title: 'グローバル対応', description: '即時有効化し、1つのキーで複数プロバイダーに接続できます。' },
+    ],
+    modelsEyebrow: '利用可能なモデル',
+    modelsTitle: '主要 AI をひとつのプラットフォームで',
+    modelsDescription: 'OpenAI 互換の統合インターフェースから複数のモデルに接続できます。',
+    providers: [
+      { name: 'Claude', models: 'Opus · Sonnet · Claude Code' },
+      { name: 'OpenAI & Codex', models: 'GPT-5 · GPT-5 Mini · Codex' },
+      { name: 'Gemini', models: 'Gemini Pro · Gemini Flash' },
+    ],
+    availableNow: '利用可能',
+    integrationTitle: 'Base URL を変更するだけで既存プロジェクトに接続',
+    pricingEyebrow: 'シンプルで透明な料金',
+    pricingTitle: '$2.99 で公式価格 $10 相当の API 利用量',
+    pricingDescription: '公式ギフトカードではありません。選択したモデルの公開公式 API 料金を基準に残高が消費されます。',
+    pricingPoints: [
+      'プラットフォーム上のすべてのモデルに適用',
+      '月額料金や長期契約なし',
+      '支払い後すぐに利用開始',
+    ],
+    globalPlan: 'グローバル従量課金プラン',
+    youPay: 'お支払い',
+    oneTimeUsage: '従量課金',
+    officialPriceBasis: '公式価格基準',
+    pricingNote: '例：公式 API 料金で $10 になるモデル呼び出しは、Tamgur では $2.99 に相当します。',
+    buyCredits: 'API 利用量を購入',
+    audienceEyebrow: '対象ユーザー',
+    audienceTitle: 'つくる人のために',
+    audiences: [
+      { title: '開発者', description: 'より低いモデルコストで AI アプリを構築・運用できます。' },
+      { title: 'スタートアップ', description: '成長に合わせて推論コストを管理できます。' },
+      { title: 'AI ビルダー', description: '1つの基盤で複数モデルを組み合わせ、切り替えられます。' },
+      { title: '学生', description: '高額なサブスクリプションなしで実験できます。' },
+    ],
+    faqEyebrow: 'よくある質問',
+    faqTitle: '利用前に知っておくこと',
+    faqDescription: '料金、プライバシー、開通、API 接続について回答します。',
+    faqs: [
+      {
+        question: '「公式価格 $10 相当」とは何ですか？',
+        answer: '各社が公開する公式 API 料金を基準に利用量を計算します。$2.99 で、公式料金なら $10 かかる量のモデル呼び出しを利用できます。',
+      },
+      {
+        question: '各社が提供する正規のモデルですか？',
+        answer: 'はい。Tamgur は各提供元の正規モデルに接続し、別モデルへの置き換え、模倣、能力の低下は行いません。同じモデルバージョン、パラメータ、コンテキストであれば、能力は提供元のモデルと同等です。生成 AI にはランダム性があるため、返答の文面は毎回完全には一致しない場合があります。',
+      },
+      {
+        question: 'データは非公開ですか？',
+        answer: '顧客ごとのリクエストは分離され、他の顧客と共有されません。',
+      },
+      {
+        question: 'いつ利用開始できますか？',
+        answer: '通常は支払い後数秒以内に有効化されます。',
+      },
+      {
+        question: '月額契約は必要ですか？',
+        answer: '不要です。Tamgur は従量課金で、必要な利用量だけ購入できます。',
+      },
+    ],
+    ctaTitle: 'より速く構築し、支出を抑える',
+    ctaDescription: '1つの API キーで Claude、GPT、Codex、Gemini に接続。',
+    footerTagline: 'より速く構築し、支出を抑える',
+    footerPowered: 'Powered by Tamgur',
+    contactWechat: 'WeChat に連絡',
+    copyWechat: 'WeChat IDをコピー',
+    copiedWechat: 'WeChat IDをコピーしました',
+    copyTelegram: 'Telegram 番号をコピー',
+    copiedTelegram: 'Telegram 番号をコピーしました',
     docsCenterEyebrow: 'DOCUMENTATION',
     docsCenterTitle: 'Tamgur ドキュメントセンター',
     docsCenterDescription: '接続するサービスを選択してください',
@@ -342,54 +644,108 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: 'API アドレス、キー、モデルを設定して Codex を接続',
     docsEnter: '詳しく見る',
     docsBack: 'ホームへ戻る',
-    contactWechat: 'ご質問は WeChat まで',
-    copyWechat: 'WeChat IDをコピー',
-    copiedWechat: 'コピーしました',
   },
   vi: {
-    eyebrow: 'Hạ tầng trí tuệ hợp nhất',
-    titleLead: 'Một giao diện,',
-    titleTail: 'mọi mô hình',
-    descriptionLine1: 'Truy cập các mô hình AI hàng đầu qua API tương thích OpenAI.',
-    descriptionLine2: 'Định tuyến ổn định và chi phí minh bạch cho mọi lượt gọi.',
-    start: 'Kết nối API',
-    docs: 'Xem hướng dẫn',
-    trust: 'Một khóa · Mọi mô hình · Luôn sẵn sàng',
+    eyebrow: 'Nền tảng AI API cho nhà phát triển',
+    heroTitle: 'Truy cập Claude, GPT-5, Codex và Gemini với',
+    heroHighlight: 'chi phí thấp hơn',
+    heroDescription: 'API hợp nhất ổn định, thanh toán theo mức dùng và kích hoạt tức thì cho phát triển thực tế và môi trường production.',
+    start: 'Bắt đầu',
+    viewPricing: 'Xem giá',
+    docs: 'Tài liệu',
+    trust: 'Một khóa · Nhiều mô hình · Truy cập toàn cầu',
     unifiedApi: 'API hợp nhất',
     operational: 'Tất cả hệ thống hoạt động bình thường',
     recharge: 'Nạp tín dụng',
-    imageGeneration: 'Tạo hình ảnh',
-    joinGroup: 'Tham gia nhận token',
-    tokenReward: 'Ưu đãi cộng đồng',
+    imageGeneration: 'Tạo hình ảnh (đang thử nghiệm)',
+    joinGroup: 'Tham gia cộng đồng',
+    tokenReward: 'Cộng đồng và ưu đãi Token',
     telegramGroup: 'Nhóm Telegram',
     wechatGroup: 'Nhóm WeChat',
-    featuresEyebrow: 'Vì sao chọn icon',
-    featuresTitle: 'Được xây dựng cho suy luận ổn định',
-    featuresDescription: 'Hạ tầng AI đơn giản, minh bạch và đáng tin cậy từ dự án cá nhân đến sản phẩm thực tế.',
-    openClawTitle: 'Tương thích OpenClaw',
-    openClawDescription: 'Chỉ cần đổi Base URL và API key để kết nối tác nhân với các mô hình hàng đầu.',
-    flexibleTitle: 'Định giá minh bạch',
-    flexibleDescription: 'Chỉ trả cho số token đã dùng, với số dư lâu dài và chi phí dễ kiểm soát.',
-    modelsTitle: 'Tổng hợp mô hình toàn cầu',
-    modelsDescription: 'Truy cập GPT, Claude, Gemini, DeepSeek và nhiều hơn với một API key.',
-    supportTitle: 'Ổn định từ thiết kế',
-    supportDescription: 'Định tuyến thông minh và chuyển đổi dự phòng bảo vệ tác vụ quan trọng.',
-    developerTitle: 'Thân thiện với lập trình viên',
-    developerDescription: 'Tương thích OpenAI, kết nối dự án hiện có mà không cần viết lại.',
-    stepsEyebrow: 'Bắt đầu nhanh',
-    stepsTitle: 'Kết nối AI trong ba bước',
-    stepOneTitle: 'Tạo API key',
-    stepOneDescription: 'Tạo khóa trong bảng điều khiển và thiết lập giới hạn.',
-    stepTwoTitle: 'Thay địa chỉ API',
-    stepTwoDescription: 'Giữ nguyên OpenAI SDK và chỉ đổi Base URL.',
-    stepThreeTitle: 'Chọn mô hình',
-    stepThreeDescription: 'Chuyển đổi mô hình linh hoạt cho từng tác vụ.',
-    ctaTitle: 'Sẵn sàng bắt đầu?',
-    ctaDescription: 'Kết nối các mô hình AI hàng đầu chỉ với một khóa.',
-    signupBonus: 'Đăng ký nhận token miễn phí',
-    enterpriseDiscount: 'Ưu đãi riêng cho đơn hàng doanh nghiệp',
+    signupBonus: 'Nhận Token miễn phí khi đăng ký',
+    enterpriseDiscount: 'Ưu đãi riêng cho doanh nghiệp',
+    priceCardKicker: 'Giá đơn giản, minh bạch',
+    officialUsage: 'lượng API theo giá chính thức',
+    priceCardDescription: 'Mức sử dụng được tính theo giá API chính thức do từng nhà cung cấp công bố.',
+    saveAbout: 'Tiết kiệm khoảng 70%',
+    featuresEyebrow: 'Vì sao chọn Tamgur',
+    featuresTitle: 'Chi phí thấp, vẫn ổn định',
+    featuresDescription: 'Hạ tầng dành cho phát triển thực tế và môi trường production.',
+    features: [
+      { title: 'Chi phí thấp hơn', description: 'Tiết kiệm khoảng 70% so với giá API chính thức.' },
+      { title: 'Nhanh và ổn định', description: 'Định tuyến tối ưu và chuyển đổi dự phòng giữ yêu cầu luôn hoạt động.' },
+      { title: 'Ưu tiên riêng tư', description: 'Yêu cầu của từng khách hàng được cách ly và không chia sẻ.' },
+      { title: 'Trả theo mức dùng', description: 'Không cần đăng ký tháng, chỉ trả cho lượng thực tế sử dụng.' },
+      { title: 'Truy cập toàn cầu', description: 'Kích hoạt ngay và truy cập nhiều nhà cung cấp bằng một khóa.' },
+    ],
+    modelsEyebrow: 'Mô hình có sẵn',
+    modelsTitle: 'AI hàng đầu trên một nền tảng',
+    modelsDescription: 'Truy cập nhiều nhà cung cấp qua giao diện hợp nhất tương thích OpenAI.',
+    providers: [
+      { name: 'Claude', models: 'Opus · Sonnet · Claude Code' },
+      { name: 'OpenAI & Codex', models: 'GPT-5 · GPT-5 Mini · Codex' },
+      { name: 'Gemini', models: 'Gemini Pro · Gemini Flash' },
+    ],
+    availableNow: 'Đang hoạt động',
+    integrationTitle: 'Kết nối dự án hiện có chỉ bằng cách đổi Base URL',
+    pricingEyebrow: 'Giá đơn giản, minh bạch',
+    pricingTitle: 'Trả $2.99 cho $10 lượng dùng API theo giá chính thức',
+    pricingDescription: 'Đây không phải thẻ quà tặng chính thức. Số dư được khấu trừ theo giá API chính thức đã công bố của mô hình.',
+    pricingPoints: [
+      'Áp dụng cho mọi mô hình có trên nền tảng',
+      'Không phí tháng hoặc đăng ký dài hạn',
+      'Sử dụng ngay sau khi thanh toán',
+    ],
+    globalPlan: 'Gói trả theo mức dùng toàn cầu',
+    youPay: 'Bạn trả',
+    oneTimeUsage: 'trả theo mức dùng',
+    officialPriceBasis: 'Giá chính thức',
+    pricingNote: 'Ví dụ: các lệnh gọi có tổng giá chính thức $10 sẽ tương ứng chi phí $2.99 tại Tamgur.',
+    buyCredits: 'Mua lượng dùng API',
+    audienceEyebrow: 'Dành cho',
+    audienceTitle: 'Dành cho người xây dựng',
+    audiences: [
+      { title: 'Nhà phát triển', description: 'Xây dựng và vận hành ứng dụng AI với chi phí thấp hơn.' },
+      { title: 'Startup', description: 'Kiểm soát chi phí suy luận trong khi mở rộng.' },
+      { title: 'AI Builder', description: 'Kết hợp và chuyển đổi nhiều mô hình trên một nền tảng.' },
+      { title: 'Sinh viên', description: 'Thử nghiệm mà không cần gói đăng ký đắt tiền.' },
+    ],
+    faqEyebrow: 'Câu hỏi thường gặp',
+    faqTitle: 'Điều cần biết trước khi bắt đầu',
+    faqDescription: 'Trả lời trực tiếp về giá, riêng tư, kích hoạt và API.',
+    faqs: [
+      {
+        question: '“$10 lượng dùng theo giá chính thức” nghĩa là gì?',
+        answer: 'Tamgur tính mức dùng theo giá API chính thức được công bố. Với $2.99, bạn nhận lượng gọi mô hình có giá $10 nếu tính theo mức giá đó.',
+      },
+      {
+        question: 'Đây có phải mô hình chính hãng từ nhà cung cấp không?',
+        answer: 'Có. Tamgur kết nối tới các mô hình chính hãng do nhà cung cấp gốc phát hành, không thay thế, giả lập mô hình khác hoặc giảm năng lực. Với cùng phiên bản, tham số và ngữ cảnh, năng lực nhất quán với mô hình của nhà cung cấp. Câu chữ cụ thể vẫn có thể khác do AI tạo sinh có tính ngẫu nhiên.',
+      },
+      {
+        question: 'Dữ liệu của tôi có riêng tư không?',
+        answer: 'Yêu cầu của khách hàng được cách ly và không chia sẻ với khách hàng khác.',
+      },
+      {
+        question: 'Kích hoạt nhanh đến đâu?',
+        answer: 'Quyền truy cập thường được kích hoạt trong vài giây sau thanh toán.',
+      },
+      {
+        question: 'Có cần đăng ký hàng tháng không?',
+        answer: 'Không. Tamgur tính phí theo mức dùng và bạn chỉ nạp lượng cần thiết.',
+      },
+    ],
+    ctaTitle: 'Xây nhanh hơn. Chi ít hơn.',
+    ctaDescription: 'Kết nối Claude, GPT, Codex và Gemini bằng một khóa API.',
+    footerTagline: 'Xây nhanh hơn. Chi ít hơn.',
+    footerPowered: 'Powered by Tamgur',
+    contactWechat: 'Liên hệ WeChat',
+    copyWechat: 'Sao chép WeChat ID',
+    copiedWechat: 'Đã sao chép WeChat ID',
+    copyTelegram: 'Sao chép số Telegram',
+    copiedTelegram: 'Đã sao chép số Telegram',
     docsCenterEyebrow: 'TÀI LIỆU',
-    docsCenterTitle: 'Tamgur Trung tâm tài liệu icon',
+    docsCenterTitle: 'Trung tâm tài liệu Tamgur',
     docsCenterDescription: 'Chọn dịch vụ bạn muốn tích hợp',
     docsAppsTitle: 'Cấu hình ứng dụng AI',
     docsAppsDescription: 'Hướng dẫn tích hợp OpenClaw, Claude Code, Codex và các ứng dụng khác',
@@ -399,16 +755,61 @@ export const messages: Record<Locale, Messages> = {
     docsCodexDescription: 'Cấu hình địa chỉ API, khóa và mô hình để kết nối Codex',
     docsEnter: 'Xem tài liệu',
     docsBack: 'Về trang chủ',
-    contactWechat: 'Có câu hỏi? Liên hệ qua WeChat',
-    copyWechat: 'Sao chép WeChat ID',
-    copiedWechat: 'Đã sao chép',
   },
 };
+
+const SEO_BASE_URL = 'https://api.tamgur.tech/home/index.html';
+
+const seoMetadata: Record<
+  Locale,
+  { title: string; description: string; ogLocale: string }
+> = {
+  'zh-CN': {
+    title: '低价 Claude、GPT-5、Codex 与 Gemini API | Tamgur',
+    description: '通过稳定、兼容 OpenAI 的统一 API 接入原厂 Claude、GPT-5、Codex 与 Gemini 模型。支付 $2.99，获得 $10 官方价格等值用量。',
+    ogLocale: 'zh_CN',
+  },
+  en: {
+    title: 'Low-Cost Claude, GPT-5, Codex & Gemini API | Tamgur',
+    description: 'Access official Claude, GPT-5, Codex and Gemini models through one stable, OpenAI-compatible API. Pay $2.99 for $10 of official-price API usage.',
+    ogLocale: 'en_US',
+  },
+  fr: {
+    title: 'API Claude, GPT-5, Codex et Gemini à prix réduit | Tamgur',
+    description: "Accédez aux modèles officiels Claude, GPT-5, Codex et Gemini via une API stable compatible OpenAI. Payez 2,99 $ pour 10 $ d'utilisation au tarif officiel.",
+    ogLocale: 'fr_FR',
+  },
+  ru: {
+    title: 'Недорогой API Claude, GPT-5, Codex и Gemini | Tamgur',
+    description: 'Официальные модели Claude, GPT-5, Codex и Gemini через единый стабильный API, совместимый с OpenAI. $2.99 за $10 использования по официальным тарифам.',
+    ogLocale: 'ru_RU',
+  },
+  ja: {
+    title: '低コスト Claude・GPT-5・Codex・Gemini API | Tamgur',
+    description: '正規の Claude、GPT-5、Codex、Gemini モデルへ、安定した OpenAI 互換 API で接続。$2.99 で公式価格 $10 相当の API 利用量。',
+    ogLocale: 'ja_JP',
+  },
+  vi: {
+    title: 'API Claude, GPT-5, Codex và Gemini chi phí thấp | Tamgur',
+    description: 'Truy cập mô hình chính hãng Claude, GPT-5, Codex và Gemini qua API ổn định tương thích OpenAI. Trả $2.99 cho $10 lượng dùng theo giá chính thức.',
+    ogLocale: 'vi_VN',
+  },
+};
+
+function setMetaContent(selector: string, content: string) {
+  document.querySelector<HTMLMetaElement>(selector)?.setAttribute('content', content);
+}
 
 function normalizeLocale(value: unknown): Locale | null {
   if (typeof value !== 'string') return null;
   const normalized = value.trim().toLowerCase().replace('_', '-');
-  if (normalized === 'zh' || normalized.startsWith('zh-cn') || normalized.startsWith('zh-hans')) return 'zh-CN';
+  if (
+    normalized === 'zh' ||
+    normalized.startsWith('zh-cn') ||
+    normalized.startsWith('zh-hans')
+  ) {
+    return 'zh-CN';
+  }
   if (normalized.startsWith('en')) return 'en';
   if (normalized.startsWith('fr')) return 'fr';
   if (normalized.startsWith('ru')) return 'ru';
@@ -419,7 +820,9 @@ function normalizeLocale(value: unknown): Locale | null {
 
 function readUrlLocale(): Locale | null {
   const params = new URLSearchParams(window.location.search);
-  return normalizeLocale(params.get('lang') ?? params.get('locale') ?? params.get('language'));
+  return normalizeLocale(
+    params.get('lang') ?? params.get('locale') ?? params.get('language'),
+  );
 }
 
 function readParentLocale(): Locale | null {
@@ -450,7 +853,9 @@ function readMessageLocale(data: unknown): Locale | null {
     message.type === 'newapi-locale' ||
     message.type === 'set-language'
   ) {
-    return normalizeLocale(message.language ?? message.locale ?? message.lang ?? message.value);
+    return normalizeLocale(
+      message.language ?? message.locale ?? message.lang ?? message.value,
+    );
   }
   return null;
 }
@@ -458,7 +863,9 @@ function readMessageLocale(data: unknown): Locale | null {
 export function useLocale() {
   const [urlLocale] = useState<Locale | null>(() => readUrlLocale());
   const [messageLocale, setMessageLocale] = useState<Locale | null>(null);
-  const [parentLocale, setParentLocale] = useState<Locale | null>(() => readParentLocale());
+  const [parentLocale, setParentLocale] = useState<Locale | null>(
+    () => readParentLocale(),
+  );
   const browserLocale = normalizeLocale(window.navigator.language) ?? 'en';
   const locale = parentLocale ?? messageLocale ?? urlLocale ?? browserLocale;
 
@@ -513,8 +920,24 @@ export function useLocale() {
   }, []);
 
   useEffect(() => {
+    const seo = seoMetadata[locale];
+    const canonicalUrl =
+      locale === 'en'
+        ? SEO_BASE_URL
+        : `${SEO_BASE_URL}?lang=${encodeURIComponent(locale)}`;
+
     document.documentElement.lang = locale;
-    document.title = `· ${messages[locale].eyebrow}`;
+    document.title = seo.title;
+    document
+      .querySelector<HTMLLinkElement>('link[rel="canonical"]')
+      ?.setAttribute('href', canonicalUrl);
+    setMetaContent('meta[name="description"]', seo.description);
+    setMetaContent('meta[property="og:title"]', seo.title);
+    setMetaContent('meta[property="og:description"]', seo.description);
+    setMetaContent('meta[property="og:url"]', canonicalUrl);
+    setMetaContent('meta[property="og:locale"]', seo.ogLocale);
+    setMetaContent('meta[name="twitter:title"]', seo.title);
+    setMetaContent('meta[name="twitter:description"]', seo.description);
   }, [locale]);
 
   return { locale, t: messages[locale] };

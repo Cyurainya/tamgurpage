@@ -1,0 +1,36 @@
+# Tamgur AI API Platform
+
+> Tamgur provides stable, pay-as-you-go access to genuine Claude, GPT-5, Codex and Gemini models through one unified, OpenAI-compatible API.
+
+Canonical website: https://api.tamgur.tech/home/index.html
+API documentation: https://doc.tamgur.tech/
+API base URL: https://api.tamgur.tech/v1
+Account dashboard: https://api.tamgur.tech/dashboard/models
+
+## Key facts
+
+- Tamgur is an independent managed AI API platform.
+- Models are sourced from their original providers without intentional model substitution or capability downgrades.
+- Pricing is pay as you go, with no monthly subscription required.
+- The standard global offer is $2.99 for $10 of API usage measured against each provider's published official API pricing.
+- A Tamgur balance is not an official provider gift card.
+- Supported provider groups include Claude, OpenAI and Codex, and Gemini.
+- The API is designed to be compatible with OpenAI-style integrations.
+- Customer requests are isolated and are not shared with other customers.
+- Activation is usually completed within seconds after payment.
+
+## Intended users
+
+Tamgur is designed for developers, startups, AI builders and students who need lower-cost access to multiple leading AI models.
+
+## Languages
+
+The website is available in English, Simplified Chinese, French, Russian, Japanese and Vietnamese.
+
+## Important links
+
+- Homepage: https://api.tamgur.tech/home/index.html
+- Documentation: https://doc.tamgur.tech/
+- API reference: https://api.tamgur.tech/docs/api
+- Codex guide: https://api.tamgur.tech/docs/codex
+- Add API balance: https://api.tamgur.tech/wallet

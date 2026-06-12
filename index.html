@@ -1,17 +1,187 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#f7f7f4" />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta
       name="description"
-      content="icon - 一个接口，连接主流 AI 模型。稳定、透明、兼容 OpenAI API。"
+      content="Access official Claude, GPT-5, Codex and Gemini models through one stable, OpenAI-compatible API. Pay $2.99 for $10 of official-price API usage."
     />
-    <title>icon · AI API 聚合服务</title>
+    <meta
+      name="application-name"
+      content="Tamgur"
+    />
+    <link rel="canonical" href="https://api.tamgur.tech/home/index.html" />
+    <link rel="alternate" hreflang="x-default" href="https://api.tamgur.tech/home/index.html" />
+    <link rel="alternate" hreflang="en" href="https://api.tamgur.tech/home/index.html" />
+    <link rel="alternate" hreflang="zh-CN" href="https://api.tamgur.tech/home/index.html?lang=zh-CN" />
+    <link rel="alternate" hreflang="fr" href="https://api.tamgur.tech/home/index.html?lang=fr" />
+    <link rel="alternate" hreflang="ru" href="https://api.tamgur.tech/home/index.html?lang=ru" />
+    <link rel="alternate" hreflang="ja" href="https://api.tamgur.tech/home/index.html?lang=ja" />
+    <link rel="alternate" hreflang="vi" href="https://api.tamgur.tech/home/index.html?lang=vi" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Tamgur" />
+    <meta property="og:title" content="Low-Cost Claude, GPT-5, Codex & Gemini API | Tamgur" />
+    <meta
+      property="og:description"
+      content="Stable, pay-as-you-go access to official AI models. Pay $2.99 for $10 of official-price API usage."
+    />
+    <meta property="og:url" content="https://api.tamgur.tech/home/index.html" />
+    <meta property="og:image" content="https://img.tamgur.tech/icons/tamgurIcon.png" />
+    <meta property="og:image:alt" content="Tamgur AI API Platform" />
+    <meta property="og:locale" content="en_US" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Low-Cost Claude, GPT-5, Codex & Gemini API | Tamgur" />
+    <meta
+      name="twitter:description"
+      content="Stable, pay-as-you-go access to official AI models. Pay $2.99 for $10 of official-price API usage."
+    />
+    <meta name="twitter:image" content="https://img.tamgur.tech/icons/tamgurIcon.png" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "Organization",
+            "@id": "https://api.tamgur.tech/#organization",
+            "name": "Tamgur",
+            "url": "https://api.tamgur.tech/home/index.html",
+            "logo": "https://img.tamgur.tech/icons/tamgurIcon.png",
+            "contactPoint": {
+              "@type": "ContactPoint",
+              "contactType": "customer support",
+              "availableLanguage": ["English", "Chinese", "French", "Russian", "Japanese", "Vietnamese"]
+            }
+          },
+          {
+            "@type": "WebSite",
+            "@id": "https://api.tamgur.tech/#website",
+            "url": "https://api.tamgur.tech/home/index.html",
+            "name": "Tamgur AI API Platform",
+            "description": "Low-cost access to official Claude, GPT-5, Codex and Gemini models through one unified API.",
+            "publisher": {
+              "@id": "https://api.tamgur.tech/#organization"
+            },
+            "inLanguage": ["en", "zh-CN", "fr", "ru", "ja", "vi"]
+          },
+          {
+            "@type": "SoftwareApplication",
+            "name": "Tamgur AI API Platform",
+            "url": "https://api.tamgur.tech/home/index.html",
+            "applicationCategory": "DeveloperApplication",
+            "operatingSystem": "Web",
+            "description": "A stable, OpenAI-compatible API platform for Claude, GPT-5, Codex and Gemini.",
+            "offers": {
+              "@type": "Offer",
+              "price": "2.99",
+              "priceCurrency": "USD",
+              "description": "$2.99 for $10 of usage measured at each model provider's published official API pricing."
+            },
+            "provider": {
+              "@id": "https://api.tamgur.tech/#organization"
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "What does $10 of official-price API usage mean?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Tamgur measures usage against each provider's published official API pricing. Paying $2.99 provides the amount of model usage that would cost $10 at those official prices."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Are these genuine models from the official providers?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "Yes. Tamgur connects to genuine models from their original providers without model substitution or capability downgrades. Exact wording may vary because generative AI is nondeterministic."
+                }
+              },
+              {
+                "@type": "Question",
+                "name": "Is a monthly subscription required?",
+                "acceptedAnswer": {
+                  "@type": "Answer",
+                  "text": "No. Tamgur uses pay-as-you-go billing, so customers only add balance for the API usage they need."
+                }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+
+    <style>
+      .seo-fallback {
+        max-width: 920px;
+        margin: 0 auto;
+        padding: 72px 24px;
+        color: #1c1b18;
+        font: 16px/1.7 system-ui, sans-serif;
+      }
+      .seo-fallback h1 {
+        margin: 0 0 20px;
+        font-size: clamp(40px, 7vw, 72px);
+        line-height: 1.05;
+      }
+      .seo-fallback h2 {
+        margin-top: 42px;
+      }
+      .seo-fallback a {
+        color: #9f651e;
+      }
+    </style>
+
+    <title>Low-Cost Claude, GPT-5, Codex & Gemini API | Tamgur</title>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <main class="seo-fallback">
+        <p>AI API platform for developers</p>
+        <h1>Low-cost Claude, GPT-5, Codex and Gemini API access</h1>
+        <p>
+          Tamgur provides stable, pay-as-you-go access to genuine models from
+          their official providers through one OpenAI-compatible API. Pay
+          $2.99 for $10 of usage measured at published official API prices.
+        </p>
+        <p>
+          <a href="https://api.tamgur.tech/dashboard/models">Get started</a>
+          ·
+          <a href="https://doc.tamgur.tech/">Read the API documentation</a>
+        </p>
+        <h2>Supported AI model providers</h2>
+        <p>
+          Access Claude, GPT-5, Codex and Gemini with one API key. Tamgur does
+          not substitute imitation models or intentionally reduce model
+          capabilities.
+        </p>
+        <h2>Simple pay-as-you-go pricing</h2>
+        <p>
+          No monthly subscription is required. Usage is calculated against
+          each selected model provider's published official API pricing.
+        </p>
+        <h2>Frequently asked questions</h2>
+        <h3>Are the models genuine?</h3>
+        <p>
+          Yes. Tamgur connects to models from their original providers. With
+          the same model version, parameters and context, capabilities remain
+          consistent with the provider's model.
+        </p>
+        <h3>Is access available worldwide?</h3>
+        <p>
+          Tamgur is designed for developers, startups, AI builders and
+          students worldwide, with instant activation after payment.
+        </p>
+      </main>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

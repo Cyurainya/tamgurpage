@@ -1,5 +1,5 @@
 export const siteConfig = {
-  brand: 'icon',
+  brand: 'Tamgur',
   links: {
     models: '/pricing',
     pricing: '/pricing',

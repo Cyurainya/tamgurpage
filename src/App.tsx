@@ -92,16 +92,22 @@ function WechatIcon() {
   );
 }
 
-function FeatureIcon({ type }: { type: 'claw' | 'wallet' | 'globe' | 'shield' | 'code' }) {
+type PlatformIconType = 'speed' | 'wallet' | 'globe' | 'shield' | 'code';
+
+function PlatformIcon({ type }: { type: PlatformIconType }) {
   const paths = {
-    claw: <><path d="M6 16c1.3-2.2 2-4.1 2-5.8V6.5M14 16c-1.3-2.2-2-4.1-2-5.8V6.5M8 8.5h4M7 4.5 5 2.5M13 4.5l2-2M5.5 6 2.5 5M14.5 6l3-1" /><circle cx="10" cy="6" r="2.5" /></>,
+    speed: <><path d="M3 14.5a7.5 7.5 0 1 1 14 0" /><path d="m10 10 4-3M5.5 14.5h9" /></>,
     wallet: <><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H15v3H5.5a2.5 2.5 0 0 0 0 5H17v5H5a2 2 0 0 1-2-2V5.5Z" /><path d="M13 8h4v4h-4a2 2 0 1 1 0-4Z" /></>,
     globe: <><circle cx="10" cy="10" r="7.5" /><path d="M2.8 10h14.4M10 2.5c2 2.1 3 4.6 3 7.5s-1 5.4-3 7.5c-2-2.1-3-4.6-3-7.5s1-5.4 3-7.5Z" /></>,
     shield: <><path d="M10 2.5 16 5v4.6c0 3.8-2.4 6.5-6 7.9-3.6-1.4-6-4.1-6-7.9V5l6-2.5Z" /><path d="m7 10 2 2 4-4" /></>,
     code: <><path d="m7.5 5-4 5 4 5M12.5 5l4 5-4 5" /><path d="m11.5 3-3 14" /></>,
   };
+
   return <svg viewBox="0 0 20 20" aria-hidden="true">{paths[type]}</svg>;
 }
+
+const featureIcons: PlatformIconType[] = ['wallet', 'speed', 'shield', 'code', 'globe'];
+const audienceMarks = ['</>', '↗', 'AI', '01'];
 
 export default function App() {
   const { resolved } = useTheme();
@@ -111,7 +117,9 @@ export default function App() {
   const copyResetRef = useRef<number | null>(null);
   const [communityOpen, setCommunityOpen] = useState(false);
   const [copiedContact, setCopiedContact] = useState<'wechat' | 'telegram' | null>(null);
-  const isDocsView = window.location.pathname === '/docs' || new URLSearchParams(window.location.search).get('view') === 'docs';
+  const isDocsView =
+    window.location.pathname === '/docs' ||
+    new URLSearchParams(window.location.search).get('view') === 'docs';
 
   useEffect(() => {
     const root = pageRef.current;
@@ -193,59 +201,78 @@ export default function App() {
   }
 
   return (
-    <div className="page" ref={pageRef}>
+    <div className="page landing-page" ref={pageRef}>
       <ParticleTrail theme={resolved} />
       <div className="cursor-glow" aria-hidden="true" />
       <div className="grid-background" aria-hidden="true" />
       <div className="top-glow" aria-hidden="true" />
 
-      <main className="hero">
+      <main className="hero international-hero">
         <section className="hero-copy">
-          {/* <div className="wordmark" aria-label={siteConfig.brand}>
-            <span className="wordmark-dot" />
-            {siteConfig.brand}
-          </div> */}
-
           <div className="eyebrow">
             <span>{t.eyebrow}</span>
             <span className="eyebrow-line" />
           </div>
 
-          <div className="hero-promotions">
-            <div className="signup-bonus">
-              <span aria-hidden="true">✦</span>
-              {t.signupBonus}
-            </div>
-            <div className="enterprise-discount">
-              <span aria-hidden="true">◆</span>
-              {t.enterpriseDiscount}
-            </div>
-          </div>
-
-          <h1>
-            {t.titleLead}
-            <br />
-            {t.titleTail} <span className="gradient-text">AI</span>
+          <h1 className="international-title">
+            {t.heroTitle}
+            <span className="gradient-text"> {t.heroHighlight}</span>
           </h1>
 
-          <p className="hero-description">
-            {t.descriptionLine1}
-            <br className="desktop-break" />
-            {t.descriptionLine2}
-          </p>
+          <p className="hero-description">{t.heroDescription}</p>
+
+          <div className="hero-price-card">
+            <span className="price-card-kicker">{t.priceCardKicker}</span>
+            <div className="price-card-equation">
+              <strong>$2.99</strong>
+              <span aria-hidden="true">→</span>
+              <div>
+                <b>$10</b>
+                {/* <small>{t.officialUsage}</small> */}
+              </div>
+            </div>
+            <p>{t.priceCardDescription}</p>
+            <span className="price-card-saving">{t.saveAbout}</span>
+          </div>
 
           <div className="hero-actions">
             <a className="primary-button" href={siteConfig.links.console} target="_top">
               {t.start}
               <ArrowIcon />
             </a>
-            <a className="secondary-button" href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer">
-              <CodeIcon />
-              {t.docs}
+            <a className="secondary-button" href="#pricing">
+              {t.viewPricing}
+              <ArrowIcon />
             </a>
           </div>
 
-          <div className="quick-entries">
+          <div className="trust-row">
+            <span className="live-indicator" aria-hidden="true" />
+            <span>{t.trust}</span>
+          </div>
+        </section>
+
+        <section className="hero-visual">
+          <ModelNetwork t={t} />
+        </section>
+      </main>
+
+      <section className="content-section hero-support-panel">
+        <div className="support-promotions">
+          <div className="signup-bonus">
+            <span aria-hidden="true">✦</span>
+            {t.signupBonus}
+          </div>
+          <div className="enterprise-discount">
+            <span aria-hidden="true">◆</span>
+            {t.enterpriseDiscount}
+          </div>
+        </div>
+
+        <div className="support-divider" aria-hidden="true" />
+
+        <div className="support-tools">
+          <div className="quick-entries platform-entries">
             <a className="quick-entry" href={siteConfig.links.recharge} target="_top">
               <span className="quick-entry-icon">
                 <WalletIcon />
@@ -253,11 +280,23 @@ export default function App() {
               <span>{t.recharge}</span>
             </a>
 
-            <a className="quick-entry" href={siteConfig.links.imageGeneration} target="_top">
+            <div className="quick-entry quick-entry-disabled" aria-disabled="true">
               <span className="quick-entry-icon">
                 <ImageIcon />
               </span>
               <span>{t.imageGeneration}</span>
+            </div>
+
+            <a
+              className="quick-entry"
+              href={siteConfig.links.docs}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="quick-entry-icon">
+                <CodeIcon />
+              </span>
+              <span>{t.docs}</span>
             </a>
 
             <div
@@ -309,106 +348,145 @@ export default function App() {
               )}
             </div>
           </div>
+        </div>
+      </section>
 
-          <div className="hero-contact">
-            <span>{t.contactWechat}</span>
-            <strong>cyuCyin</strong>
-            <button
-              type="button"
-              onClick={() => copyContact('cyuCyin', 'wechat')}
-              aria-label={copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
-              title={copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
-            >
-              {copiedContact === 'wechat' ? <CheckIcon /> : <CopyIcon />}
-            </button>
-            <span>Telegram</span>
-            <strong>+86 17722241523</strong>
-            <button
-              type="button"
-              onClick={() => copyContact('+86 17722241523', 'telegram')}
-              aria-label={copiedContact === 'telegram' ? 'Telegram number copied' : 'Copy Telegram number'}
-              title={copiedContact === 'telegram' ? 'Telegram number copied' : 'Copy Telegram number'}
-            >
-              {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
-            </button>
-          </div>
-
-          <div className="trust-row">
-            <span className="live-indicator" aria-hidden="true" />
-            <span>{t.trust}</span>
-          </div>
-        </section>
-
-        <section className="hero-visual">
-          <ModelNetwork t={t} />
-        </section>
-      </main>
-
-      <section className="content-section features-section">
+      <section className="content-section platform-section">
         <div className="section-heading">
           <span>{t.featuresEyebrow}</span>
           <h2>{t.featuresTitle}</h2>
           <p>{t.featuresDescription}</p>
         </div>
-
-        <article className="openclaw-banner">
-          <div className="feature-symbol featured">
-            <FeatureIcon type="claw" />
-          </div>
-          <div>
-            <span className="card-kicker">OPENCLAW READY</span>
-            <h3>{t.openClawTitle}</h3>
-            <p>{t.openClawDescription}</p>
-          </div>
-          <div className="compatibility-code" aria-hidden="true">
-            <span>base_url</span>
-            <strong>icon / v1</strong>
-          </div>
-        </article>
-
-        <div className="feature-grid">
-          {[
-            ['wallet', t.flexibleTitle, t.flexibleDescription],
-            ['globe', t.modelsTitle, t.modelsDescription],
-            ['shield', t.supportTitle, t.supportDescription],
-            ['code', t.developerTitle, t.developerDescription],
-          ].map(([icon, title, description], index) => (
-            <article className="feature-card" key={title}>
+        <div className="platform-feature-grid">
+          {t.features.map((feature, index) => (
+            <article className="platform-feature-card" key={feature.title}>
               <span className="feature-index">0{index + 1}</span>
               <div className="feature-symbol">
-                <FeatureIcon type={icon as 'wallet' | 'globe' | 'shield' | 'code'} />
+                <PlatformIcon type={featureIcons[index]} />
               </div>
-              <h3>{title}</h3>
-              <p>{description}</p>
+              <h3>{feature.title}</h3>
+              <p>{feature.description}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="content-section steps-section">
+      <section className="content-section models-section">
         <div className="section-heading compact">
-          <span>{t.stepsEyebrow}</span>
-          <h2>{t.stepsTitle}</h2>
+          <span>{t.modelsEyebrow}</span>
+          <h2>{t.modelsTitle}</h2>
+          <p>{t.modelsDescription}</p>
         </div>
-        <div className="steps-grid">
-          {[
-            [t.stepOneTitle, t.stepOneDescription, '01'],
-            [t.stepTwoTitle, t.stepTwoDescription, '02'],
-            [t.stepThreeTitle, t.stepThreeDescription, '03'],
-          ].map(([title, description, number]) => (
-            <article className="step-card" key={number}>
-              <span className="step-number">{number}</span>
-              <div className="step-line" />
-              <h3>{title}</h3>
-              <p>{description}</p>
+        <div className="provider-grid">
+          {t.providers.map((provider, index) => (
+            <article className={`provider-card provider-${index + 1}`} key={provider.name}>
+              <div className="provider-mark" aria-hidden="true">
+                {index === 0 ? 'AI' : index === 1 ? '◎' : '✦'}
+              </div>
+              <span className="provider-status">
+                <i />
+                {t.availableNow}
+              </span>
+              <h3>{provider.name}</h3>
+              <p>{provider.models}</p>
+            </article>
+          ))}
+        </div>
+        <div className="integration-strip">
+          <div>
+            <span className="card-kicker">OPENAI-COMPATIBLE</span>
+            <strong>{t.integrationTitle}</strong>
+          </div>
+          <code>base_url = "https://api.tamgur.tech/v1"</code>
+        </div>
+      </section>
+
+      <section className="pricing-section" id="pricing">
+        <div className="content-section pricing-layout">
+          <div className="pricing-copy">
+            <span className="card-kicker">{t.pricingEyebrow}</span>
+            <h2>{t.pricingTitle}</h2>
+            <p>{t.pricingDescription}</p>
+            <ul className="pricing-points">
+              {t.pricingPoints.map((point) => (
+                <li key={point}>
+                  <CheckIcon />
+                  <span>{point}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <article className="pricing-card">
+            <div className="pricing-card-head">
+              <span>{t.globalPlan}</span>
+              <strong>{t.saveAbout}</strong>
+            </div>
+            <div className="pricing-amount">
+              <span>{t.youPay}</span>
+              <div>
+                <strong>$2.99</strong>
+                <small>{t.oneTimeUsage}</small>
+              </div>
+            </div>
+            <div className="pricing-comparison">
+              <div>
+                <span>{t.officialPriceBasis}</span>
+                <strong>$10.00</strong>
+              </div>
+              <ArrowIcon />
+              <div>
+                <span>Tamgur</span>
+                <strong>$2.99</strong>
+              </div>
+            </div>
+            <p className="pricing-note">{t.pricingNote}</p>
+            <a className="primary-button pricing-button" href={siteConfig.links.recharge} target="_top">
+              {t.buyCredits}
+              <ArrowIcon />
+            </a>
+          </article>
+        </div>
+      </section>
+
+      <section className="content-section audience-section">
+        <div className="section-heading compact">
+          <span>{t.audienceEyebrow}</span>
+          <h2>{t.audienceTitle}</h2>
+        </div>
+        <div className="audience-grid">
+          {t.audiences.map((audience, index) => (
+            <article className="audience-card" key={audience.title}>
+              <span className="audience-mark" aria-hidden="true">{audienceMarks[index]}</span>
+              <h3>{audience.title}</h3>
+              <p>{audience.description}</p>
             </article>
           ))}
         </div>
       </section>
 
-      <section className="content-section cta-section">
+      <section className="content-section faq-section">
+        <div className="faq-heading">
+          <span className="card-kicker">{t.faqEyebrow}</span>
+          <h2>{t.faqTitle}</h2>
+          <p>{t.faqDescription}</p>
+        </div>
+        <div className="faq-list">
+          {t.faqs.map((faq, index) => (
+            <details key={faq.question} open={index === 0}>
+              <summary>
+                <span>{faq.question}</span>
+                <ChevronIcon />
+              </summary>
+              <p>{faq.answer}</p>
+            </details>
+          ))}
+        </div>
+      </section>
+
+      <section className="content-section cta-section international-cta">
         <div>
-          <span className="card-kicker">BUILD WITH ICON</span>
+          <span className="card-kicker">BUILD WITH TAMGUR</span>
           <h2>{t.ctaTitle}</h2>
           <p>{t.ctaDescription}</p>
         </div>
@@ -417,19 +495,51 @@ export default function App() {
             {t.start}
             <ArrowIcon />
           </a>
-          <a className="secondary-button" href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer">
+          <a
+            className="secondary-button"
+            href={siteConfig.links.docs}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <CodeIcon />
             {t.docs}
           </a>
         </div>
       </section>
 
-      <footer className="site-footer">
-        <span className="wordmark footer-wordmark">
-          <span className="wordmark-dot" />
-          {siteConfig.brand}
-        </span>
-        <span>Unified intelligence infrastructure</span>
+      <footer className="site-footer international-footer">
+        <div className="footer-brand-block">
+          <span className="wordmark footer-wordmark">
+            <span className="wordmark-dot" />
+            {siteConfig.brand}
+          </span>
+          <span>{t.footerTagline}</span>
+        </div>
+
+        <div className="hero-contact footer-contact">
+          <span>{t.contactWechat}</span>
+          <strong>cyuCyin</strong>
+          <button
+            type="button"
+            onClick={() => copyContact('cyuCyin', 'wechat')}
+            aria-label={copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
+            title={copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
+          >
+            {copiedContact === 'wechat' ? <CheckIcon /> : <CopyIcon />}
+          </button>
+          <span>Telegram</span>
+          <strong>+86 17722241523</strong>
+          <button
+            type="button"
+            onClick={() => copyContact('+86 17722241523', 'telegram')}
+            aria-label={copiedContact === 'telegram' ? t.copiedTelegram : t.copyTelegram}
+            title={copiedContact === 'telegram' ? t.copiedTelegram : t.copyTelegram}
+          >
+            {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
+          </button>
+        </div>
+
+        <span className="footer-powered">{t.footerPowered}</span>
       </footer>
     </div>
   );

@@ -45,7 +45,7 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -p "$BT_PORT" -H "$BT_HOST" >> ~/.ssh/known_hosts
 
-      - name: Deploy homepage.html
+      - name: Deploy homepage and discovery files
         env:
           BT_HOST: ${{ secrets.BT_HOST }}
           BT_PORT: ${{ secrets.BT_PORT }}
@@ -57,3 +57,6 @@ jobs:
           ssh -p "$BT_PORT" "$BT_USER@$BT_HOST" "mkdir -p '$BT_DEPLOY_PATH'"
           scp -P "$BT_PORT" dist/index.html "$BT_USER@$BT_HOST:$temp_file"
           ssh -p "$BT_PORT" "$BT_USER@$BT_HOST" "mv '$temp_file' '$remote_file'"
+          for file in robots.txt sitemap.xml llms.txt; do
+            scp -P "$BT_PORT" "dist/$file" "$BT_USER@$BT_HOST:${BT_DEPLOY_PATH%/}/$file"
+          done
