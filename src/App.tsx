@@ -110,7 +110,7 @@ export default function App() {
   const communityRef = useRef<HTMLDivElement>(null);
   const copyResetRef = useRef<number | null>(null);
   const [communityOpen, setCommunityOpen] = useState(false);
-  const [wechatCopied, setWechatCopied] = useState(false);
+  const [copiedContact, setCopiedContact] = useState<'wechat' | 'telegram' | null>(null);
   const isDocsView = window.location.pathname === '/docs' || new URLSearchParams(window.location.search).get('view') === 'docs';
 
   useEffect(() => {
@@ -163,14 +163,12 @@ export default function App() {
     };
   }, []);
 
-  const copyWechatId = async () => {
-    const wechatId = 'cyuCyin';
-
+  const copyContact = async (value: string, contact: 'wechat' | 'telegram') => {
     try {
-      await navigator.clipboard.writeText(wechatId);
+      await navigator.clipboard.writeText(value);
     } catch {
       const input = document.createElement('textarea');
-      input.value = wechatId;
+      input.value = value;
       input.style.position = 'fixed';
       input.style.opacity = '0';
       document.body.appendChild(input);
@@ -179,9 +177,9 @@ export default function App() {
       input.remove();
     }
 
-    setWechatCopied(true);
+    setCopiedContact(contact);
     if (copyResetRef.current) window.clearTimeout(copyResetRef.current);
-    copyResetRef.current = window.setTimeout(() => setWechatCopied(false), 1800);
+    copyResetRef.current = window.setTimeout(() => setCopiedContact(null), 1800);
   };
 
   if (isDocsView) {
@@ -311,11 +309,21 @@ export default function App() {
             <strong>cyuCyin</strong>
             <button
               type="button"
-              onClick={copyWechatId}
-              aria-label={wechatCopied ? t.copiedWechat : t.copyWechat}
-              title={wechatCopied ? t.copiedWechat : t.copyWechat}
+              onClick={() => copyContact('cyuCyin', 'wechat')}
+              aria-label={copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
+              title={copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
             >
-              {wechatCopied ? <CheckIcon /> : <CopyIcon />}
+              {copiedContact === 'wechat' ? <CheckIcon /> : <CopyIcon />}
+            </button>
+            <span>Telegram</span>
+            <strong>+86 17722241523</strong>
+            <button
+              type="button"
+              onClick={() => copyContact('+86 17722241523', 'telegram')}
+              aria-label={copiedContact === 'telegram' ? 'Telegram number copied' : 'Copy Telegram number'}
+              title={copiedContact === 'telegram' ? 'Telegram number copied' : 'Copy Telegram number'}
+            >
+              {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
             </button>
           </div>
 
