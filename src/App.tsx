@@ -258,7 +258,7 @@ export default function App() {
               {t.start}
               <ArrowIcon />
             </a>
-            <a className="secondary-button" href={siteConfig.links.docs}>
+            <a className="secondary-button" target="_blank" href={siteConfig.links.docs}>
               {t.docs}
               <ArrowIcon />
             </a>
