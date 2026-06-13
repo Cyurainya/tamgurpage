@@ -118,7 +118,6 @@ const audienceMarks = ['</>', '↗', 'AI', '01'];
 export default function App() {
   const { resolved } = useTheme();
   const { t } = useLocale();
-  const featuredPrice = modelPriceExamples[0];
   const pageRef = useRef<HTMLDivElement>(null);
   const communityRef = useRef<HTMLDivElement>(null);
   const copyResetRef = useRef<number | null>(null);
@@ -234,22 +233,17 @@ export default function App() {
 
           <div className="hero-price-card">
             <div className="hero-price-example">
-              <a href={featuredPrice.sourceUrl} target="_blank" rel="noreferrer">
-                {t.heroPriceTitle}
-                <span aria-hidden="true">↗</span>
-              </a>
+              <span className="hero-price-title">{t.heroPriceTitle}</span>
               <div className="hero-price-example-grid">
                 <div>
-                  <span>{t.officialOutput}</span>
-                  <b>{formatUsd(featuredPrice.officialOutput)}</b>
+                  <span>{t.heroOfficialPlatform}</span>
+                  <b>$20-$40</b>
                 </div>
                 <div>
-                  <span>{t.tamgurOutput}</span>
-                  <b>{formatUsd(getTamgurPrice(featuredPrice.officialOutput))}</b>
+                  <span>{t.heroTamgurPlatform}</span>
+                  <b>$5-$12</b>
                 </div>
-                <strong className="hero-price-saving">{t.heroSavingsLabel}</strong>
               </div>
-              <small>{t.heroPriceUnit}</small>
             </div>
           </div>
 

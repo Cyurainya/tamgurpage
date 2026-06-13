@@ -4,10 +4,10 @@ import claudeUrl from './assets/claude.png';
 import type { Messages } from './i18n';
 
 const models = [
-  { name: 'GPT-5', className: 'node-gpt', icon: 'chatgpt' },
-  { name: 'Claude Sonnet 4.6', className: 'node-claude', icon: 'claude' },
-  { name: 'Gemini 2.5 Pro', className: 'node-gemini', icon: '✦' },
-  { name: 'DeepSeek R1', className: 'node-deepseek', icon: 'deepseek' },
+  { name: 'Chatgpt', className: 'node-gpt', icon: 'chatgpt' },
+  { name: 'Claude', className: 'node-claude', icon: 'claude' },
+  { name: 'Gemini', className: 'node-gemini', icon: '✦' },
+  { name: 'DeepSeek', className: 'node-deepseek', icon: 'deepseek' },
 ];
 
 function ChatGptIcon() {
