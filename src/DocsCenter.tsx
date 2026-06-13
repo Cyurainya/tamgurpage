@@ -49,7 +49,7 @@ export function DocsCenter({ t }: { t: Messages }) {
       icon: <LinkIcon />,
       title: t.docsApiTitle,
       description: t.docsApiDescription,
-      href: siteConfig.links.apiDocs,
+      href: siteConfig.links.docs,
     },
     {
       className: 'codex',
