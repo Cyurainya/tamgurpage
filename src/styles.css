@@ -535,7 +535,7 @@ h1 {
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.12em;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
 }
 
 .live-indicator {
