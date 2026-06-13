@@ -43,7 +43,7 @@
         - button "复制微信号" [ref=e49] [cursor=pointer]:
           - img [ref=e50]
         - generic [ref=e53]: Telegram
-        - strong [ref=e54]: +86 17722241523
+        - strong [ref=e54]: @chloe_yan_cyu
         - button "Copy Telegram number" [ref=e55] [cursor=pointer]:
           - img [ref=e56]
       - generic [ref=e61]: 一个密钥 · 所有模型 · 随时可用

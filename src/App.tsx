@@ -178,7 +178,7 @@ export default function App() {
     };
   }, []);
 
-  const copyContact = async (value: string, contact: 'wechat' | 'telegram') => {
+  const copyContact = async (value: string, contact: 'wechat' | 'telegram' | 'email' | null) => {
     try {
       await navigator.clipboard.writeText(value);
     } catch {
@@ -191,7 +191,6 @@ export default function App() {
       document.execCommand('copy');
       input.remove();
     }
-
     setCopiedContact(contact);
     if (copyResetRef.current) window.clearTimeout(copyResetRef.current);
     copyResetRef.current = window.setTimeout(() => setCopiedContact(null), 1800);
@@ -574,7 +573,7 @@ export default function App() {
             <span className="wordmark-dot" />
             {siteConfig.brand}
           </span>
-          <span>{t.footerTagline}</span>
+          {/* <span>{t.footerTagline}</span> */}
         </div>
 
         <div className="hero-contact footer-contact">
@@ -589,12 +588,22 @@ export default function App() {
             {copiedContact === 'wechat' ? <CheckIcon /> : <CopyIcon />}
           </button>
           <span>Telegram</span>
-          <strong>+86 17722241523</strong>
+          <strong>@chloe_yan_cyu</strong>
           <button
             type="button"
-            onClick={() => copyContact('+86 17722241523', 'telegram')}
+            onClick={() => copyContact('@chloe_yan_cyu', 'telegram')}
             aria-label={copiedContact === 'telegram' ? t.copiedTelegram : t.copyTelegram}
             title={copiedContact === 'telegram' ? t.copiedTelegram : t.copyTelegram}
+          >
+            {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
+          </button>
+
+             <span>Email</span>
+          <strong>rainkii8518231@gmail.com</strong>
+          <button
+            type="button"
+            onClick={() => copyContact('rainkii8518231@gmail.com', 'email')}
+
           >
             {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
           </button>
