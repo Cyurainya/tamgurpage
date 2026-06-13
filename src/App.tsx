@@ -599,10 +599,10 @@ export default function App() {
           </button>
 
              <span>Email</span>
-          <strong>rainkii8518231@gmail.com</strong>
+          <strong>tamgurcyu@gmail.com</strong>
           <button
             type="button"
-            onClick={() => copyContact('rainkii8518231@gmail.com', null)}
+            onClick={() => copyContact('tamgurcyu@gmail.com', null)}
 
           >
             {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
