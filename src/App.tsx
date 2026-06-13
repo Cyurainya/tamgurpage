@@ -255,7 +255,7 @@ export default function App() {
           </div>
 
           <div className="hero-actions">
-            <a className="primary-button" href={siteConfig.links.docs} target="_top">
+            <a className="primary-button" href={siteConfig.links.recharge} target="_top">
               {t.start}
               <ArrowIcon />
             </a>
