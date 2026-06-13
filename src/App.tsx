@@ -4,6 +4,12 @@ import { ModelNetwork } from './ModelNetwork';
 import { ParticleTrail } from './ParticleTrail';
 import { siteConfig } from './config';
 import { useLocale } from './i18n';
+import {
+  formatUsd,
+  getTamgurPrice,
+  modelPriceExamples,
+  PRICING_VERIFIED_DATE,
+} from './pricing';
 import { useTheme } from './theme';
 
 function ArrowIcon() {
@@ -112,6 +118,7 @@ const audienceMarks = ['</>', '↗', 'AI', '01'];
 export default function App() {
   const { resolved } = useTheme();
   const { t } = useLocale();
+  const featuredPrice = modelPriceExamples[0];
   const pageRef = useRef<HTMLDivElement>(null);
   const communityRef = useRef<HTMLDivElement>(null);
   const copyResetRef = useRef<number | null>(null);
@@ -215,33 +222,45 @@ export default function App() {
           </div>
 
           <h1 className="international-title">
-            {t.heroTitle}
-            <span className="gradient-text"> {t.heroHighlight}</span>
+            <span>{t.heroTitle}</span>
+            <strong className="hero-savings-number">{t.heroHighlight}</strong>
           </h1>
 
-          <p className="hero-description">{t.heroDescription}</p>
+          <p className="hero-model-line">{t.heroModelLine}</p>
+
+          <div className="hero-compatibility">
+            <strong>{t.heroDescription}</strong>
+            <span>{t.heroMigration}</span>
+          </div>
 
           <div className="hero-price-card">
-            <span className="price-card-kicker">{t.priceCardKicker}</span>
-            <div className="price-card-equation">
-              <strong>$2.99</strong>
-              <span aria-hidden="true">→</span>
-              <div>
-                <b>$10</b>
-                {/* <small>{t.officialUsage}</small> */}
+            <div className="hero-price-example">
+              <a href={featuredPrice.sourceUrl} target="_blank" rel="noreferrer">
+                {t.heroPriceTitle}
+                <span aria-hidden="true">↗</span>
+              </a>
+              <div className="hero-price-example-grid">
+                <div>
+                  <span>{t.officialOutput}</span>
+                  <b>{formatUsd(featuredPrice.officialOutput)}</b>
+                </div>
+                <div>
+                  <span>{t.tamgurOutput}</span>
+                  <b>{formatUsd(getTamgurPrice(featuredPrice.officialOutput))}</b>
+                </div>
+                <strong className="hero-price-saving">{t.heroSavingsLabel}</strong>
               </div>
+              <small>{t.heroPriceUnit}</small>
             </div>
-            <p>{t.priceCardDescription}</p>
-            <span className="price-card-saving">{t.saveAbout}</span>
           </div>
 
           <div className="hero-actions">
-            <a className="primary-button" href={siteConfig.links.console} target="_top">
+            <a className="primary-button" href={siteConfig.links.docs} target="_top">
               {t.start}
               <ArrowIcon />
             </a>
             <a className="secondary-button" href="#pricing">
-              {t.viewPricing}
+              {t.docs}
               <ArrowIcon />
             </a>
           </div>
@@ -289,14 +308,14 @@ export default function App() {
 
             <a
               className="quick-entry"
-              href={siteConfig.links.docs}
+              href={siteConfig.links.console}
               target="_blank"
               rel="noopener noreferrer"
             >
               <span className="quick-entry-icon">
                 <CodeIcon />
               </span>
-              <span>{t.docs}</span>
+              <span>{t.viewPricing}</span>
             </a>
 
             <div
@@ -351,7 +370,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="content-section platform-section">
+      <section className="content-section platform-section" id="platform">
         <div className="section-heading">
           <span>{t.featuresEyebrow}</span>
           <h2>{t.featuresTitle}</h2>
@@ -371,7 +390,7 @@ export default function App() {
         </div>
       </section>
 
-      <section className="content-section models-section">
+      <section className="content-section models-section" id="models">
         <div className="section-heading compact">
           <span>{t.modelsEyebrow}</span>
           <h2>{t.modelsTitle}</h2>
@@ -403,49 +422,91 @@ export default function App() {
 
       <section className="pricing-section" id="pricing">
         <div className="content-section pricing-layout">
-          <div className="pricing-copy">
-            <span className="card-kicker">{t.pricingEyebrow}</span>
-            <h2>{t.pricingTitle}</h2>
-            <p>{t.pricingDescription}</p>
-            <ul className="pricing-points">
-              {t.pricingPoints.map((point) => (
-                <li key={point}>
-                  <CheckIcon />
-                  <span>{point}</span>
-                </li>
-              ))}
-            </ul>
+          <div className="pricing-top">
+            <div className="pricing-copy">
+              <span className="card-kicker">{t.pricingEyebrow}</span>
+              <h2>{t.pricingTitle}</h2>
+              <p>{t.pricingDescription}</p>
+              <ul className="pricing-points">
+                {t.pricingPoints.map((point) => (
+                  <li key={point}>
+                    <CheckIcon />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <article className="pricing-card">
+              <div className="pricing-card-head">
+                <span>{t.globalPlan}</span>
+              </div>
+              <div className="pricing-saving-summary">
+                <strong>{t.saveAbout}</strong>
+                {/* <p>{t.priceCardDescription}</p> */}
+              </div>
+              <p className="pricing-note">{t.pricingNote}</p>
+              <a className="primary-button pricing-button" href={siteConfig.links.recharge} target="_top">
+                {t.buyCredits}
+                <ArrowIcon />
+              </a>
+            </article>
           </div>
 
-          <article className="pricing-card">
-            <div className="pricing-card-head">
-              <span>{t.globalPlan}</span>
-              <strong>{t.saveAbout}</strong>
-            </div>
-            <div className="pricing-amount">
-              <span>{t.youPay}</span>
+          <div className="token-pricing-panel">
+            <div className="token-pricing-heading">
               <div>
-                <strong>$2.99</strong>
-                <small>{t.oneTimeUsage}</small>
+                <h3>{t.tokenComparisonTitle}</h3>
+                <p>{t.perMillionTokens}</p>
+              </div>
+              <span>{t.pricingUpdated.replace('{date}', PRICING_VERIFIED_DATE)}</span>
+            </div>
+
+            <table className="token-pricing-table">
+              <thead>
+                <tr>
+                  <th scope="col">{t.modelLabel}</th>
+                  <th scope="col">{t.officialInput}</th>
+                  <th scope="col">{t.tamgurInput}</th>
+                  <th scope="col">{t.officialOutput}</th>
+                  <th scope="col">{t.tamgurOutput}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {modelPriceExamples.map((example) => (
+                  <tr key={example.model}>
+                    <th scope="row" data-label={t.modelLabel}>
+                      <a href={example.sourceUrl} target="_blank" rel="noreferrer">
+                        {example.model}
+                        <span aria-hidden="true">↗</span>
+                      </a>
+                      {example.noteKey === 'gemini' && <small>{t.geminiPricingNote}</small>}
+                    </th>
+                    <td data-label={t.officialInput}>{formatUsd(example.officialInput)} / MTok</td>
+                    <td className="tamgur-price" data-label={t.tamgurInput}>
+                      ≈ {formatUsd(getTamgurPrice(example.officialInput))} / MTok
+                    </td>
+                    <td data-label={t.officialOutput}>{formatUsd(example.officialOutput)} / MTok</td>
+                    <td className="tamgur-price" data-label={t.tamgurOutput}>
+                      ≈ {formatUsd(getTamgurPrice(example.officialOutput))} / MTok
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+
+            <div className="token-pricing-footer">
+              <p>{t.pricingDisclaimer}</p>
+              <div>
+                <span>{t.officialSource}:</span>
+                {modelPriceExamples.map((example) => (
+                  <a key={example.model} href={example.sourceUrl} target="_blank" rel="noreferrer">
+                    {example.model}
+                  </a>
+                ))}
               </div>
             </div>
-            <div className="pricing-comparison">
-              <div>
-                <span>{t.officialPriceBasis}</span>
-                <strong>$10.00</strong>
-              </div>
-              <ArrowIcon />
-              <div>
-                <span>Tamgur</span>
-                <strong>$2.99</strong>
-              </div>
-            </div>
-            <p className="pricing-note">{t.pricingNote}</p>
-            <a className="primary-button pricing-button" href={siteConfig.links.recharge} target="_top">
-              {t.buyCredits}
-              <ArrowIcon />
-            </a>
-          </article>
+          </div>
         </div>
       </section>
 

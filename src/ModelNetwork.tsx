@@ -4,10 +4,10 @@ import claudeUrl from './assets/claude.png';
 import type { Messages } from './i18n';
 
 const models = [
-  { name: 'ChatGPT', className: 'node-gpt', icon: 'chatgpt' },
-  { name: 'Claude', className: 'node-claude', icon: 'claude' },
-  { name: 'Gemini', className: 'node-gemini', icon: '✦' },
-  { name: 'DeepSeek', className: 'node-deepseek', icon: 'deepseek' },
+  { name: 'GPT-5', className: 'node-gpt', icon: 'chatgpt' },
+  { name: 'Claude Sonnet 4.6', className: 'node-claude', icon: 'claude' },
+  { name: 'Gemini 2.5 Pro', className: 'node-gemini', icon: '✦' },
+  { name: 'DeepSeek R1', className: 'node-deepseek', icon: 'deepseek' },
 ];
 
 function ChatGptIcon() {
@@ -101,6 +101,16 @@ export function ModelNetwork({ t }: { t: Messages }) {
         <span />
         {t.operational}
       </div>
+
+      {/* <div className="network-model-list" aria-label={t.availableNow}>
+        <strong>{t.availableNow}</strong>
+        {models.map((model) => (
+          <span key={`status-${model.name}`}>
+            <i aria-hidden="true" />
+            {model.name}
+          </span>
+        ))}
+      </div> */}
     </div>
   );
 }

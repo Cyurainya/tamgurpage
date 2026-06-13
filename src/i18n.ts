@@ -21,7 +21,12 @@ export type Messages = {
   eyebrow: string;
   heroTitle: string;
   heroHighlight: string;
+  heroModelLine: string;
   heroDescription: string;
+  heroMigration: string;
+  heroPriceTitle: string;
+  heroPriceUnit: string;
+  heroSavingsLabel: string;
   start: string;
   viewPricing: string;
   docs: string;
@@ -40,6 +45,7 @@ export type Messages = {
   officialUsage: string;
   priceCardDescription: string;
   saveAbout: string;
+  savingsPrefix: string;
   featuresEyebrow: string;
   featuresTitle: string;
   featuresDescription: string;
@@ -59,6 +65,17 @@ export type Messages = {
   oneTimeUsage: string;
   officialPriceBasis: string;
   pricingNote: string;
+  tokenComparisonTitle: string;
+  perMillionTokens: string;
+  modelLabel: string;
+  officialInput: string;
+  tamgurInput: string;
+  officialOutput: string;
+  tamgurOutput: string;
+  pricingUpdated: string;
+  pricingDisclaimer: string;
+  officialSource: string;
+  geminiPricingNote: string;
   buyCredits: string;
   audienceEyebrow: string;
   audienceTitle: string;
@@ -92,10 +109,15 @@ export type Messages = {
 export const messages: Record<Locale, Messages> = {
   'zh-CN': {
     eyebrow: '面向开发者的 AI API 平台',
-    heroTitle: '以更低成本接入 Claude、GPT-5、Codex 与',
-    heroHighlight: 'Gemini',
-    heroDescription: '稳定的统一 API、按量付费和即时开通，为真实开发与生产调用而设计。',
-    start: '立即开始',
+    heroTitle: '比官方最高节省',
+    heroHighlight: '70%',
+    heroModelLine: '一个 API 接入 GPT-5、Claude、Gemini',
+    heroDescription: 'OpenAI Compatible API',
+    heroMigration: '支持常用 OpenAI SDK，修改 Base URL 即可迁移',
+    heroPriceTitle: 'GPT-5 输出价格',
+    heroPriceUnit: '每 100 万输出 Token',
+    heroSavingsLabel: '节省 70%',
+    start: '免费领取测试额度',
     viewPricing: '查看价格',
     docs: '开发文档',
     trust: '一个密钥 · 多家模型 · 全球可用',
@@ -113,6 +135,7 @@ export const messages: Record<Locale, Messages> = {
     officialUsage: '官方价格等值用量',
     priceCardDescription: '所有模型均按各提供商公开的官方 API 价格基准计算用量。',
     saveAbout: '约省 70%',
+    savingsPrefix: '最高可节省',
     featuresEyebrow: '为什么选择 Tamgur',
     featuresTitle: '低成本，也要稳定可靠',
     featuresDescription: '面向真实开发与生产环境，而不是一次性的廉价 Token。',
@@ -134,7 +157,7 @@ export const messages: Record<Locale, Messages> = {
     availableNow: '当前可用',
     integrationTitle: '替换 Base URL 即可接入现有项目',
     pricingEyebrow: '简单透明的计费',
-    pricingTitle: '支付 $2.99，获得 $10 官方价格等值用量',
+    pricingTitle: '主流模型 API 价格，约省 70%',
     pricingDescription: '不是官方充值卡。你的余额会根据所选模型的官方 API 公开价格计算消耗。',
     pricingPoints: [
       '适用于平台内全部可用模型',
@@ -146,6 +169,17 @@ export const messages: Record<Locale, Messages> = {
     oneTimeUsage: '按量使用',
     officialPriceBasis: '官方价格基准',
     pricingNote: '示例：当模型调用按官方定价累计达到 $10 时，你在 Tamgur 的对应成本为 $2.99。',
+    tokenComparisonTitle: '每 100 万 Token 价格示例',
+    perMillionTokens: '输入与输出 Token 分开计费',
+    modelLabel: '模型',
+    officialInput: '官方输入',
+    tamgurInput: 'Tamgur 输入',
+    officialOutput: '官方输出',
+    tamgurOutput: 'Tamgur 输出',
+    pricingUpdated: '价格核对于 {date}',
+    pricingDisclaimer: '以上为说明性估算，Tamgur 价格按官方公开 API 单价的 29.9% 计算。模型提供商可能随时调整价格，请以链接中的官方页面为准。',
+    officialSource: '官方价格来源',
+    geminiPricingNote: 'Gemini 2.5 Pro 示例适用于提示词不超过 20 万 Token 的标准请求。',
     buyCredits: '购买 API 用量',
     audienceEyebrow: '适合谁',
     audienceTitle: '为构建者准备',
@@ -203,10 +237,15 @@ export const messages: Record<Locale, Messages> = {
   },
   en: {
     eyebrow: 'AI API platform for developers',
-    heroTitle: 'Access Claude, GPT-5, Codex & Gemini at',
-    heroHighlight: 'Lower Cost',
-    heroDescription: 'Stable unified API access, pay-as-you-go billing, and instant activation for real development and production workloads.',
-    start: 'Get Started',
+    heroTitle: 'Save up to',
+    heroHighlight: '70%',
+    heroModelLine: 'One API for GPT-5, Claude, and Gemini',
+    heroDescription: 'OpenAI Compatible API',
+    heroMigration: 'Use your preferred OpenAI SDK and migrate by changing the Base URL',
+    heroPriceTitle: 'GPT-5 output pricing',
+    heroPriceUnit: 'Per 1 million output tokens',
+    heroSavingsLabel: 'Save 70%',
+    start: 'Claim Free Test Credits',
     viewPricing: 'View Pricing',
     docs: 'Documentation',
     trust: 'One key · Multiple models · Global access',
@@ -224,6 +263,7 @@ export const messages: Record<Locale, Messages> = {
     officialUsage: 'official-price API usage',
     priceCardDescription: 'Usage is calculated against each model provider’s published official API pricing.',
     saveAbout: 'Save about 70%',
+    savingsPrefix: 'Save up to',
     featuresEyebrow: 'Why developers choose Tamgur',
     featuresTitle: 'Lower cost. Built to stay reliable.',
     featuresDescription: 'Infrastructure for real development and production workloads, not disposable discount tokens.',
@@ -245,7 +285,7 @@ export const messages: Record<Locale, Messages> = {
     availableNow: 'Available now',
     integrationTitle: 'Connect existing projects by changing the Base URL',
     pricingEyebrow: 'Simple, transparent pricing',
-    pricingTitle: 'Pay $2.99 for $10 of official-price API usage',
+    pricingTitle: 'Save about 70% on leading AI model APIs',
     pricingDescription: 'This is not an official gift card. Your balance is consumed against each selected model’s published official API pricing.',
     pricingPoints: [
       'Applies across all models available on the platform',
@@ -257,6 +297,17 @@ export const messages: Record<Locale, Messages> = {
     oneTimeUsage: 'pay as you go',
     officialPriceBasis: 'Official price basis',
     pricingNote: 'Example: when your model calls total $10 at published official API prices, the corresponding Tamgur cost is $2.99.',
+    tokenComparisonTitle: 'Price examples per 1M tokens',
+    perMillionTokens: 'Input and output tokens are billed separately',
+    modelLabel: 'Model',
+    officialInput: 'Official input',
+    tamgurInput: 'Tamgur input',
+    officialOutput: 'Official output',
+    tamgurOutput: 'Tamgur output',
+    pricingUpdated: 'Prices verified {date}',
+    pricingDisclaimer: 'Illustrative estimates only. Tamgur prices are calculated at 29.9% of published official API rates. Providers may change pricing at any time; follow the linked official pages for current rates.',
+    officialSource: 'Official pricing source',
+    geminiPricingNote: 'The Gemini 2.5 Pro example applies to standard requests with prompts up to 200K tokens.',
     buyCredits: 'Buy API Usage',
     audienceEyebrow: 'Built for',
     audienceTitle: 'Made for people who build',
@@ -314,10 +365,15 @@ export const messages: Record<Locale, Messages> = {
   },
   fr: {
     eyebrow: "Plateforme d'API IA pour les développeurs",
-    heroTitle: 'Accédez à Claude, GPT-5, Codex et Gemini à',
-    heroHighlight: 'moindre coût',
-    heroDescription: "Une API unifiée stable, une facturation à l'usage et une activation immédiate pour le développement et la production.",
-    start: 'Commencer',
+    heroTitle: "Économisez jusqu'à",
+    heroHighlight: '70 %',
+    heroModelLine: 'Une API pour GPT-5, Claude et Gemini',
+    heroDescription: 'API compatible OpenAI',
+    heroMigration: "Utilisez votre SDK OpenAI habituel et migrez en modifiant l'URL de base",
+    heroPriceTitle: 'Tarif de sortie GPT-5',
+    heroPriceUnit: 'Par million de tokens de sortie',
+    heroSavingsLabel: 'Économisez 70 %',
+    start: 'Obtenir des crédits de test',
     viewPricing: 'Voir les tarifs',
     docs: 'Documentation',
     trust: 'Une clé · Plusieurs modèles · Accès mondial',
@@ -335,6 +391,7 @@ export const messages: Record<Locale, Messages> = {
     officialUsage: "d'utilisation au tarif officiel",
     priceCardDescription: "L'utilisation est calculée selon les tarifs API officiels publiés par chaque fournisseur.",
     saveAbout: 'Environ 70 % économisés',
+    savingsPrefix: "Jusqu'à",
     featuresEyebrow: 'Pourquoi choisir Tamgur',
     featuresTitle: 'Moins cher, sans sacrifier la fiabilité',
     featuresDescription: "Une infrastructure conçue pour le développement réel et la production.",
@@ -356,7 +413,7 @@ export const messages: Record<Locale, Messages> = {
     availableNow: 'Disponible',
     integrationTitle: "Connectez vos projets en modifiant simplement l'URL de base",
     pricingEyebrow: 'Tarification simple et transparente',
-    pricingTitle: "Payez 2,99 $ pour 10 $ d'utilisation au tarif officiel",
+    pricingTitle: "Économisez environ 70 % sur les principales API d'IA",
     pricingDescription: "Il ne s'agit pas d'une carte cadeau officielle. Le solde est consommé selon le tarif API officiel publié du modèle choisi.",
     pricingPoints: [
       'Valable pour tous les modèles disponibles',
@@ -368,6 +425,17 @@ export const messages: Record<Locale, Messages> = {
     oneTimeUsage: "paiement à l'usage",
     officialPriceBasis: 'Base tarifaire officielle',
     pricingNote: "Exemple : 10 $ d'appels calculés aux tarifs API officiels correspondent à un coût Tamgur de 2,99 $.",
+    tokenComparisonTitle: 'Exemples de prix par million de tokens',
+    perMillionTokens: "Les tokens d'entrée et de sortie sont facturés séparément",
+    modelLabel: 'Modèle',
+    officialInput: 'Entrée officielle',
+    tamgurInput: 'Entrée Tamgur',
+    officialOutput: 'Sortie officielle',
+    tamgurOutput: 'Sortie Tamgur',
+    pricingUpdated: 'Prix vérifiés le {date}',
+    pricingDisclaimer: "Estimations indicatives. Les prix Tamgur correspondent à 29,9 % des tarifs API officiels publiés. Les fournisseurs peuvent modifier leurs prix ; consultez les pages officielles liées.",
+    officialSource: 'Tarif officiel',
+    geminiPricingNote: "L'exemple Gemini 2.5 Pro concerne les requêtes standard avec des prompts jusqu'à 200 000 tokens.",
     buyCredits: "Acheter de l'utilisation API",
     audienceEyebrow: 'Conçu pour',
     audienceTitle: 'Pensé pour ceux qui construisent',
@@ -425,10 +493,15 @@ export const messages: Record<Locale, Messages> = {
   },
   ru: {
     eyebrow: 'Платформа AI API для разработчиков',
-    heroTitle: 'Claude, GPT-5, Codex и Gemini по',
-    heroHighlight: 'меньшей цене',
-    heroDescription: 'Стабильный единый API, оплата по мере использования и мгновенная активация для разработки и производственных нагрузок.',
-    start: 'Начать',
+    heroTitle: 'Экономьте до',
+    heroHighlight: '70%',
+    heroModelLine: 'Один API для GPT-5, Claude и Gemini',
+    heroDescription: 'API, совместимый с OpenAI',
+    heroMigration: 'Используйте привычный OpenAI SDK и перенесите проект, изменив Base URL',
+    heroPriceTitle: 'Цена вывода GPT-5',
+    heroPriceUnit: 'За 1 миллион выходных Token',
+    heroSavingsLabel: 'Экономия 70%',
+    start: 'Получить тестовые Token',
     viewPricing: 'Посмотреть цены',
     docs: 'Документация',
     trust: 'Один ключ · Несколько моделей · Глобальный доступ',
@@ -446,6 +519,7 @@ export const messages: Record<Locale, Messages> = {
     officialUsage: 'использования по официальной цене',
     priceCardDescription: 'Расход рассчитывается по опубликованным официальным API-тарифам каждого провайдера.',
     saveAbout: 'Экономия около 70%',
+    savingsPrefix: 'Экономия до',
     featuresEyebrow: 'Почему выбирают Tamgur',
     featuresTitle: 'Ниже цена, стабильнее работа',
     featuresDescription: 'Инфраструктура для разработки и реальных производственных нагрузок.',
@@ -467,7 +541,7 @@ export const messages: Record<Locale, Messages> = {
     availableNow: 'Доступно',
     integrationTitle: 'Подключите проект, изменив только Base URL',
     pricingEyebrow: 'Простые и прозрачные цены',
-    pricingTitle: '$2.99 за $10 использования по официальным тарифам',
+    pricingTitle: 'Экономьте около 70% на API ведущих AI-моделей',
     pricingDescription: 'Это не официальная подарочная карта. Баланс расходуется по опубликованной официальной API-цене выбранной модели.',
     pricingPoints: [
       'Действует для всех доступных моделей',
@@ -479,6 +553,17 @@ export const messages: Record<Locale, Messages> = {
     oneTimeUsage: 'оплата по факту',
     officialPriceBasis: 'Официальная цена',
     pricingNote: 'Пример: вызовы на $10 по официальным API-тарифам соответствуют стоимости $2.99 в Tamgur.',
+    tokenComparisonTitle: 'Примеры цен за 1 млн токенов',
+    perMillionTokens: 'Входные и выходные токены оплачиваются отдельно',
+    modelLabel: 'Модель',
+    officialInput: 'Ввод официально',
+    tamgurInput: 'Ввод Tamgur',
+    officialOutput: 'Вывод официально',
+    tamgurOutput: 'Вывод Tamgur',
+    pricingUpdated: 'Цены проверены {date}',
+    pricingDisclaimer: 'Это ориентировочные расчёты. Цены Tamgur составляют 29,9% опубликованных официальных API-тарифов. Провайдеры могут менять цены; актуальные данные смотрите по официальным ссылкам.',
+    officialSource: 'Официальные цены',
+    geminiPricingNote: 'Пример Gemini 2.5 Pro относится к стандартным запросам с промптами до 200 тыс. токенов.',
     buyCredits: 'Купить API-объём',
     audienceEyebrow: 'Для кого',
     audienceTitle: 'Для тех, кто создаёт',
@@ -536,10 +621,15 @@ export const messages: Record<Locale, Messages> = {
   },
   ja: {
     eyebrow: '開発者向け AI API プラットフォーム',
-    heroTitle: 'Claude、GPT-5、Codex、Gemini を',
-    heroHighlight: 'より低コストで',
-    heroDescription: '安定した統合 API、従量課金、即時有効化。実際の開発と本番環境のために設計されています。',
-    start: '始める',
+    heroTitle: '公式料金より最大',
+    heroHighlight: '70% 節約',
+    heroModelLine: 'ひとつの API で GPT-5、Claude、Gemini に接続',
+    heroDescription: 'OpenAI Compatible API',
+    heroMigration: '使い慣れた OpenAI SDK を利用し、Base URL の変更だけで移行',
+    heroPriceTitle: 'GPT-5 出力料金',
+    heroPriceUnit: '出力 100 万 Token あたり',
+    heroSavingsLabel: '70% 節約',
+    start: '無料テスト Token を受け取る',
     viewPricing: '料金を見る',
     docs: 'ドキュメント',
     trust: '1つのキー · 複数モデル · グローバルアクセス',
@@ -557,6 +647,7 @@ export const messages: Record<Locale, Messages> = {
     officialUsage: '公式価格換算の API 利用量',
     priceCardDescription: '各プロバイダーが公開する公式 API 料金を基準に利用量を計算します。',
     saveAbout: '約 70% 節約',
+    savingsPrefix: '最大',
     featuresEyebrow: 'Tamgur が選ばれる理由',
     featuresTitle: '低コストと安定性を両立',
     featuresDescription: '実際の開発と本番環境のための AI インフラです。',
@@ -578,7 +669,7 @@ export const messages: Record<Locale, Messages> = {
     availableNow: '利用可能',
     integrationTitle: 'Base URL を変更するだけで既存プロジェクトに接続',
     pricingEyebrow: 'シンプルで透明な料金',
-    pricingTitle: '$2.99 で公式価格 $10 相当の API 利用量',
+    pricingTitle: '主要 AI モデル API を約 70% 節約',
     pricingDescription: '公式ギフトカードではありません。選択したモデルの公開公式 API 料金を基準に残高が消費されます。',
     pricingPoints: [
       'プラットフォーム上のすべてのモデルに適用',
@@ -590,6 +681,17 @@ export const messages: Record<Locale, Messages> = {
     oneTimeUsage: '従量課金',
     officialPriceBasis: '公式価格基準',
     pricingNote: '例：公式 API 料金で $10 になるモデル呼び出しは、Tamgur では $2.99 に相当します。',
+    tokenComparisonTitle: '100万 Token あたりの料金例',
+    perMillionTokens: '入力 Token と出力 Token は別々に課金されます',
+    modelLabel: 'モデル',
+    officialInput: '公式入力',
+    tamgurInput: 'Tamgur 入力',
+    officialOutput: '公式出力',
+    tamgurOutput: 'Tamgur 出力',
+    pricingUpdated: '料金確認日：{date}',
+    pricingDisclaimer: '表示価格は参考値です。Tamgur 料金は公開されている公式 API 単価の 29.9% として計算しています。提供元が価格を変更する場合があるため、最新情報はリンク先の公式ページをご確認ください。',
+    officialSource: '公式料金',
+    geminiPricingNote: 'Gemini 2.5 Pro の例は、プロンプトが 20 万 Token 以下の標準リクエストに適用されます。',
     buyCredits: 'API 利用量を購入',
     audienceEyebrow: '対象ユーザー',
     audienceTitle: 'つくる人のために',
@@ -647,10 +749,15 @@ export const messages: Record<Locale, Messages> = {
   },
   vi: {
     eyebrow: 'Nền tảng AI API cho nhà phát triển',
-    heroTitle: 'Truy cập Claude, GPT-5, Codex và Gemini với',
-    heroHighlight: 'chi phí thấp hơn',
-    heroDescription: 'API hợp nhất ổn định, thanh toán theo mức dùng và kích hoạt tức thì cho phát triển thực tế và môi trường production.',
-    start: 'Bắt đầu',
+    heroTitle: 'Tiết kiệm tới',
+    heroHighlight: '70%',
+    heroModelLine: 'Một API cho GPT-5, Claude và Gemini',
+    heroDescription: 'API tương thích OpenAI',
+    heroMigration: 'Dùng OpenAI SDK quen thuộc và chuyển đổi bằng cách thay Base URL',
+    heroPriceTitle: 'Giá đầu ra GPT-5',
+    heroPriceUnit: 'Mỗi 1 triệu Token đầu ra',
+    heroSavingsLabel: 'Tiết kiệm 70%',
+    start: 'Nhận Token dùng thử miễn phí',
     viewPricing: 'Xem giá',
     docs: 'Tài liệu',
     trust: 'Một khóa · Nhiều mô hình · Truy cập toàn cầu',
@@ -668,6 +775,7 @@ export const messages: Record<Locale, Messages> = {
     officialUsage: 'lượng API theo giá chính thức',
     priceCardDescription: 'Mức sử dụng được tính theo giá API chính thức do từng nhà cung cấp công bố.',
     saveAbout: 'Tiết kiệm khoảng 70%',
+    savingsPrefix: 'Tiết kiệm tới',
     featuresEyebrow: 'Vì sao chọn Tamgur',
     featuresTitle: 'Chi phí thấp, vẫn ổn định',
     featuresDescription: 'Hạ tầng dành cho phát triển thực tế và môi trường production.',
@@ -689,7 +797,7 @@ export const messages: Record<Locale, Messages> = {
     availableNow: 'Đang hoạt động',
     integrationTitle: 'Kết nối dự án hiện có chỉ bằng cách đổi Base URL',
     pricingEyebrow: 'Giá đơn giản, minh bạch',
-    pricingTitle: 'Trả $2.99 cho $10 lượng dùng API theo giá chính thức',
+    pricingTitle: 'Tiết kiệm khoảng 70% cho API mô hình AI hàng đầu',
     pricingDescription: 'Đây không phải thẻ quà tặng chính thức. Số dư được khấu trừ theo giá API chính thức đã công bố của mô hình.',
     pricingPoints: [
       'Áp dụng cho mọi mô hình có trên nền tảng',
@@ -701,6 +809,17 @@ export const messages: Record<Locale, Messages> = {
     oneTimeUsage: 'trả theo mức dùng',
     officialPriceBasis: 'Giá chính thức',
     pricingNote: 'Ví dụ: các lệnh gọi có tổng giá chính thức $10 sẽ tương ứng chi phí $2.99 tại Tamgur.',
+    tokenComparisonTitle: 'Ví dụ giá cho mỗi 1 triệu token',
+    perMillionTokens: 'Token đầu vào và đầu ra được tính phí riêng',
+    modelLabel: 'Mô hình',
+    officialInput: 'Đầu vào chính thức',
+    tamgurInput: 'Đầu vào Tamgur',
+    officialOutput: 'Đầu ra chính thức',
+    tamgurOutput: 'Đầu ra Tamgur',
+    pricingUpdated: 'Giá được kiểm tra ngày {date}',
+    pricingDisclaimer: 'Chỉ là ước tính minh họa. Giá Tamgur được tính bằng 29,9% giá API chính thức đã công bố. Nhà cung cấp có thể thay đổi giá; hãy xem các trang chính thức được liên kết để biết mức hiện tại.',
+    officialSource: 'Nguồn giá chính thức',
+    geminiPricingNote: 'Ví dụ Gemini 2.5 Pro áp dụng cho yêu cầu tiêu chuẩn có prompt tối đa 200 nghìn token.',
     buyCredits: 'Mua lượng dùng API',
     audienceEyebrow: 'Dành cho',
     audienceTitle: 'Dành cho người xây dựng',
