@@ -178,7 +178,7 @@ export default function App() {
     };
   }, []);
 
-  const copyContact = async (value: string, contact: 'wechat' | 'telegram' | 'email' | null) => {
+  const copyContact = async (value: string, contact: 'wechat' | 'telegram' | null) => {
     try {
       await navigator.clipboard.writeText(value);
     } catch {
@@ -602,7 +602,7 @@ export default function App() {
           <strong>rainkii8518231@gmail.com</strong>
           <button
             type="button"
-            onClick={() => copyContact('rainkii8518231@gmail.com', 'email')}
+            onClick={() => copyContact('rainkii8518231@gmail.com', null)}
 
           >
             {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
