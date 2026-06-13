@@ -64,15 +64,6 @@ function ChevronIcon() {
   );
 }
 
-function CopyIcon() {
-  return (
-    <svg viewBox="0 0 20 20" aria-hidden="true">
-      <rect x="6.5" y="6.5" width="9" height="9" rx="2" />
-      <path d="M13.5 6.5V5A1.5 1.5 0 0 0 12 3.5H5A1.5 1.5 0 0 0 3.5 5v7A1.5 1.5 0 0 0 5 13.5h1.5" />
-    </svg>
-  );
-}
-
 function CheckIcon() {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -98,21 +89,6 @@ function WechatIcon() {
   );
 }
 
-type PlatformIconType = 'speed' | 'wallet' | 'globe' | 'shield' | 'code';
-
-function PlatformIcon({ type }: { type: PlatformIconType }) {
-  const paths = {
-    speed: <><path d="M3 14.5a7.5 7.5 0 1 1 14 0" /><path d="m10 10 4-3M5.5 14.5h9" /></>,
-    wallet: <><path d="M3 5.5A2.5 2.5 0 0 1 5.5 3H15v3H5.5a2.5 2.5 0 0 0 0 5H17v5H5a2 2 0 0 1-2-2V5.5Z" /><path d="M13 8h4v4h-4a2 2 0 1 1 0-4Z" /></>,
-    globe: <><circle cx="10" cy="10" r="7.5" /><path d="M2.8 10h14.4M10 2.5c2 2.1 3 4.6 3 7.5s-1 5.4-3 7.5c-2-2.1-3-4.6-3-7.5s1-5.4 3-7.5Z" /></>,
-    shield: <><path d="M10 2.5 16 5v4.6c0 3.8-2.4 6.5-6 7.9-3.6-1.4-6-4.1-6-7.9V5l6-2.5Z" /><path d="m7 10 2 2 4-4" /></>,
-    code: <><path d="m7.5 5-4 5 4 5M12.5 5l4 5-4 5" /><path d="m11.5 3-3 14" /></>,
-  };
-
-  return <svg viewBox="0 0 20 20" aria-hidden="true">{paths[type]}</svg>;
-}
-
-const featureIcons: PlatformIconType[] = ['wallet', 'speed', 'shield', 'code', 'globe'];
 const audienceMarks = ['</>', '↗', 'AI', '01'];
 
 export default function App() {
@@ -120,9 +96,7 @@ export default function App() {
   const { t } = useLocale();
   const pageRef = useRef<HTMLDivElement>(null);
   const communityRef = useRef<HTMLDivElement>(null);
-  const copyResetRef = useRef<number | null>(null);
   const [communityOpen, setCommunityOpen] = useState(false);
-  const [copiedContact, setCopiedContact] = useState<'wechat' | 'telegram' | null>(null);
   const isDocsView =
     window.location.pathname === '/docs' ||
     new URLSearchParams(window.location.search).get('view') === 'docs';
@@ -171,30 +145,6 @@ export default function App() {
     };
   }, [communityOpen]);
 
-  useEffect(() => {
-    return () => {
-      if (copyResetRef.current) window.clearTimeout(copyResetRef.current);
-    };
-  }, []);
-
-  const copyContact = async (value: string, contact: 'wechat' | 'telegram' | null) => {
-    try {
-      await navigator.clipboard.writeText(value);
-    } catch {
-      const input = document.createElement('textarea');
-      input.value = value;
-      input.style.position = 'fixed';
-      input.style.opacity = '0';
-      document.body.appendChild(input);
-      input.select();
-      document.execCommand('copy');
-      input.remove();
-    }
-    setCopiedContact(contact);
-    if (copyResetRef.current) window.clearTimeout(copyResetRef.current);
-    copyResetRef.current = window.setTimeout(() => setCopiedContact(null), 1800);
-  };
-
   if (isDocsView) {
     return (
       <div className="page docs-page-shell" ref={pageRef}>
@@ -232,7 +182,7 @@ export default function App() {
           </div>
 
           <div className="hero-price-card">
-            <div className="hero-price-example">
+            {/* <div className="hero-price-example">
               <span className="hero-price-title">{t.heroPriceTitle}</span>
               <div className="hero-price-example-grid">
                 <div>
@@ -244,7 +194,7 @@ export default function App() {
                   <b>$5-$12</b>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
 
           <div className="hero-actions">
@@ -256,6 +206,15 @@ export default function App() {
               {t.docs}
               <ArrowIcon />
             </a>
+          </div>
+
+          <div className="hero-metrics" aria-label={t.featuresEyebrow}>
+            {t.heroMetrics.map((metric) => (
+              <div key={metric}>
+                <span aria-hidden="true" />
+                <strong>{metric}</strong>
+              </div>
+            ))}
           </div>
 
           <div className="trust-row">
@@ -369,16 +328,28 @@ export default function App() {
           <h2>{t.featuresTitle}</h2>
           <p>{t.featuresDescription}</p>
         </div>
-        <div className="platform-feature-grid">
-          {t.features.map((feature, index) => (
-            <article className="platform-feature-card" key={feature.title}>
-              <span className="feature-index">0{index + 1}</span>
-              <div className="feature-symbol">
-                <PlatformIcon type={featureIcons[index]} />
-              </div>
-              <h3>{feature.title}</h3>
-              <p>{feature.description}</p>
-            </article>
+        <div className="developer-benefits">
+          {t.developerBenefits.map((benefit) => (
+            <div key={benefit}>
+              <CheckIcon />
+              <strong>{benefit}</strong>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="content-section works-with-section">
+        <div className="section-heading compact">
+          <span>{t.worksWithEyebrow}</span>
+          <h2>{t.worksWithTitle}</h2>
+          <p>{t.worksWithDescription}</p>
+        </div>
+        <div className="works-with-grid">
+          {t.worksWithTools.map((tool) => (
+            <div key={tool}>
+              <CheckIcon />
+              <strong>{tool}</strong>
+            </div>
           ))}
         </div>
       </section>
@@ -567,41 +538,20 @@ export default function App() {
             <span className="wordmark-dot" />
             {siteConfig.brand}
           </span>
-          {/* <span>{t.footerTagline}</span> */}
+          <span>{t.footerTagline}</span>
         </div>
 
-        <div className="hero-contact footer-contact">
-          <span>{t.contactWechat}</span>
-          <strong>cyuCyin</strong>
-          <button
-            type="button"
-            onClick={() => copyContact('cyuCyin', 'wechat')}
-            aria-label={copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
-            title={copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
-          >
-            {copiedContact === 'wechat' ? <CheckIcon /> : <CopyIcon />}
-          </button>
-          <span>Telegram</span>
-          <strong>@chloe_yan_cyu</strong>
-          <button
-            type="button"
-            onClick={() => copyContact('@chloe_yan_cyu', 'telegram')}
-            aria-label={copiedContact === 'telegram' ? t.copiedTelegram : t.copyTelegram}
-            title={copiedContact === 'telegram' ? t.copiedTelegram : t.copyTelegram}
-          >
-            {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
-          </button>
-
-             <span>Email</span>
-          <strong>tamgurcyu@gmail.com</strong>
-          <button
-            type="button"
-            onClick={() => copyContact('tamgurcyu@gmail.com', null)}
-
-          >
-            {copiedContact === 'telegram' ? <CheckIcon /> : <CopyIcon />}
-          </button>
-        </div>
+        <nav className="footer-nav" aria-label="Footer">
+          <a href={siteConfig.links.support}>{t.footerSupport}</a>
+          <a href={siteConfig.links.docs} target="_blank" rel="noopener noreferrer">
+            {t.footerDocumentation}
+          </a>
+          <a href={siteConfig.links.status}>{t.footerStatus}</a>
+          <a href={siteConfig.links.telegram} target="_blank" rel="noopener noreferrer">
+            {t.footerTelegram}
+          </a>
+          <a href={siteConfig.links.contact}>{t.footerContact}</a>
+        </nav>
 
         <span className="footer-powered">{t.footerPowered}</span>
       </footer>

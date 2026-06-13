@@ -12,7 +12,10 @@ export const siteConfig = {
     login: '/login',
     recharge: 'https://api.tamgur.tech/wallet',
     imageGeneration: '/playground',
-    telegramGroup: 'https://t.me/your_group',
+    telegramGroup: 'https://t.me/chloe_yan_cyu',
+    telegram: 'https://t.me/chloe_yan_cyu',
+    support: 'mailto:tamgurcyu@gmail.com?subject=Tamgur%20Support',
+    contact: 'mailto:tamgurcyu@gmail.com?subject=Tamgur%20Contact',
     wechatGroup: '/wechat-group',
   },
 } as const;
