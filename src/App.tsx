@@ -171,7 +171,7 @@ export default function App() {
 
           <h1 className="international-title">
             <span>{t.heroTitle}</span>
-            <strong className="hero-savings-number">{t.heroHighlight}</strong>
+            {/* <strong className="hero-savings-number">{t.heroHighlight}</strong> */}
           </h1>
 
           <p className="hero-model-line">{t.heroModelLine}</p>

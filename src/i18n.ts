@@ -120,7 +120,7 @@ export type Messages = {
 export const messages: Record<Locale, Messages> = {
   'zh-CN': {
     eyebrow: '稳定可靠的 AI API 平台',
-    heroTitle: '摆脱 Claude Max 与 Codex 订阅',
+    heroTitle: '摆脱 Claude Max 与 Codex 订阅和额度限制',
     heroHighlight: '最高省 70%',
     heroModelLine: '按量付费，随用随充',
     heroDescription: '一个 API 接入 GPT-5、Claude、Gemini',
@@ -259,7 +259,7 @@ export const messages: Record<Locale, Messages> = {
   },
   en: {
     eyebrow: 'Stable, reliable AI API platform',
-    heroTitle: 'Move Beyond Claude Max and Codex Subscriptions',
+    heroTitle: 'Move Beyond Claude Max and Codex Subscription and Usage Limits',
     heroHighlight: 'Save Up to 70%',
     heroModelLine: 'Pay as You Go · Top Up Anytime',
     heroDescription: 'One API for GPT-5, Claude, and Gemini',
@@ -398,7 +398,7 @@ export const messages: Record<Locale, Messages> = {
   },
   fr: {
     eyebrow: "Plateforme d'API IA stable et fiable",
-    heroTitle: 'Libérez-vous des abonnements Claude Max et Codex',
+    heroTitle: 'Libérez-vous des abonnements Claude Max et Codex et de leurs limites de quota',
     heroHighlight: "Jusqu'à -70 %",
     heroModelLine: "Paiement à l'usage · Recharge à tout moment",
     heroDescription: 'Une API pour GPT-5, Claude et Gemini',
@@ -537,7 +537,7 @@ export const messages: Record<Locale, Messages> = {
   },
   ru: {
     eyebrow: 'Стабильная и надёжная платформа AI API',
-    heroTitle: 'Откажитесь от подписок Claude Max и Codex',
+    heroTitle: 'Избавьтесь от подписок Claude Max и Codex и их лимитов',
     heroHighlight: 'До 70% дешевле',
     heroModelLine: 'Оплата по факту · Пополняйте баланс по мере необходимости',
     heroDescription: 'Один API для GPT-5, Claude и Gemini',
@@ -676,7 +676,7 @@ export const messages: Record<Locale, Messages> = {
   },
   ja: {
     eyebrow: '安定性と信頼性を重視した AI API',
-    heroTitle: 'Claude Max と Codex のサブスクから解放',
+    heroTitle: 'Claude Max と Codex のサブスクと利用上限から解放',
     heroHighlight: '最大 70% お得',
     heroModelLine: '従量課金 · 必要なときにチャージ',
     heroDescription: 'ひとつの API で GPT-5、Claude、Gemini に接続',
@@ -815,7 +815,7 @@ export const messages: Record<Locale, Messages> = {
   },
   vi: {
     eyebrow: 'Nền tảng AI API ổn định và đáng tin cậy',
-    heroTitle: 'Thoát khỏi gói đăng ký Claude Max và Codex',
+    heroTitle: 'Thoát khỏi gói đăng ký Claude Max và Codex cùng giới hạn hạn mức',
     heroHighlight: 'Tiết kiệm đến 70%',
     heroModelLine: 'Trả theo mức dùng · Nạp tiền bất cứ lúc nào',
     heroDescription: 'Một API cho GPT-5, Claude và Gemini',
