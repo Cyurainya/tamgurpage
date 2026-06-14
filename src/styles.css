@@ -538,6 +538,109 @@ h1 {
   /* text-transform: uppercase; */
 }
 
+.trust-contact-popover {
+  position: relative;
+  padding-bottom: 10px;
+  margin-bottom: -10px;
+}
+
+.trust-offer-button {
+  display: inline-flex;
+  align-items: center;
+  padding: 0;
+  border: 0;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.trust-offer-button:hover,
+.trust-offer-button:focus-visible
+ {
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: var(--brand-bright);
+  text-underline-offset: 4px;
+  outline: none;
+}
+
+.trust-contact-card {
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  z-index: 30;
+  display: none;
+  min-width: 320px;
+  padding: 14px;
+  border: 1px solid var(--border-strong);
+  border-radius: 18px;
+  background: color-mix(in srgb, var(--surface), white 8%);
+  box-shadow: 0 18px 42px rgba(20, 18, 14, 0.16);
+  backdrop-filter: blur(18px);
+}
+
+.trust-contact-popover.is-open .trust-contact-card,
+.trust-contact-popover:hover .trust-contact-card,
+.trust-contact-popover:focus-within .trust-contact-card {
+  display: grid;
+  gap: 10px;
+}
+
+.trust-contact-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--surface-soft), transparent 18%);
+}
+
+.trust-contact-item > div {
+  display: grid;
+  gap: 4px;
+}
+
+.trust-contact-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.trust-contact-item a,
+.trust-contact-value {
+  color: var(--text);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0;
+}
+
+.trust-contact-item button {
+  flex: 0 0 auto;
+  min-width: 64px;
+  padding: 6px 9px;
+  border: 1px solid color-mix(in srgb, var(--brand), transparent 40%);
+  border-radius: 999px;
+  color: var(--brand-deep);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0;
+  background: color-mix(in srgb, var(--brand-soft), white 24%);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.trust-contact-item button:hover,
+.trust-contact-item button:focus-visible {
+  color: #fff;
+  background: var(--brand);
+  outline: none;
+}
+
 .live-indicator {
   width: 6px;
   height: 6px;
@@ -2860,11 +2963,46 @@ h1 {
 }
 
 .footer-contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   width: auto;
   flex: 1;
   justify-content: center;
   margin: 0;
   padding: 0;
+  gap: 10px 18px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.footer-contact-card {
+  display: grid;
+  gap: 4px;
+  min-width: 190px;
+  padding: 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--surface-soft), transparent 18%);
+  color: var(--text-secondary);
+}
+
+.footer-contact-label {
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text-muted);
+  text-transform: uppercase;
+}
+
+.footer-contact-card strong {
+  color: var(--text);
+  font-size: 13px;
+}
+
+.footer-contact-card:hover {
+  border-color: color-mix(in srgb, var(--brand), transparent 46%);
+  box-shadow: 0 12px 28px rgba(20, 18, 14, 0.08);
 }
 
 .footer-powered {

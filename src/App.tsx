@@ -102,7 +102,11 @@ export default function App() {
   const { t } = useLocale();
   const pageRef = useRef<HTMLDivElement>(null);
   const communityRef = useRef<HTMLDivElement>(null);
+  const trustRef = useRef<HTMLDivElement>(null);
+  const trustCloseTimerRef = useRef<number | null>(null);
   const [communityOpen, setCommunityOpen] = useState(false);
+  const [trustOpen, setTrustOpen] = useState(false);
+  const [copiedContact, setCopiedContact] = useState<'email' | 'telegram' | 'wechat' | null>(null);
   const isDocsView =
     window.location.pathname === '/docs' ||
     new URLSearchParams(window.location.search).get('view') === 'docs';
@@ -150,6 +154,70 @@ export default function App() {
       window.removeEventListener('keydown', onKeyDown);
     };
   }, [communityOpen]);
+
+  useEffect(() => {
+    if (!trustOpen) return;
+
+    const onPointerDown = (event: PointerEvent) => {
+      if (!trustRef.current?.contains(event.target as Node)) {
+        setTrustOpen(false);
+      }
+    };
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setTrustOpen(false);
+    };
+
+    window.addEventListener('pointerdown', onPointerDown);
+    window.addEventListener('keydown', onKeyDown);
+    return () => {
+      window.removeEventListener('pointerdown', onPointerDown);
+      window.removeEventListener('keydown', onKeyDown);
+    };
+  }, [trustOpen]);
+
+  useEffect(() => {
+    if (!copiedContact) return;
+    const timeout = window.setTimeout(() => setCopiedContact(null), 1800);
+    return () => window.clearTimeout(timeout);
+  }, [copiedContact]);
+
+  useEffect(() => () => {
+    if (trustCloseTimerRef.current) {
+      window.clearTimeout(trustCloseTimerRef.current);
+    }
+  }, []);
+
+  async function copyContact(value: string, field: 'email' | 'telegram' | 'wechat') {
+    try {
+      await navigator.clipboard.writeText(value);
+      setCopiedContact(field);
+    } catch {
+      setCopiedContact(null);
+    }
+  }
+
+  function openTrustPopover() {
+    if (trustCloseTimerRef.current) {
+      window.clearTimeout(trustCloseTimerRef.current);
+      trustCloseTimerRef.current = null;
+    }
+    setTrustOpen(true);
+  }
+
+  function scheduleTrustClose() {
+    if (trustCloseTimerRef.current) {
+      window.clearTimeout(trustCloseTimerRef.current);
+    }
+    trustCloseTimerRef.current = window.setTimeout(() => {
+      const hovered = document.querySelector(':hover');
+      if (hovered instanceof Node && trustRef.current?.contains(hovered)) {
+        trustCloseTimerRef.current = null;
+        return;
+      }
+      setTrustOpen(false);
+      trustCloseTimerRef.current = null;
+    }, 160);
+  }
 
   if (isDocsView) {
     return (
@@ -225,7 +293,58 @@ export default function App() {
 
           <div className="trust-row">
             <span className="live-indicator" aria-hidden="true" />
-            <span>{t.trust}</span>
+            <div
+              className={`trust-contact-popover ${trustOpen ? 'is-open' : ''}`}
+              ref={trustRef}
+              onMouseEnter={openTrustPopover}
+              onMouseLeave={scheduleTrustClose}
+            >
+              <button
+                className="trust-offer-button"
+                type="button"
+                onClick={() => setTrustOpen((open) => !open)}
+                onMouseEnter={openTrustPopover}
+              >
+                {t.trust}
+              </button>
+              <div
+                className="trust-contact-card"
+                role="dialog"
+                aria-label="Contact information"
+                onMouseEnter={openTrustPopover}
+                onMouseLeave={scheduleTrustClose}
+              >
+                <div className="trust-contact-item">
+                  <div>
+                    <span className="trust-contact-label">Email</span>
+                    <a href="mailto:tamgurcyu@gmail.com">tamgurcyu@gmail.com</a>
+                  </div>
+                  <button type="button" onClick={() => copyContact('tamgurcyu@gmail.com', 'email')}>
+                    {copiedContact === 'email' ? t.copiedEmail : t.copyEmail}
+                  </button>
+                </div>
+                <div className="trust-contact-item">
+                  <div>
+                    <span className="trust-contact-label">Telegram</span>
+                    <a href="https://t.me/chloe_yan_cyu" target="_blank" rel="noopener noreferrer">
+                      @chloe_yan_cyu
+                    </a>
+                  </div>
+                  <button type="button" onClick={() => copyContact('@chloe_yan_cyu', 'telegram')}>
+                    {copiedContact === 'telegram' ? t.copiedTelegram : t.copyTelegram}
+                  </button>
+                </div>
+                <div className="trust-contact-item">
+                  <div>
+                    <span className="trust-contact-label">WeChat</span>
+                    <span className="trust-contact-value">cyuCyin</span>
+                  </div>
+                  <button type="button" onClick={() => copyContact('cyuCyin', 'wechat')}>
+                    {copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
+                  </button>
+                </div>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -566,6 +685,21 @@ export default function App() {
           </a>
           <a href={siteConfig.links.contact}>{t.footerContact}</a>
         </nav>
+
+        <div className="footer-contact" aria-label="Contact information">
+          <a className="footer-contact-card" href="mailto:tamgurcyu@gmail.com">
+            <span className="footer-contact-label">Email</span>
+            <strong>tamgurcyu@gmail.com</strong>
+          </a>
+          <a className="footer-contact-card" href="https://t.me/chloe_yan_cyu" target="_blank" rel="noopener noreferrer">
+            <span className="footer-contact-label">Telegram</span>
+            <strong>@chloe_yan_cyu</strong>
+          </a>
+          <div className="footer-contact-card">
+            <span className="footer-contact-label">WeChat</span>
+            <strong>cyuCyin</strong>
+          </div>
+        </div>
 
         <span className="footer-powered">{t.footerPowered}</span>
       </footer>
