@@ -568,8 +568,9 @@ h1 {
 
 .trust-contact-card {
   position: absolute;
-  top: calc(100% + 2px);
-  left: 0;
+  top: 50%;
+  left: calc(100% + 12px);
+  transform: translateY(-50%);
   z-index: 30;
   display: none;
   min-width: 320px;
@@ -3147,6 +3148,13 @@ h1 {
 }
 
 @media (max-width: 620px) {
+  .trust-contact-card {
+    top: calc(100% + 8px);
+    left: 0;
+    transform: none;
+    min-width: min(320px, calc(100vw - 40px));
+  }
+
   .hero-support-panel {
     grid-template-columns: 1fr;
     gap: 14px;
