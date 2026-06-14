@@ -5,8 +5,9 @@ import { ParticleTrail } from './ParticleTrail';
 import { siteConfig } from './config';
 import { useLocale } from './i18n';
 import {
+  formatUsdRange,
   formatUsd,
-  getTamgurPrice,
+  getTamgurPriceRange,
   modelPriceExamples,
   PRICING_VERIFIED_DATE,
 } from './pricing';
@@ -18,6 +19,11 @@ function ArrowIcon() {
       <path d="M4 10h11M11 6l4 4-4 4" />
     </svg>
   );
+}
+
+function renderTamgurRange(officialPrice: number) {
+  const { min, max } = getTamgurPriceRange(officialPrice);
+  return formatUsdRange(min, max);
 }
 
 function CodeIcon() {
@@ -448,11 +454,11 @@ export default function App() {
                     </th>
                     <td data-label={t.officialInput}>{formatUsd(example.officialInput)} / MTok</td>
                     <td className="tamgur-price" data-label={t.tamgurInput}>
-                      ≈ {formatUsd(getTamgurPrice(example.officialInput))} / MTok
+                      ≈ {renderTamgurRange(example.officialInput)} / MTok
                     </td>
                     <td data-label={t.officialOutput}>{formatUsd(example.officialOutput)} / MTok</td>
                     <td className="tamgur-price" data-label={t.tamgurOutput}>
-                      ≈ {formatUsd(getTamgurPrice(example.officialOutput))} / MTok
+                      ≈ {renderTamgurRange(example.officialOutput)} / MTok
                     </td>
                   </tr>
                 ))}
@@ -470,6 +476,14 @@ export default function App() {
                 ))}
               </div>
             </div>
+            {/* <a
+              className="primary-button pricing-more-button"
+              href="https://api.tamgur.tech/pricing"
+              target="_blank"
+              rel="noreferrer"
+            >
+              {t.viewMoreModels}
+            </a> */}
           </div>
         </div>
       </section>

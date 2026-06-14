@@ -2706,6 +2706,25 @@ h1 {
   color: var(--brand);
 }
 
+.pricing-more-button {
+  display: flex;
+  margin-top: 18px;
+  margin-left: auto;
+  margin-right: auto;
+  min-width: 168px;
+  background: #1f9d55;
+  border-color: #1f9d55;
+  color: #fff;
+  box-shadow: 0 12px 28px rgba(31, 157, 85, 0.24);
+}
+
+.pricing-more-button:hover {
+  transform: translateY(-2px);
+  background: #18864a;
+  border-color: #18864a;
+  box-shadow: 0 16px 30px rgba(31, 157, 85, 0.28);
+}
+
 .audience-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));

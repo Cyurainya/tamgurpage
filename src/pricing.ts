@@ -36,6 +36,20 @@ export function formatUsd(value: number) {
   return `$${rounded.toFixed(2)}`;
 }
 
+export function formatUsdRange(min: number, max: number) {
+  if (Math.abs(min - max) < 1e-9) {
+    return formatUsd(min);
+  }
+  return `${formatUsd(min)}～${formatUsd(max)}`;
+}
+
+export function getTamgurPriceRange(officialPrice: number) {
+  return {
+    min: officialPrice * 0.1,
+    max: officialPrice * 0.15,
+  };
+}
+
 export function getTamgurPrice(officialPrice: number) {
   return officialPrice * TAMGUR_PRICE_RATIO;
 }
