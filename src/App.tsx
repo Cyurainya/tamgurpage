@@ -252,7 +252,7 @@ export default function App() {
 
           <div className="hero-compatibility">
             <strong>{t.heroDescription}</strong>
-            <span>{t.heroMigration}</span>
+            {/* <span>{t.heroMigration}</span> */}
           </div>
 
           <div className="hero-price-card">
@@ -282,13 +282,15 @@ export default function App() {
             </a>
           </div>
 
-          <div className="hero-metrics" aria-label={t.featuresEyebrow}>
-            {t.heroMetrics.map((metric) => (
-              <div key={metric}>
-                <span aria-hidden="true" />
-                <strong>{metric}</strong>
-              </div>
-            ))}
+          <div className="hero-promotions">
+            <div className="signup-bonus">
+              <span aria-hidden="true">✦</span>
+              {t.signupBonus}
+            </div>
+            <div className="enterprise-discount">
+              <span aria-hidden="true">◆</span>
+              {t.enterpriseDiscount}
+            </div>
           </div>
 
           <div className="trust-row">
@@ -354,19 +356,6 @@ export default function App() {
       </main>
 
       <section className="content-section hero-support-panel">
-        <div className="support-promotions">
-          <div className="signup-bonus">
-            <span aria-hidden="true">✦</span>
-            {t.signupBonus}
-          </div>
-          <div className="enterprise-discount">
-            <span aria-hidden="true">◆</span>
-            {t.enterpriseDiscount}
-          </div>
-        </div>
-
-        <div className="support-divider" aria-hidden="true" />
-
         <div className="support-tools">
           <div className="quick-entries platform-entries">
             <a className="quick-entry" href={siteConfig.links.recharge} target="_top">
