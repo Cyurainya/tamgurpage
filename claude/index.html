@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="EchoBird 4.8.6 下载与 Claude/Claude code 中转站 API 配置教程。">
+  <title>EchoBird 配置 Claude/Claude code 使用中转站 API 教程</title>
+  <style>
+    :root {
+      --paper: #fbf5ec;
+      --ink: #2d261f;
+      --muted: #74675c;
+      --line: rgba(75, 57, 42, .14);
+      --orange: #e86f45;
+      --orange2: #ffad72;
+      --blue: #3a6ff7;
+      --shadow: 0 26px 70px rgba(88, 60, 38, .16);
+      --soft: 0 12px 34px rgba(88, 60, 38, .1);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "PingFang SC", "Microsoft YaHei", "Noto Sans SC", "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 8% 4%, rgba(232, 111, 69, .22), transparent 26rem),
+        radial-gradient(circle at 92% 8%, rgba(58, 111, 247, .16), transparent 25rem),
+        linear-gradient(180deg, #fff9f1 0%, var(--paper) 48%, #f3eadf 100%);
+      min-height: 100vh;
+    }
+    .page { width: min(1240px, calc(100% - 32px)); margin: 0 auto; padding: 28px 0 54px; }
+    .site-header {
+      position: sticky;
+      top: 10px;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      margin-bottom: 14px;
+      padding: 10px 12px;
+      border: 1px solid rgba(255,255,255,.72);
+      border-radius: 18px;
+      background: rgba(255,255,255,.9);
+      box-shadow: var(--soft);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+    }
+    .brand-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      color: var(--ink);
+      font-weight: 900;
+      text-decoration: none;
+    }
+    .brand-mark {
+      width: 34px;
+      height: 34px;
+      flex: 0 0 34px;
+      object-fit: contain;
+      padding: 5px;
+      border-radius: 9px;
+      background: #fff8ef;
+      box-shadow: 0 8px 18px rgba(232,111,69,.24);
+    }
+    .brand-copy { display: flex; min-width: 0; flex-direction: column; }
+    .brand-name { font-size: 16px; line-height: 1.1; }
+    .brand-back { margin-top: 3px; color: var(--muted); font-size: 11px; font-weight: 650; }
+    .language-switcher { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 5px; }
+    .language-button {
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid transparent;
+      border-radius: 8px;
+      color: var(--muted);
+      background: transparent;
+      font: inherit;
+      font-size: 12px;
+      font-weight: 750;
+      cursor: pointer;
+    }
+    .language-button:hover { color: var(--ink); background: rgba(45,38,31,.05); }
+    .language-button[aria-pressed="true"] {
+      border-color: rgba(232,111,69,.24);
+      color: var(--orange);
+      background: rgba(232,111,69,.09);
+    }
+    .hero {
+      position: relative;
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.7);
+      border-radius: 34px;
+      padding: clamp(26px, 4vw, 48px);
+      box-shadow: var(--shadow);
+      background: linear-gradient(135deg, rgba(255,255,255,.88), rgba(255,243,229,.72)), repeating-linear-gradient(135deg, rgba(232,111,69,.08) 0 1px, transparent 1px 18px);
+    }
+    .hero:after {
+      content: "";
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 280px;
+      height: 280px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(232,111,69,.35), transparent 64%);
+      filter: blur(8px);
+    }
+    .hero-grid { position: relative; z-index: 1; display: grid; grid-template-columns: 1fr auto; gap: 30px; align-items: end; }
+    .hero-grid > *, .grid2 > *, .downloads > * { min-width: 0; }
+    .tag { display: inline-flex; align-items: center; gap: 10px; padding: 9px 14px; border-radius: 999px; background: rgba(45,38,31,.07); color: var(--muted); font-size: 13px; letter-spacing: .08em; }
+    .tag i { width: 9px; height: 9px; border-radius: 50%; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 0 0 6px rgba(232,111,69,.12); }
+    h1 { margin: 18px 0 14px; font-size: clamp(34px, 5vw, 58px); line-height: 1.02; letter-spacing: -.04em; }
+    .lead { margin: 0; max-width: 52ch; color: var(--muted); font-size: 18px; line-height: 1.7; }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 18px; border-radius: 999px; font-weight: 800; text-decoration: none; border: 1px solid var(--line); transition: .18s ease; color: inherit; }
+    .btn:hover { transform: translateY(-2px); }
+    .primary { color: white; border: 0; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 16px 32px rgba(232,111,69,.26); }
+    .ghost { background: rgba(255,255,255,.68); }
+    .quick-path { display: flex; gap: 10px; align-items: center; justify-content: flex-end; flex-wrap: wrap; max-width: 420px; }
+    .path-item { padding: 11px 14px; border-radius: 999px; border: 1px solid var(--line); background: rgba(255,255,255,.72); color: var(--muted); font-weight: 800; box-shadow: var(--soft); }
+    .path-arrow { color: rgba(45,38,31,.32); font-weight: 900; }
+    .section { margin-top: 22px; padding: clamp(18px, 3vw, 30px); border-radius: 30px; border: 1px solid rgba(255,255,255,.72); background: rgba(255,255,255,.6); box-shadow: var(--soft); backdrop-filter: blur(12px); }
+    .head { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 20px; flex-wrap: wrap; }
+    h2 { margin: 0; font-size: 26px; letter-spacing: -.02em; }
+    .sub { margin: 7px 0 0; color: var(--muted); line-height: 1.7; }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; }
+    .chip { padding: 9px 13px; border-radius: 999px; background: rgba(45,38,31,.07); color: var(--muted); font-weight: 700; font-size: 13px; }
+    .steps { display: grid; grid-template-columns: 1fr; gap: 22px; }
+    .card { display: grid; grid-template-columns: minmax(220px, 300px) minmax(0, 1fr); gap: 24px; align-items: center; padding: clamp(18px, 2.6vw, 28px); border-radius: 28px; border: 1px solid var(--line); background: linear-gradient(135deg, rgba(255,255,255,.94), rgba(255,247,238,.9)); box-shadow: 0 16px 38px rgba(88,60,38,.1); }
+    .step-copy { display: flex; flex-direction: column; gap: 13px; }
+    .num { width: 54px; height: 54px; display: grid; place-items: center; border-radius: 17px; color: white; font-size: 20px; font-weight: 900; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 10px 20px rgba(232,111,69,.24); }
+    h3 { margin: 0; font-size: 24px; }
+    .card p, .note p, .note li { margin: 0; color: var(--muted); line-height: 1.78; }
+    .form-tip { padding: 14px 15px; border: 1px solid rgba(232,111,69,.22); border-radius: 16px; background: rgba(232,111,69,.07); }
+    .form-tip > strong { display: block; margin-bottom: 8px; color: var(--orange); font-size: 14px; }
+    .form-tip ol { display: grid; gap: 6px; margin: 0; padding-left: 20px; }
+    .form-tip li { color: var(--muted); font-size: 13px; line-height: 1.55; }
+    .form-tip code { color: var(--ink); font-weight: 750; }
+    .shot { overflow: hidden; border-radius: 22px; border: 1px solid rgba(75,57,42,.12); background: #fff; box-shadow: 0 18px 40px rgba(45,38,31,.1); }
+    .shot-stack { display: grid; gap: 14px; }
+    .shot img { width: 100%; height: auto; display: block; transition: transform .35s ease; }
+    .card:hover .shot img { transform: scale(1.025); }
+    .caption { color: var(--muted); font-size: 14px; }
+    .mark { color: var(--orange); font-weight: 900; }
+    .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .note { padding: 20px; border-radius: 24px; border: 1px solid var(--line); background: rgba(255,255,255,.78); }
+    .note h3 { margin-bottom: 12px; }
+    .note ul { margin: 0; padding-left: 20px; }
+    .code { margin-top: 14px; padding: 16px; border-radius: 18px; background: #201b17; color: #fff4e8; overflow: auto; line-height: 1.75; font-size: 14px; }
+    code { overflow-wrap: anywhere; font-family: "Cascadia Mono", Consolas, monospace; }
+    .downloads { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+    .download-card { position: relative; min-width: 0; overflow: hidden; padding: 20px; border-radius: 24px; border: 1px solid var(--line); background: linear-gradient(180deg, rgba(255,255,255,.92), rgba(255,247,238,.9)); box-shadow: 0 10px 24px rgba(88,60,38,.08); }
+    .download-card:after { content: ""; position: absolute; right: -36px; top: -36px; width: 110px; height: 110px; border-radius: 50%; background: radial-gradient(circle, rgba(232,111,69,.22), transparent 65%); }
+    .download-card h3 { position: relative; z-index: 1; margin-bottom: 8px; }
+    .download-card p { position: relative; z-index: 1; margin: 0 0 16px; color: var(--muted); line-height: 1.7; }
+    .download-link { position: relative; z-index: 1; display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 15px; border-radius: 999px; color: white; font-weight: 900; text-decoration: none; background: linear-gradient(135deg, var(--orange), var(--orange2)); box-shadow: 0 14px 28px rgba(232,111,69,.22); }
+    .file-meta { position: relative; z-index: 1; display: block; margin: -7px 0 15px; color: var(--muted); font-size: 12px; }
+    .checksum { position: relative; z-index: 1; display: block; max-width: 100%; margin-top: 14px; overflow: hidden; color: rgba(45,38,31,.52); font-family: "Cascadia Mono", Consolas, monospace; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }
+    .notice { margin-top: 16px; padding: 16px 18px; border-radius: 20px; border: 1px solid rgba(232,111,69,.26); background: linear-gradient(135deg, rgba(232,111,69,.12), rgba(255,255,255,.76)); color: var(--ink); line-height: 1.75; }
+    .notice strong { color: var(--orange); }
+    .github-source { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+    .github-link {
+      display: inline-flex;
+      min-height: 42px;
+      flex: 0 0 auto;
+      align-items: center;
+      justify-content: center;
+      padding: 0 15px;
+      border: 1px solid rgba(45,38,31,.14);
+      border-radius: 10px;
+      color: var(--ink);
+      background: rgba(255,255,255,.78);
+      font-weight: 850;
+      text-decoration: none;
+      transition: transform .18s ease, background .18s ease;
+    }
+    .github-link:hover { background: #fff; transform: translateY(-1px); }
+    .macos-fix { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center; gap: 14px; }
+    .macos-command {
+      display: block;
+      max-width: 100%;
+      padding: 11px 14px;
+      border-radius: 12px;
+      color: #fff4e8;
+      background: #201b17;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    footer { padding: 22px 0 0; text-align: center; color: var(--muted); font-size: 13px; }
+
+    .float-banner {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 10px 18px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #139ed9, #9b3ee8);
+      color: #fff;
+      font-size: 14px;
+      font-weight: 700;
+      text-decoration: none;
+      box-shadow: 0 8px 32px rgba(19, 158, 217, 0.36);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      animation: floatIn 0.5s ease 0.6s both;
+    }
+    .float-banner:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 14px 40px rgba(155, 62, 232, 0.44);
+    }
+    .float-banner-close {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      border: 0;
+      background: rgba(255,255,255,.22);
+      color: #fff;
+      font-size: 13px;
+      line-height: 22px;
+      cursor: pointer;
+      margin-left: 4px;
+      transition: background 0.18s;
+    }
+    .float-banner-close:hover { background: rgba(255,255,255,.36); }
+
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 560px) {
+      .float-banner {
+        bottom: 12px;
+        right: 12px;
+        left: 12px;
+        justify-content: center;
+        font-size: 13px;
+        padding: 10px 14px;
+      }
+    }
+    @media (max-width: 920px) { .hero-grid, .card, .grid2, .downloads { grid-template-columns: 1fr; } .quick-path { justify-content: flex-start; max-width: none; } }
+    @media (max-width: 700px) { .site-header { align-items: flex-start; flex-direction: column; } .language-switcher { justify-content: flex-start; } }
+    @media (max-width: 560px) { .page { width: min(100% - 22px, 1240px); padding-top: 14px; } .hero, .section { min-width: 0; border-radius: 22px; } h1 { font-size: 34px; } .lead { font-size: 16px; } .actions, .quick-path { min-width: 0; gap: 8px; } .btn, .path-item { width: 100%; min-width: 0; } .path-arrow { display: none; } .card { min-width: 0; padding: 16px; border-radius: 22px; } .note { min-width: 0; overflow: hidden; } .shot { border-radius: 16px; } .github-source { align-items: stretch; flex-direction: column; } .github-link { width: 100%; } .macos-fix { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="site-header">
+      <a class="brand-link" href="https://api.tamgur.tech" target="_blank" rel="noopener">
+        <img class="brand-mark" src="assets/tamgurIcon.png?v=f757ab7f" alt="Tamgur">
+        <span class="brand-copy">
+          <span class="brand-name">Tamgur</span>
+          <span class="brand-back" data-i18n="backToTamgur">返回 Tamgur 网站</span>
+        </span>
+      </a>
+      <nav class="language-switcher" aria-label="Language">
+        <button class="language-button" type="button" data-lang="zh-CN" aria-pressed="true">中文</button>
+        <button class="language-button" type="button" data-lang="en" aria-pressed="false">English</button>
+        <button class="language-button" type="button" data-lang="fr" aria-pressed="false">Français</button>
+        <button class="language-button" type="button" data-lang="ru" aria-pressed="false">Русский</button>
+        <button class="language-button" type="button" data-lang="ja" aria-pressed="false">日本語</button>
+      </nav>
+    </header>
+    <section class="hero">
+      <div class="hero-grid">
+        <div>
+          <div class="tag"><i></i><span data-i18n="tag">EchoBird / Claude/Claude code / 中转站 API</span></div>
+          <h1 data-i18n="heroTitle">Claude/Claude code 中转站 API 配置</h1>
+          <p class="lead" data-i18n="heroLead">3 步完成：添加模型、填写 API、绑定 Claude/Claude code。配置后保持 EchoBird 后台运行即可。</p>
+          <div class="actions">
+            <a class="btn primary" href="#steps" data-i18n="viewSteps">查看三步流程</a>
+            <a class="btn ghost" href="#tips" data-i18n="viewTips">查看配置要点</a>
+            <a class="btn ghost" href="#download" data-i18n="downloadEchoBird">下载 EchoBird</a>
+            <a class="btn ghost" href="../" data-i18n="backDocs">返回文档中心</a>
+          </div>
+        </div>
+        <div class="quick-path" data-i18n-aria-label="configPath">
+          <span class="path-item" data-i18n="modelCenter">模型中心</span>
+          <span class="path-arrow">→</span>
+          <span class="path-item" data-i18n="editConfig">编辑配置</span>
+          <span class="path-arrow">→</span>
+          <span class="path-item" data-i18n="appManagement">应用管理</span>
+        </div>
+      </div>
+    </section>
+
+
+    <section class="section" id="download">
+      <div class="head">
+        <div>
+          <h2 data-i18n="downloadTitle">下载 EchoBird 4.8.6</h2>
+          <p class="sub" data-i18n="downloadSub">先安装 EchoBird，再按下面 3 步配置 Claude/Claude code。</p>
+        </div>
+        <div class="chips"><span class="chip">Mac</span><span class="chip">Windows</span><span class="chip" data-i18n="backgroundRun">后台运行</span></div>
+      </div>
+      <div class="downloads">
+        <article class="download-card">
+          <h3 data-i18n="macArmTitle">Mac Apple 芯片版</h3>
+          <p data-i18n="macArmDesc">M1、M2、M3、M4 等 Apple Silicon 设备。</p>
+          <span class="file-meta">macOS ARM64 · 11 MB</span>
+          <a class="download-link" href="downloads/EchoBird_4.8.6_macOS_arm64.dmg" download data-i18n="downloadDmg">下载 DMG</a>
+          <span class="checksum" title="915c63f5074392188bd91d52ca93faa1a9251f68875810c08f89c00d164e355b">SHA-256: 915c63f5074392188bd91d52ca93faa1a9251f68875810c08f89c00d164e355b</span>
+        </article>
+        <article class="download-card">
+          <h3 data-i18n="macIntelTitle">Mac Intel 芯片版</h3>
+          <p data-i18n="macIntelDesc">Intel 处理器的 Mac 设备。</p>
+          <span class="file-meta">macOS x64 · 12 MB</span>
+          <a class="download-link" href="downloads/EchoBird_4.8.6_macOS_x64.dmg" download data-i18n="downloadDmg">下载 DMG</a>
+          <span class="checksum" title="e79bf45a650f5757340c5cfe71f3ac6b52800996d037fa77ad8db20a6bb4016d">SHA-256: e79bf45a650f5757340c5cfe71f3ac6b52800996d037fa77ad8db20a6bb4016d</span>
+        </article>
+        <article class="download-card">
+          <h3 data-i18n="windowsTitle">Windows x64 版</h3>
+          <p data-i18n="windowsDesc">64 位 Windows 系统。</p>
+          <span class="file-meta">Windows x64 · 7.2 MB</span>
+          <a class="download-link" href="downloads/echobird.exe" download data-i18n="downloadExe">下载 EXE</a>
+          <span class="checksum" title="cd87130d1691d6884759f78598a75fac08318fda92cd04acfabf0f33f7427425">SHA-256: cd87130d1691d6884759f78598a75fac08318fda92cd04acfabf0f33f7427425</span>
+        </article>
+      </div>
+      <div class="notice github-source">
+        <div><strong data-i18n="githubTitle">官方项目与最新版本：</strong> <span data-i18n="githubBody">本页提供 EchoBird 4.8.6 直链下载；如需查看更新日志、获取更新版本或验证发布来源，请前往 GitHub Releases。</span></div>
+        <a class="github-link" href="https://github.com/edison7009/EchoBird/releases" target="_blank" rel="noopener noreferrer" data-i18n="githubAction">查看 GitHub Releases</a>
+      </div>
+      <div class="notice macos-fix">
+        <div><strong data-i18n="macDamagedTitle">macOS 首次打开若提示“已损坏”：</strong> <span data-i18n="macDamagedBody">请打开终端并执行以下命令，然后重新打开 EchoBird。</span></div>
+        <code class="macos-command">xattr -cr /Applications/EchoBird.app</code>
+      </div>
+      <div class="notice"><strong data-i18n="important">重要提醒：</strong><span data-i18n="runReminder">使用 Claude/Claude code 时保持 EchoBird 后台运行，否则中转站模型可能无法正常调用。</span></div>
+    </section>
+
+    <section class="section" id="steps">
+      <div class="head">
+        <div>
+          <h2 data-i18n="stepsTitle">三步完成配置</h2>
+          <p class="sub" data-i18n="stepsSub">每一步一张大图，照着截图操作即可。</p>
+        </div>
+        <div class="chips"><span class="chip" data-i18n="modelCenter">模型中心</span><span class="chip" data-i18n="editConfig">编辑配置</span><span class="chip" data-i18n="appManagement">应用管理</span></div>
+      </div>
+      <div class="steps">
+        <article class="card">
+          <div class="step-copy">
+            <div class="num">1</div>
+            <h3 data-i18n="step1Title">添加模型</h3>
+            <p data-i18n="step1Body">进入模型中心，点击“添加模型”，选择 OpenAI / Anthropic API 类型。</p>
+            <div class="caption" data-i18n="step1Caption">截图 1：在模型中心点击添加模型。</div>
+          </div>
+          <div class="shot"><img src="assets/step-1-add-model.png?v=2c25e46d" alt="EchoBird 模型中心添加模型截图" data-i18n-alt="step1Alt"></div>
+        </article>
+        <article class="card">
+          <div class="step-copy">
+            <div class="num">2</div>
+            <h3 data-i18n="step2Title">填写 API 配置</h3>
+            <p data-i18n="step2Body">按下面的表单提示填写 Tamgur API 信息。</p>
+            <div class="form-tip">
+              <strong data-i18n="formTipTitle">表单填写 Tips</strong>
+              <ol>
+                <li><code>Name</code>：<span data-i18n="formTipName">随意填写，用于区分模型配置。</span></li>
+                <li><code>OpenAI URL</code>：<span data-i18n="formTipOpenAI">留空。</span></li>
+                <li><code>Anthropic URL</code>：<code>https://api.tamgur.tech/v1</code></li>
+                <li><code>Model ID</code>：<span data-i18n="formTipModel">填写需要使用的模型，直接从模型广场复制。</span></li>
+                <li><code>API Key</code>：<span data-i18n="formTipApiKey">填写你的 API Key，请记得选择正确的分组。</span></li>
+              </ol>
+            </div>
+            <div class="caption" data-i18n="step2Caption">截图 2：填写地址、模型 ID 和 API Key。</div>
+          </div>
+          <div class="shot"><img src="assets/step-2-edit-config.png?v=0c45ebe2" alt="EchoBird 编辑模型配置截图" data-i18n-alt="step2Alt"></div>
+        </article>
+        <article class="card">
+          <div class="step-copy">
+            <div class="num">3</div>
+            <h3 data-i18n="step3Title">绑定 Claude/Claude code</h3>
+            <p data-i18n="step3Body">进入应用管理，选择 Claude/Claude code Desktop，绑定刚添加的模型，然后点击“启动应用”。启动后点击右下角 Setting 按钮，如显示 Logged with API KEY，则连接成功；如未成功，请重启 Claude/Claude code 后再次点击“启动应用”。</p>
+            <div class="form-tip">
+              <strong data-i18n="step3TipTitle">步骤 3 Tips</strong>
+              <ol>
+                <li data-i18n="step3TipClaude">如果需要启动 Claude，请先退出 Claude，再在 EchoBird 点击“启动应用”。点击后 Claude 桌面端会自动弹出，并自动尝试使用 API 登录。</li>
+                <li data-i18n="step3TipCode">如果需要在 Visual Studio Code 或 Visual Studio Code 终端里使用 Claude 或 Claude Code，请选择应用 Claude Code 后点击“启动应用”。启动后会自动打开一个终端并启动 Claude Code，随后即可在 Visual Studio Code 中使用。</li>
+              </ol>
+            </div>
+            <!-- <div class="caption" data-i18n="step3Caption">截图 3：为 Claude/Claude code Desktop 选择模型并启动，然后在右下角 Setting 中检查连接状态。</div> -->
+          </div>
+          <div class="shot-stack">
+            <div class="shot"><img src="assets/step-3-select-codex.png" alt="EchoBird 应用管理选择 Claude/Claude code 模型截图" data-i18n-alt="step3Alt"></div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="tips">
+      <div class="head">
+        <div>
+          <h2 data-i18n="tipsTitle">配置要点</h2>
+          <p class="sub" data-i18n="tipsSub">填错最多的地方，按这里核对。</p>
+        </div>
+      </div>
+      <div class="grid2">
+        <div class="note">
+          <h3 data-i18n="rulesTitle">填写规则</h3>
+          <ul>
+            <li data-i18n="rule1">名称只是显示名，可以写成 GPT5.5、KK-GPT、Claude/Claude code 中转站等。</li>
+            <li><span data-i18n="rule2">OpenAI 地址留空，Anthropic 地址填写</span> <code>https://api.tamgur.tech/v1</code>。</li>
+            <li data-i18n="rule3">模型 ID 要和中转站后台支持的模型名称一致，建议直接复制。</li>
+            <li data-i18n="rule4">API 密钥填中转站令牌 Key，如果有分组，记得选对分组权限。</li>
+          </ul>
+        </div>
+        <div class="note">
+          <h3 data-i18n="templateTitle">配置模板</h3>
+          <p data-i18n="templateIntro">把下面内容替换成你自己的中转站信息即可。</p>
+          <pre class="code"><code data-i18n="templateCode">名称：GPT5.5
+OpenAI 地址：留空
+Anthropic 地址：https://api.tamgur.tech/v1
+模型 ID：请从模型广场复制
+API 密钥：sk-xxxxxxxxxxxxxxxx</code></pre>
+        </div>
+      </div>
+    </section>
+    <footer data-i18n="footer">启动后请点击右下角 Setting 按钮检查是否显示 Logged with API KEY；如未成功，请重启 Claude/Claude code，并再次点击“启动应用”。使用时保持 EchoBird 后台运行。</footer>
+  </main>
+
+  <a class="float-banner" id="floatBanner" href="mailto:rainkii8518231@gmail.com">
+    <span data-i18n="floatBanner">如有问题请联系邮箱 rainkii8518231@gmail.com 或 telegram：@chloe_yan_cyu</span>
+    <button class="float-banner-close" id="floatBannerClose" aria-label="关闭" data-i18n-aria-label="close">&times;</button>
+  </a>
+
+  <script>
+    (() => {
+      const translations = {
+        'zh-CN': {
+          title: 'EchoBird 配置 Claude/Claude code 使用 Tamgur API 教程',
+          description: 'EchoBird 4.8.6 下载与 Claude/Claude code Tamgur API 配置教程。',
+          backToTamgur: '返回 Tamgur 网站',
+          tag: 'EchoBird / Claude/Claude code / Tamgur API',
+          heroTitle: 'Claude/Claude code Tamgur API 配置',
+          heroLead: '3 步完成：添加模型、填写 API、绑定 Claude/Claude code。配置后保持 EchoBird 后台运行即可。',
+          viewSteps: '查看三步流程', viewTips: '查看配置要点', downloadEchoBird: '下载 EchoBird', backDocs: '返回文档中心',
+          configPath: '配置路径', modelCenter: '模型中心', editConfig: '编辑配置', appManagement: '应用管理',
+          downloadTitle: '下载 EchoBird 4.8.6', downloadSub: '先安装 EchoBird，再按下面 3 步配置 Claude/Claude code。', backgroundRun: '后台运行',
+          macArmTitle: 'Mac Apple 芯片版', macArmDesc: '适用于 M1、M2、M3、M4 等 Apple Silicon 设备。',
+          macIntelTitle: 'Mac Intel 芯片版', macIntelDesc: '适用于 Intel 处理器的 Mac 设备。',
+          windowsTitle: 'Windows x64 版', windowsDesc: '适用于 64 位 Windows 系统。',
+          downloadDmg: '下载 DMG', downloadExe: '下载 EXE',
+          githubTitle: '官方项目与最新版本：', githubBody: '本页提供 EchoBird 4.8.6 直链下载；如需查看更新日志、获取更新版本或验证发布来源，请前往 GitHub Releases。', githubAction: '查看 GitHub Releases',
+          macDamagedTitle: 'macOS 首次打开若提示“已损坏”：', macDamagedBody: '请打开终端并执行以下命令，然后重新打开 EchoBird。',
+          important: '重要提醒：', runReminder: '使用 Claude/Claude code 时保持 EchoBird 后台运行，否则 Tamgur 模型可能无法正常调用。',
+          stepsTitle: '三步完成配置', stepsSub: '每一步一张大图，照着截图操作即可。',
+          step1Title: '添加模型', step1Body: '进入模型中心，点击“添加模型”，选择 OpenAI / Anthropic API 类型。', step1Caption: '截图 1：在模型中心点击添加模型。', step1Alt: 'EchoBird 模型中心添加模型截图',
+          step2Title: '填写 API 配置', step2Body: '按下面的表单提示填写 Tamgur API 信息。', step2Caption: '截图 2：填写地址、模型 ID 和 API Key。', step2Alt: 'EchoBird 编辑模型配置截图',
+          formTipTitle: '表单填写 Tips', formTipName: '随意填写，用于区分模型配置。', formTipOpenAI: '留空。', formTipModel: '填写需要使用的模型，直接从模型广场复制。', formTipApiKey: '填写你的 API Key，请记得选择正确的分组。',
+          step3Title: '绑定 Claude/Claude code', step3Body: '进入应用管理，选择 Claude/Claude code Desktop，绑定刚添加的模型，然后点击“启动应用”。启动后点击右下角 Setting 按钮，如显示 Logged with API KEY，则连接成功；如未成功，请重启 Claude/Claude code 后再次点击“启动应用”。', step3TipTitle: '步骤 3 Tips', step3TipClaude: '如果需要启动 Claude，请先退出 Claude，再在 EchoBird 点击“启动应用”。点击后 Claude 桌面端会自动弹出，并自动尝试使用 API 登录。', step3TipCode: '如果需要在 Visual Studio Code 或 Visual Studio Code 终端里使用 Claude 或 Claude Code，请选择应用 Claude Code 后点击“启动应用”。启动后会自动打开一个终端并启动 Claude Code，随后即可在 Visual Studio Code 中使用。', step3Caption: '截图 3：为 Claude/Claude code Desktop 选择模型并启动，然后在右下角 Setting 中检查连接状态。', step3Alt: 'EchoBird 应用管理选择 Claude/Claude code 模型截图', step3SettingAlt: 'Claude/Claude code 右下角 Setting 显示 Logged with API KEY 截图',
+          tipsTitle: '配置要点', tipsSub: '填错最多的地方，按这里核对。', rulesTitle: '填写规则',
+          rule1: '名称只是显示名，可以写成 GPT5.5、KK-GPT、Claude/Claude code Tamgur 等。', rule2: 'OpenAI 地址留空，Anthropic 地址填写', rule3: '模型 ID 要和 Tamgur 后台支持的模型名称一致，建议直接复制。', rule4: 'API 密钥填 Tamgur 令牌 Key，如果有分组，记得选对分组权限。',
+          templateTitle: '配置模板', templateIntro: '把下面内容替换成你自己的 Tamgur 信息即可。',
+          templateCode: '名称：GPT5.5\nOpenAI 地址：留空\nAnthropic 地址：https://api.tamgur.tech/v1\n模型 ID：请从模型广场复制\nAPI 密钥：sk-xxxxxxxxxxxxxxxx',
+          footer: '启动后请点击右下角 Setting 按钮检查是否显示 Logged with API KEY；如未成功，请重启 Claude/Claude code，并再次点击“启动应用”。使用时保持 EchoBird 后台运行。',
+          floatBanner: '如有问题请联系邮箱 rainkii8518231@gmail.com 或 telegram：@chloe_yan_cyu', close: '关闭'
+        },
+        en: {
+          title: 'Configure Claude/Claude code with the Tamgur API using EchoBird',
+          description: 'Download EchoBird 4.8.6 and configure Claude/Claude code with the Tamgur API.',
+          backToTamgur: 'Return to the Tamgur website',
+          tag: 'EchoBird / Claude/Claude code / Tamgur API',
+          heroTitle: 'Configure Claude/Claude code with Tamgur API',
+          heroLead: 'Complete setup in 3 steps: add a model, enter the API details, and connect Claude/Claude code. Keep EchoBird running in the background.',
+          viewSteps: 'View the 3 steps', viewTips: 'Configuration tips', downloadEchoBird: 'Download EchoBird', backDocs: 'Back to docs',
+          configPath: 'Configuration path', modelCenter: 'Model Center', editConfig: 'Edit Configuration', appManagement: 'App Management',
+          downloadTitle: 'Download EchoBird 4.8.6', downloadSub: 'Install EchoBird first, then configure Claude/Claude code with the 3 steps below.', backgroundRun: 'Background service',
+          macArmTitle: 'Mac for Apple silicon', macArmDesc: 'For Apple silicon devices including M1, M2, M3, and M4.',
+          macIntelTitle: 'Mac for Intel', macIntelDesc: 'For Mac computers with an Intel processor.',
+          windowsTitle: 'Windows x64', windowsDesc: 'For 64-bit Windows systems.',
+          downloadDmg: 'Download DMG', downloadExe: 'Download EXE',
+          githubTitle: 'Official project and latest releases: ', githubBody: 'This page provides direct downloads for EchoBird 4.8.6. Visit GitHub Releases for changelogs, newer versions, or release verification.', githubAction: 'View GitHub Releases',
+          macDamagedTitle: 'If macOS says the app is “damaged” on first launch:', macDamagedBody: 'Open Terminal, run the command below, then reopen EchoBird.',
+          important: 'Important: ', runReminder: 'Keep EchoBird running while using Claude/Claude code, or Tamgur models may not work.',
+          stepsTitle: 'Configure in three steps', stepsSub: 'Follow the large screenshot shown for each step.',
+          step1Title: 'Add a model', step1Body: 'Open Model Center, click “Add Model,” and select the OpenAI / Anthropic API type.', step1Caption: 'Screenshot 1: Add a model in Model Center.', step1Alt: 'Adding a model in EchoBird Model Center',
+          step2Title: 'Enter API settings', step2Body: 'Complete the Tamgur API form using the tips below.', step2Caption: 'Screenshot 2: Enter the URL, model ID, and API key.', step2Alt: 'Editing model settings in EchoBird',
+          formTipTitle: 'Form tips', formTipName: 'Enter any display name to identify this model configuration.', formTipOpenAI: 'Leave blank.', formTipModel: 'Enter the model you need by copying its ID directly from the model marketplace.', formTipApiKey: 'Enter your API key and make sure the correct group is selected.',
+          step3Title: 'Connect Claude/Claude code', step3Body: 'Open App Management, select Claude/Claude code Desktop, bind the model you added, and click “Launch App.” After launch, click the Setting button in the bottom-right corner. If you see “Logged with API KEY,” the connection succeeded. If not, restart Claude/Claude code and click “Launch App” again.', step3TipTitle: 'Step 3 tips', step3TipClaude: 'If you need to launch Claude, quit Claude first and then click “Launch App” in EchoBird. Claude Desktop opens automatically and attempts to sign in with the API.', step3TipCode: 'If you want to use Claude or Claude Code in Visual Studio Code or its integrated terminal, choose the Claude Code app and click “Launch App.” EchoBird opens a terminal and starts Claude Code automatically, then Visual Studio Code can use Claude Code.', step3Caption: 'Screenshot 3: Select a model for Claude/Claude code Desktop, launch it, and then check the connection status in the bottom-right Setting menu.', step3Alt: 'Selecting a Claude/Claude code model in EchoBird App Management', step3SettingAlt: 'Claude/Claude code Setting menu showing Logged with API KEY',
+          tipsTitle: 'Configuration tips', tipsSub: 'Check these common sources of configuration errors.', rulesTitle: 'Input rules',
+          rule1: 'The name is only a display label, such as GPT5.5, KK-GPT, or Claude/Claude code Tamgur.', rule2: 'Leave the OpenAI URL blank and set the Anthropic URL to', rule3: 'The model ID must match a model name supported by Tamgur. Copy it directly when possible.', rule4: 'Use your Tamgur token as the API key and select the correct group permissions when applicable.',
+          templateTitle: 'Configuration template', templateIntro: 'Replace the sample values below with your own Tamgur information.',
+          templateCode: 'Name: GPT5.5\nOpenAI URL: leave blank\nAnthropic URL: https://api.tamgur.tech/v1\nModel ID: copy from the model marketplace\nAPI key: sk-xxxxxxxxxxxxxxxx',
+          footer: 'After launch, click the Setting button in the bottom-right corner and check whether “Logged with API KEY” is shown. If not, restart Claude/Claude code and click “Launch App” again. Keep EchoBird running while in use.',
+          floatBanner: 'For help, contact rainkii8518231@gmail.com or Telegram: @chloe_yan_cyu', close: 'Close'
+        },
+        fr: {
+          title: "Configurer Claude/Claude code avec l’API Tamgur via EchoBird",
+          description: "Téléchargez EchoBird 4.8.6 et configurez Claude/Claude code avec l’API Tamgur.",
+          backToTamgur: 'Retourner sur le site Tamgur',
+          tag: 'EchoBird / Claude/Claude code / API Tamgur',
+          heroTitle: 'Configurer Claude/Claude code avec l’API Tamgur',
+          heroLead: 'Configuration en 3 étapes : ajouter un modèle, renseigner l’API et connecter Claude/Claude code. Laissez EchoBird fonctionner en arrière-plan.',
+          viewSteps: 'Voir les 3 étapes', viewTips: 'Conseils de configuration', downloadEchoBird: 'Télécharger EchoBird', backDocs: 'Retour à la documentation',
+          configPath: 'Parcours de configuration', modelCenter: 'Centre des modèles', editConfig: 'Modifier la configuration', appManagement: 'Gestion des applications',
+          downloadTitle: 'Télécharger EchoBird 4.8.6', downloadSub: 'Installez EchoBird, puis configurez Claude/Claude code avec les 3 étapes ci-dessous.', backgroundRun: 'Arrière-plan',
+          macArmTitle: 'Mac avec puce Apple', macArmDesc: 'Pour les appareils Apple Silicon M1, M2, M3, M4, etc.',
+          macIntelTitle: 'Mac avec processeur Intel', macIntelDesc: 'Pour les Mac équipés d’un processeur Intel.',
+          windowsTitle: 'Windows x64', windowsDesc: 'Pour les systèmes Windows 64 bits.',
+          downloadDmg: 'Télécharger le DMG', downloadExe: 'Télécharger l’EXE',
+          githubTitle: 'Projet officiel et dernières versions : ', githubBody: 'Cette page propose EchoBird 4.8.6 en téléchargement direct. Consultez GitHub Releases pour les nouveautés, les versions récentes ou la vérification des fichiers.', githubAction: 'Voir GitHub Releases',
+          macDamagedTitle: 'Si macOS indique que l’application est « endommagée » au premier lancement :', macDamagedBody: 'Ouvrez Terminal, exécutez la commande ci-dessous, puis relancez EchoBird.',
+          important: 'Important : ', runReminder: 'Gardez EchoBird actif pendant l’utilisation de Claude/Claude code, sinon les modèles Tamgur peuvent ne pas fonctionner.',
+          stepsTitle: 'Configuration en trois étapes', stepsSub: 'Suivez la grande capture d’écran de chaque étape.',
+          step1Title: 'Ajouter un modèle', step1Body: 'Ouvrez le Centre des modèles, cliquez sur « Ajouter un modèle » et choisissez le type d’API OpenAI / Anthropic.', step1Caption: 'Capture 1 : ajouter un modèle dans le Centre des modèles.', step1Alt: 'Ajout d’un modèle dans EchoBird',
+          step2Title: 'Renseigner l’API', step2Body: 'Remplissez le formulaire Tamgur API à l’aide des conseils ci-dessous.', step2Caption: 'Capture 2 : renseigner l’adresse, le modèle et la clé API.', step2Alt: 'Modification de la configuration du modèle dans EchoBird',
+          formTipTitle: 'Conseils de saisie', formTipName: 'Saisissez le nom de votre choix pour identifier cette configuration.', formTipOpenAI: 'Laissez ce champ vide.', formTipModel: 'Copiez directement depuis la liste des modèles l’identifiant du modèle souhaité.', formTipApiKey: 'Saisissez votre clé API et sélectionnez le bon groupe.',
+          step3Title: 'Connecter Claude/Claude code', step3Body: 'Ouvrez la Gestion des applications, choisissez Claude/Claude code Desktop, associez le modèle ajouté et cliquez sur « Lancer l’application ». Après le lancement, cliquez sur le bouton Setting en bas à droite. Si « Logged with API KEY » s’affiche, la connexion a réussi. Sinon, redémarrez Claude/Claude code puis cliquez de nouveau sur « Lancer l’application ».', step3TipTitle: 'Conseils pour l’étape 3', step3TipClaude: 'Si vous devez lancer Claude, quittez d’abord Claude puis cliquez sur « Lancer l’application » dans EchoBird. Claude Desktop s’ouvre automatiquement et tente de se connecter avec l’API.', step3TipCode: 'Si vous voulez utiliser Claude ou Claude Code dans Visual Studio Code ou dans son terminal intégré, choisissez l’application Claude Code puis cliquez sur « Lancer l’application ». EchoBird ouvre automatiquement un terminal et démarre Claude Code, puis Visual Studio Code peut l’utiliser.', step3Caption: 'Capture 3 : choisir un modèle Claude/Claude code, lancer l’application, puis vérifier l’état de la connexion dans le menu Setting en bas à droite.', step3Alt: 'Sélection du modèle Claude/Claude code dans EchoBird', step3SettingAlt: 'Menu Setting de Claude/Claude code affichant Logged with API KEY',
+          tipsTitle: 'Conseils de configuration', tipsSub: 'Vérifiez ici les erreurs de configuration les plus courantes.', rulesTitle: 'Règles de saisie',
+          rule1: 'Le nom est seulement un libellé, par exemple GPT5.5, KK-GPT ou Claude/Claude code Tamgur.', rule2: 'Laissez l’adresse OpenAI vide et renseignez l’adresse Anthropic', rule3: 'L’identifiant doit correspondre à un modèle pris en charge par Tamgur. Copiez-le directement si possible.', rule4: 'Utilisez votre jeton Tamgur comme clé API et choisissez les bonnes autorisations de groupe.',
+          templateTitle: 'Modèle de configuration', templateIntro: 'Remplacez les exemples par vos propres informations Tamgur.',
+          templateCode: 'Nom : GPT5.5\nAdresse OpenAI : laisser vide\nAdresse Anthropic : https://api.tamgur.tech/v1\nID du modèle : copier depuis la liste des modèles\nClé API : sk-xxxxxxxxxxxxxxxx',
+          footer: 'Après le lancement, cliquez sur le bouton Setting en bas à droite et vérifiez si « Logged with API KEY » apparaît. Sinon, redémarrez Claude/Claude code puis cliquez de nouveau sur « Lancer l’application ». Gardez EchoBird actif.',
+          floatBanner: 'En cas de problème, contactez rainkii8518231@gmail.com ou Telegram : @chloe_yan_cyu', close: 'Fermer'
+        },
+        ru: {
+          title: 'Настройка Claude/Claude code с API Tamgur через EchoBird',
+          description: 'Скачайте EchoBird 4.8.6 и настройте Claude/Claude code для работы с API Tamgur.',
+          backToTamgur: 'Вернуться на сайт Tamgur',
+          tag: 'EchoBird / Claude/Claude code / API Tamgur',
+          heroTitle: 'Настройка Claude/Claude code с API Tamgur',
+          heroLead: 'Три шага: добавьте модель, укажите API и подключите Claude/Claude code. EchoBird должен работать в фоновом режиме.',
+          viewSteps: 'Посмотреть 3 шага', viewTips: 'Советы по настройке', downloadEchoBird: 'Скачать EchoBird', backDocs: 'Назад к документации',
+          configPath: 'Путь настройки', modelCenter: 'Центр моделей', editConfig: 'Настройка', appManagement: 'Управление приложениями',
+          downloadTitle: 'Скачать EchoBird 4.8.6', downloadSub: 'Сначала установите EchoBird, затем выполните три шага ниже.', backgroundRun: 'Фоновая работа',
+          macArmTitle: 'Mac с процессором Apple', macArmDesc: 'Для устройств Apple Silicon M1, M2, M3, M4 и новее.',
+          macIntelTitle: 'Mac с процессором Intel', macIntelDesc: 'Для компьютеров Mac с процессором Intel.',
+          windowsTitle: 'Windows x64', windowsDesc: 'Для 64-разрядных систем Windows.',
+          downloadDmg: 'Скачать DMG', downloadExe: 'Скачать EXE',
+          githubTitle: 'Официальный проект и новые версии: ', githubBody: 'На этой странице доступны прямые ссылки на EchoBird 4.8.6. В GitHub Releases можно найти журнал изменений, новые версии и проверить источник файлов.', githubAction: 'Открыть GitHub Releases',
+          macDamagedTitle: 'Если при первом запуске macOS сообщает, что приложение «повреждено»:', macDamagedBody: 'Откройте Терминал, выполните команду ниже и снова запустите EchoBird.',
+          important: 'Важно: ', runReminder: 'Не закрывайте EchoBird при работе с Claude/Claude code, иначе модели Tamgur могут быть недоступны.',
+          stepsTitle: 'Настройка в три шага', stepsSub: 'На каждом шаге следуйте большой иллюстрации.',
+          step1Title: 'Добавьте модель', step1Body: 'Откройте Центр моделей, нажмите «Добавить модель» и выберите тип API OpenAI / Anthropic.', step1Caption: 'Снимок 1: добавление модели в Центре моделей.', step1Alt: 'Добавление модели в EchoBird',
+          step2Title: 'Укажите параметры API', step2Body: 'Заполните форму Tamgur API по подсказкам ниже.', step2Caption: 'Снимок 2: адрес, ID модели и ключ API.', step2Alt: 'Редактирование модели в EchoBird',
+          formTipTitle: 'Подсказки по заполнению', formTipName: 'Введите любое имя для этой конфигурации модели.', formTipOpenAI: 'Оставьте поле пустым.', formTipModel: 'Скопируйте ID нужной модели прямо из каталога моделей.', formTipApiKey: 'Введите ключ API и убедитесь, что выбрана правильная группа.',
+          step3Title: 'Подключите Claude/Claude code', step3Body: 'Откройте Управление приложениями, выберите Claude/Claude code Desktop, привяжите модель и нажмите «Запустить приложение». После запуска нажмите кнопку Setting в правом нижнем углу. Если отображается «Logged with API KEY», подключение выполнено успешно. Если нет, перезапустите Claude/Claude code и снова нажмите «Запустить приложение».', step3TipTitle: 'Советы для шага 3', step3TipClaude: 'Если нужно запустить Claude, сначала полностью закройте Claude, затем нажмите «Запустить приложение» в EchoBird. Claude Desktop откроется автоматически и попытается войти через API.', step3TipCode: 'Если вы хотите использовать Claude или Claude Code в Visual Studio Code или во встроенном терминале Visual Studio Code, выберите приложение Claude Code и нажмите «Запустить приложение». EchoBird автоматически откроет терминал и запустит Claude Code, после чего им можно пользоваться в Visual Studio Code.', step3Caption: 'Снимок 3: выбор модели Claude/Claude code, запуск и проверка статуса подключения через меню Setting в правом нижнем углу.', step3Alt: 'Выбор модели Claude/Claude code в EchoBird', step3SettingAlt: 'Меню Setting в Claude/Claude code с надписью Logged with API KEY',
+          tipsTitle: 'Советы по настройке', tipsSub: 'Проверьте наиболее частые причины ошибок.', rulesTitle: 'Правила заполнения',
+          rule1: 'Название служит только меткой, например GPT5.5, KK-GPT или Claude/Claude code Tamgur.', rule2: 'Оставьте адрес OpenAI пустым, а в адрес Anthropic укажите', rule3: 'ID модели должен совпадать с названием модели, поддерживаемой Tamgur.', rule4: 'В качестве ключа API используйте токен Tamgur и выберите правильные разрешения группы.',
+          templateTitle: 'Шаблон настройки', templateIntro: 'Замените примеры ниже своими данными Tamgur.',
+          templateCode: 'Название: GPT5.5\nАдрес OpenAI: оставьте пустым\nАдрес Anthropic: https://api.tamgur.tech/v1\nID модели: скопируйте из списка моделей\nКлюч API: sk-xxxxxxxxxxxxxxxx',
+          footer: 'После запуска нажмите кнопку Setting в правом нижнем углу и проверьте, отображается ли «Logged with API KEY». Если нет, перезапустите Claude/Claude code и снова нажмите «Запустить приложение». Не закрывайте EchoBird.',
+          floatBanner: 'Если возникнут проблемы, свяжитесь: rainkii8518231@gmail.com или Telegram: @chloe_yan_cyu', close: 'Закрыть'
+        },
+        ja: {
+          title: 'EchoBird で Claude/Claude code に Tamgur API を設定する方法',
+          description: 'EchoBird 4.8.6 をダウンロードし、Claude/Claude code に Tamgur API を設定します。',
+          backToTamgur: 'Tamgur サイトに戻る',
+          tag: 'EchoBird / Claude/Claude code / Tamgur API',
+          heroTitle: 'Claude/Claude code に Tamgur API を設定',
+          heroLead: 'モデル追加、API 入力、Claude/Claude code 接続の 3 ステップです。設定後は EchoBird をバックグラウンドで起動しておいてください。',
+          viewSteps: '3 ステップを見る', viewTips: '設定のポイント', downloadEchoBird: 'EchoBird をダウンロード', backDocs: 'ドキュメントに戻る',
+          configPath: '設定手順', modelCenter: 'モデルセンター', editConfig: '設定を編集', appManagement: 'アプリ管理',
+          downloadTitle: 'EchoBird 4.8.6 をダウンロード', downloadSub: 'EchoBird をインストールしてから、以下の 3 ステップで Claude/Claude code を設定します。', backgroundRun: 'バックグラウンド動作',
+          macArmTitle: 'Mac Apple シリコン版', macArmDesc: 'M1、M2、M3、M4 などの Apple Silicon デバイス向け。',
+          macIntelTitle: 'Mac Intel 版', macIntelDesc: 'Intel プロセッサ搭載 Mac 向け。',
+          windowsTitle: 'Windows x64 版', windowsDesc: '64 ビット Windows 向け。',
+          downloadDmg: 'DMG をダウンロード', downloadExe: 'EXE をダウンロード',
+          githubTitle: '公式プロジェクトと最新リリース：', githubBody: 'このページでは EchoBird 4.8.6 を直接ダウンロードできます。更新履歴、最新バージョン、配布元の確認は GitHub Releases をご覧ください。', githubAction: 'GitHub Releases を見る',
+          macDamagedTitle: 'macOS の初回起動時に「壊れている」と表示された場合：', macDamagedBody: 'ターミナルを開いて以下のコマンドを実行し、EchoBird を再度開いてください。',
+          important: '重要：', runReminder: 'Claude/Claude code の使用中は EchoBird を起動したままにしてください。停止すると Tamgur モデルを呼び出せない場合があります。',
+          stepsTitle: '3 ステップで設定', stepsSub: '各ステップの大きなスクリーンショットに沿って操作してください。',
+          step1Title: 'モデルを追加', step1Body: 'モデルセンターを開き、「モデルを追加」をクリックして OpenAI / Anthropic API タイプを選択します。', step1Caption: '画面 1：モデルセンターでモデルを追加。', step1Alt: 'EchoBird モデルセンターでモデルを追加',
+          step2Title: 'API 設定を入力', step2Body: '以下のヒントに沿って Tamgur API フォームを入力します。', step2Caption: '画面 2：URL、モデル ID、API キーを入力。', step2Alt: 'EchoBird のモデル設定を編集',
+          formTipTitle: 'フォーム入力のヒント', formTipName: 'モデル設定を区別するための任意の名前を入力します。', formTipOpenAI: '空欄にします。', formTipModel: '使用するモデル ID をモデル一覧から直接コピーします。', formTipApiKey: 'API キーを入力し、正しいグループが選択されていることを確認します。',
+          step3Title: 'Claude/Claude code を接続', step3Body: 'アプリ管理で Claude/Claude code Desktop を選び、追加したモデルを紐付けて「アプリを起動」をクリックします。起動後、右下の Setting ボタンをクリックし、「Logged with API KEY」と表示されれば接続成功です。成功しない場合は Claude/Claude code を再起動してから、もう一度「アプリを起動」をクリックしてください。', step3TipTitle: 'ステップ 3 のヒント', step3TipClaude: 'Claude を起動したい場合は、先に Claude を終了してから EchoBird の「アプリを起動」をクリックしてください。Claude Desktop が自動で開き、API でのログインを自動で試行します。', step3TipCode: 'Visual Studio Code またはその統合ターミナルで Claude または Claude Code を使いたい場合は、Claude Code アプリを選んで「アプリを起動」をクリックしてください。起動後はターミナルが自動で開いて Claude Code が開始され、その後 Visual Studio Code で利用できます。', step3Caption: '画面 3：Claude/Claude code のモデルを選択して起動し、右下の Setting で接続状態を確認。', step3Alt: 'EchoBird で Claude/Claude code モデルを選択', step3SettingAlt: 'Claude/Claude code の Setting に Logged with API KEY と表示されている画面',
+          tipsTitle: '設定のポイント', tipsSub: '間違えやすい項目を確認してください。', rulesTitle: '入力ルール',
+          rule1: '名前は表示用です。GPT5.5、KK-GPT、Claude/Claude code Tamgur などを使用できます。', rule2: 'OpenAI URL は空欄、Anthropic URL は次を入力', rule3: 'モデル ID は Tamgur が対応するモデル名と一致させてください。', rule4: 'API キーには Tamgur のトークンを入力し、必要に応じて正しいグループ権限を選択します。',
+          templateTitle: '設定テンプレート', templateIntro: '以下を自分の Tamgur 情報に置き換えてください。',
+          templateCode: '名前：GPT5.5\nOpenAI URL：空欄\nAnthropic URL：https://api.tamgur.tech/v1\nモデル ID：モデル一覧からコピー\nAPI キー：sk-xxxxxxxxxxxxxxxx',
+          footer: '起動後は右下の Setting ボタンをクリックし、「Logged with API KEY」と表示されるか確認してください。表示されない場合は Claude/Claude code を再起動してから、もう一度「アプリを起動」をクリックしてください。EchoBird は起動したままにします。',
+          floatBanner: '問題があれば rainkii8518231@gmail.com または Telegram: @chloe_yan_cyu までご連絡ください', close: '閉じる'
+        }
+      };
+
+      const supportedLanguages = Object.keys(translations);
+      const languageButtons = document.querySelectorAll('[data-lang]');
+      const metaDescription = document.querySelector('meta[name="description"]');
+      const urlLanguage = new URLSearchParams(window.location.search).get('lang');
+      const savedLanguage = localStorage.getItem('tamgurClaude/Claude codeLanguage');
+      const browserLanguage = navigator.language.toLowerCase();
+      const detectedLanguage = browserLanguage.startsWith('zh') ? 'zh-CN'
+        : supportedLanguages.find((language) => browserLanguage.startsWith(language)) || 'en';
+      let currentLanguage = supportedLanguages.includes(urlLanguage) ? urlLanguage
+        : supportedLanguages.includes(savedLanguage) ? savedLanguage
+        : detectedLanguage;
+
+      const setLanguage = (language) => {
+        const messages = translations[language] || translations.en;
+        currentLanguage = language;
+        document.documentElement.lang = language;
+        document.title = messages.title;
+        if (metaDescription) metaDescription.setAttribute('content', messages.description);
+
+        document.querySelectorAll('[data-i18n]').forEach((element) => {
+          const value = messages[element.dataset.i18n];
+          if (value !== undefined) element.textContent = value;
+        });
+        document.querySelectorAll('[data-i18n-alt]').forEach((element) => {
+          const value = messages[element.dataset.i18nAlt];
+          if (value !== undefined) element.setAttribute('alt', value);
+        });
+        document.querySelectorAll('[data-i18n-aria-label]').forEach((element) => {
+          const value = messages[element.dataset.i18nAriaLabel];
+          if (value !== undefined) element.setAttribute('aria-label', value);
+        });
+        languageButtons.forEach((button) => {
+          button.setAttribute('aria-pressed', String(button.dataset.lang === language));
+        });
+        localStorage.setItem('tamgurClaude/Claude codeLanguage', language);
+      };
+
+      languageButtons.forEach((button) => {
+        button.addEventListener('click', () => setLanguage(button.dataset.lang));
+      });
+      setLanguage(currentLanguage);
+
+      const banner = document.getElementById('floatBanner');
+      const closeBtn = document.getElementById('floatBannerClose');
+      if (closeBtn) {
+        closeBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          banner.style.display = 'none';
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
