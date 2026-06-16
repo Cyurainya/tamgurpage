@@ -107,7 +107,6 @@ export default function App() {
   const [communityOpen, setCommunityOpen] = useState(false);
   const [trustOpen, setTrustOpen] = useState(false);
   const [copiedContact, setCopiedContact] = useState<'email' | 'telegram' | 'wechat' | null>(null);
-  const [showParticleTrail, setShowParticleTrail] = useState(false);
   const isDocsView =
     window.location.pathname === '/docs' ||
     new URLSearchParams(window.location.search).get('view') === 'docs';
@@ -182,21 +181,10 @@ export default function App() {
     return () => window.clearTimeout(timeout);
   }, [copiedContact]);
 
-  useEffect(() => {
-    const schedule = window.requestIdleCallback
-      ? window.requestIdleCallback(() => setShowParticleTrail(true), { timeout: 1200 })
-      : window.setTimeout(() => setShowParticleTrail(true), 900);
-
-    return () => {
-      if (typeof schedule === 'number') {
-        window.clearTimeout(schedule);
-      } else {
-        window.cancelIdleCallback?.(schedule);
-      }
-      if (trustCloseTimerRef.current) {
-        window.clearTimeout(trustCloseTimerRef.current);
-      }
-    };
+  useEffect(() => () => {
+    if (trustCloseTimerRef.current) {
+      window.clearTimeout(trustCloseTimerRef.current);
+    }
   }, []);
 
   async function copyContact(value: string, field: 'email' | 'telegram' | 'wechat') {
@@ -234,7 +222,7 @@ export default function App() {
   if (isDocsView) {
     return (
       <div className="page docs-page-shell" ref={pageRef}>
-        {showParticleTrail ? <ParticleTrail theme={resolved} /> : null}
+        <ParticleTrail theme={resolved} />
         <div className="cursor-glow" aria-hidden="true" />
         <DocsCenter t={t} />
       </div>
@@ -243,7 +231,7 @@ export default function App() {
 
   return (
     <div className="page landing-page" ref={pageRef}>
-      {showParticleTrail ? <ParticleTrail theme={resolved} /> : null}
+      <ParticleTrail theme={resolved} />
       <div className="cursor-glow" aria-hidden="true" />
       <div className="grid-background" aria-hidden="true" />
       <div className="top-glow" aria-hidden="true" />
