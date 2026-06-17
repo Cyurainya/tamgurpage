@@ -26,7 +26,7 @@
           - text: 查看教程文档
       - generic [ref=e23]:
         - link "额度充值" [ref=e24] [cursor=pointer]:
-          - /url: https://api.tamgur.tech/wallet
+          - /url: https://api.tamgur.tech/console/topup
           - img [ref=e26]
           - generic [ref=e29]: 额度充值
         - link "在线生图" [ref=e30] [cursor=pointer]:

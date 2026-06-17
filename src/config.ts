@@ -10,7 +10,7 @@ export const siteConfig = {
     status: '/status',
     console: 'https://api.tamgur.tech/dashboard/models',
     login: '/login',
-    recharge: 'https://api.tamgur.tech/wallet',
+    recharge: 'https://api.tamgur.tech/console/topup',
     imageGeneration: '/playground',
     telegramGroup: 'https://t.me/chloe_yan_cyu',
     telegram: 'https://t.me/chloe_yan_cyu',

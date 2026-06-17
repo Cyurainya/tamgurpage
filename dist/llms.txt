@@ -33,4 +33,4 @@ The website is available in English, Simplified Chinese, French, Russian, Japane
 - Documentation: https://doc.tamgur.tech/
 - API reference: https://api.tamgur.tech/docs/api
 - Codex guide: https://api.tamgur.tech/docs/codex
-- Add API balance: https://api.tamgur.tech/wallet
+- Add API balance: https://api.tamgur.tech/console/topup
