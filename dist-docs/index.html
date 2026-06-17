@@ -246,6 +246,11 @@
         --glow: rgba(22, 143, 131, 0.12);
       }
 
+      .card-claude {
+        --accent: #f59e0b;
+        --glow: rgba(245, 158, 11, 0.14);
+      }
+
       .card:hover {
         border-color: color-mix(in srgb, var(--accent), transparent 52%);
         box-shadow: 0 36px 100px color-mix(in srgb, var(--glow), rgba(10, 15, 24, 0.12) 35%);
@@ -448,11 +453,7 @@
           </span>
         </a>
 
-        <a
-          class="card card-api"
-          id="api-docs-link"
-          href="https://doc.tamgur.tech/docs/api/zh"
-        >
+        <a class="card card-api" id="api-docs-link" href="https://doc.tamgur.tech/docs/api/zh">
           <span class="card-icon">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="m9 15 6-6M7.5 17.5l-1 1a3.5 3.5 0 0 1-5-5l4-4a3.5 3.5 0 0 1 5 0M16.5 6.5l1-1a3.5 3.5 0 0 1 5 5l-4 4a3.5 3.5 0 0 1-5 0" />
@@ -460,6 +461,23 @@
           </span>
           <h2 data-i18n="apiTitle">新手指南 / API 接口文档</h2>
           <p data-i18n="apiDescription">接入聊天、画图、视频生成等 AI 能力，兼容 OpenAI API 格式</p>
+          <span class="card-link">
+            <span data-i18n="enter">进入查阅</span>
+            <svg class="arrow" viewBox="0 0 20 20" aria-hidden="true">
+              <path d="M4 10h11M11 6l4 4-4 4" />
+            </svg>
+          </span>
+        </a>
+
+        <a class="card card-claude" id="claude-docs-link" href="https://doc.tamgur.tech/claude/">
+          <span class="card-icon">
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M7 8h10M7 12h10M7 16h6" />
+              <path d="M5 4h14a1 1 0 0 1 1 1v14l-4-3H5a1 1 0 0 1-1-1V5a1 1 0 0 1 1-1Z" />
+            </svg>
+          </span>
+          <h2 data-i18n="claudeTitle">Claude 简单版 API 教程</h2>
+          <p data-i18n="claudeDescription">快速配置 Claude 简版接入方式，适合第一次对接的用户</p>
           <span class="card-link">
             <span data-i18n="enter">进入查阅</span>
             <svg class="arrow" viewBox="0 0 20 20" aria-hidden="true">
@@ -506,6 +524,8 @@
             appsDescription: "OpenClaw、Claude Code、Codex 等 AI 应用集成方案",
             apiTitle: "新手指南 / API 接口文档",
             apiDescription: "接入聊天、画图、视频生成等 AI 能力，兼容 OpenAI API 格式",
+            claudeTitle: "Claude 简单版 API 教程",
+            claudeDescription: "快速配置 Claude 简版接入方式，适合第一次对接的用户",
             codexTitle: "Codex 简单版对接 API 教程",
             codexDescription: "快速配置 API 地址、密钥与模型，帮助 Codex 新用户完成基础接入",
             enter: "进入查阅",
@@ -522,6 +542,8 @@
             appsDescription: "Integration guides for OpenClaw, Claude Code, Codex and other AI apps",
             apiTitle: "Getting started / API reference",
             apiDescription: "Connect chat, image and video generation through an OpenAI-compatible API",
+            claudeTitle: "Claude simple API guide",
+            claudeDescription: "Quickly set up the Claude simple integration for first-time users",
             codexTitle: "Codex API quickstart",
             codexDescription: "Configure the endpoint, key and model to get Codex connected quickly",
             enter: "Explore",
@@ -538,6 +560,8 @@
             appsDescription: "Guides pour OpenClaw, Claude Code, Codex et d'autres applications",
             apiTitle: "Guide de démarrage / API",
             apiDescription: "Connectez le chat, les images et la vidéo via une API compatible OpenAI",
+            claudeTitle: "Guide API Claude simplifié",
+            claudeDescription: "Configurez rapidement l'intégration Claude simplifiée pour un premier usage",
             codexTitle: "Démarrage rapide Codex",
             codexDescription: "Configurez l'adresse, la clé et le modèle pour connecter Codex",
             enter: "Consulter",
@@ -554,6 +578,8 @@
             appsDescription: "Интеграция OpenClaw, Claude Code, Codex и других приложений",
             apiTitle: "Начало работы / API",
             apiDescription: "Чат, изображения и видео через API, совместимый с OpenAI",
+            claudeTitle: "Простой API-гид Claude",
+            claudeDescription: "Быстрая настройка упрощённого подключения Claude для первого запуска",
             codexTitle: "Быстрое подключение Codex",
             codexDescription: "Настройте адрес API, ключ и модель для подключения Codex",
             enter: "Открыть",
@@ -570,6 +596,8 @@
             appsDescription: "OpenClaw、Claude Code、Codex などの連携方法",
             apiTitle: "入門ガイド / API リファレンス",
             apiDescription: "OpenAI 互換 API でチャット、画像、動画生成に接続",
+            claudeTitle: "Claude 簡易 API ガイド",
+            claudeDescription: "初回利用向けに Claude の簡易接続をすばやく設定",
             codexTitle: "Codex API クイックスタート",
             codexDescription: "API アドレス、キー、モデルを設定して Codex を接続",
             enter: "詳しく見る",
@@ -586,6 +614,8 @@
             appsDescription: "Hướng dẫn tích hợp OpenClaw, Claude Code, Codex và các ứng dụng khác",
             apiTitle: "Bắt đầu / Tài liệu API",
             apiDescription: "Kết nối chat, hình ảnh và video qua API tương thích OpenAI",
+            claudeTitle: "Hướng dẫn API Claude đơn giản",
+            claudeDescription: "Thiết lập nhanh cách kết nối Claude đơn giản cho người dùng mới",
             codexTitle: "Khởi động nhanh Codex API",
             codexDescription: "Cấu hình địa chỉ API, khóa và mô hình để kết nối Codex",
             enter: "Xem tài liệu",
@@ -613,6 +643,7 @@
         const themeButton = document.getElementById("theme-button");
         const themeMeta = document.querySelector('meta[name="theme-color"]');
         const apiDocsLink = document.getElementById("api-docs-link");
+        const claudeDocsLink = document.getElementById("claude-docs-link");
 
         const normalizeLocale = (value) => {
           if (!value) return null;
@@ -671,6 +702,10 @@
             locale === "zh-CN"
               ? "https://doc.tamgur.tech/docs/api/zh"
               : "https://doc.tamgur.tech/docs/api/en";
+          claudeDocsLink.href =
+            locale === "zh-CN"
+              ? "https://doc.tamgur.tech/claude/"
+              : "https://doc.tamgur.tech/claude/";
           applyTheme();
         };
 
