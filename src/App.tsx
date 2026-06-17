@@ -108,8 +108,10 @@ export default function App() {
   const [trustOpen, setTrustOpen] = useState(false);
   const [copiedContact, setCopiedContact] = useState<'email' | 'telegram' | 'wechat' | null>(null);
   const isDocsView =
-    window.location.pathname === '/docs' ||
-    new URLSearchParams(window.location.search).get('view') === 'docs';
+    typeof window !== 'undefined' && (
+      window.location.pathname === '/docs' ||
+      new URLSearchParams(window.location.search).get('view') === 'docs'
+    );
 
   useEffect(() => {
     const root = pageRef.current;

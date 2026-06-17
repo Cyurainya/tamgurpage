@@ -1014,6 +1014,7 @@ const seoMetadata: Record<
 };
 
 function setMetaContent(selector: string, content: string) {
+  if (typeof document === 'undefined') return;
   document.querySelector<HTMLMetaElement>(selector)?.setAttribute('content', content);
 }
 
@@ -1036,6 +1037,7 @@ function normalizeLocale(value: unknown): Locale | null {
 }
 
 function readUrlLocale(): Locale | null {
+  if (typeof window === 'undefined') return null;
   const params = new URLSearchParams(window.location.search);
   return normalizeLocale(
     params.get('lang') ?? params.get('locale') ?? params.get('language'),
@@ -1043,7 +1045,7 @@ function readUrlLocale(): Locale | null {
 }
 
 function readParentLocale(): Locale | null {
-  if (window.parent === window) return null;
+  if (typeof window === 'undefined' || window.parent === window) return null;
   try {
     const root = window.parent.document.documentElement;
     const body = window.parent.document.body;
@@ -1083,7 +1085,7 @@ export function useLocale() {
   const [parentLocale, setParentLocale] = useState<Locale | null>(
     () => readParentLocale(),
   );
-  const browserLocale = normalizeLocale(window.navigator.language) ?? 'en';
+  const browserLocale = typeof window !== 'undefined' ? normalizeLocale(window.navigator.language) ?? 'en' : 'en';
   const locale = parentLocale ?? messageLocale ?? urlLocale ?? browserLocale;
 
   useEffect(() => {

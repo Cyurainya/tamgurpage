@@ -13,6 +13,7 @@ function normalizeTheme(value: unknown): ThemeMode | null {
 }
 
 function readUrlTheme(): ThemeMode | null {
+  if (typeof window === 'undefined') return null;
   const params = new URLSearchParams(window.location.search);
   return normalizeTheme(
     params.get('theme') ?? params.get('colorMode') ?? params.get('color-mode'),
@@ -20,7 +21,7 @@ function readUrlTheme(): ThemeMode | null {
 }
 
 function readParentTheme(): ResolvedTheme | null {
-  if (window.parent === window) return null;
+  if (typeof window === 'undefined' || window.parent === window) return null;
 
   try {
     const root = window.parent.document.documentElement;
@@ -75,12 +76,12 @@ function readMessageTheme(data: unknown): ThemeMode | null {
 
 export function useTheme() {
   const media = useMemo(
-    () => window.matchMedia('(prefers-color-scheme: dark)'),
+    () => typeof window !== 'undefined' ? window.matchMedia('(prefers-color-scheme: dark)') : null,
     [],
   );
   const [urlTheme] = useState<ThemeMode | null>(() => readUrlTheme());
   const [systemTheme, setSystemTheme] = useState<ResolvedTheme>(
-    media.matches ? 'dark' : 'light',
+    media?.matches ? 'dark' : 'light',
   );
   const [messageTheme, setMessageTheme] = useState<ThemeMode | null>(null);
   const [parentTheme, setParentTheme] = useState<ResolvedTheme | null>(
@@ -93,6 +94,7 @@ export function useTheme() {
     systemTheme;
 
   useEffect(() => {
+    if (!media) return;
     const onSystemChange = (event: MediaQueryListEvent) => {
       setSystemTheme(event.matches ? 'dark' : 'light');
     };
