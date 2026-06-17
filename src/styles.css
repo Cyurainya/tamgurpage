@@ -488,6 +488,7 @@ h1 {
 .hero-actions {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 13px;
   margin-top: 37px;
 }

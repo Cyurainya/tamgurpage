@@ -3,6 +3,7 @@ export const siteConfig = {
   links: {
     models: '/pricing',
     pricing: '/pricing',
+    canvas: 'https://canvas.tamgur.tech',
     docs: 'https://doc.tamgur.tech/',
     openClawDocs: 'https://doc.tamgur.tech/toolTips',
     apiDocs: 'https://api.tamgur.tech/docs/api',

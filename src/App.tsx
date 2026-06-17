@@ -53,6 +53,16 @@ function ImageIcon() {
   );
 }
 
+function BrushIcon() {
+  return (
+    <svg viewBox="0 0 20 20" aria-hidden="true">
+      <path d="M12.8 3.2 16.8 7.2" />
+      <path d="m6.4 13.6 7.9-7.9a1.4 1.4 0 0 0 0-2l-.1-.1a1.4 1.4 0 0 0-2 0l-7.9 7.9" />
+      <path d="M6.2 12.8c-.8.2-1.6.7-2.1 1.3-.8 1-.7 2.3-1.7 2.9 1.2.5 2.7.2 3.6-.8.6-.6.8-1.3.7-2.1-.1-.5-.2-.9-.5-1.3Z" />
+    </svg>
+  );
+}
+
 function GiftIcon() {
   return (
     <svg viewBox="0 0 20 20" aria-hidden="true">
@@ -276,6 +286,16 @@ export default function App() {
           <div className="hero-actions">
             <a className="primary-button" href={siteConfig.links.recharge} target="_top">
               {t.start}
+              <ArrowIcon />
+            </a>
+            <a
+              className="secondary-button"
+              target="_blank"
+              rel="noopener noreferrer"
+              href={siteConfig.links.canvas}
+            >
+              <BrushIcon />
+              {t.infiniteCanvas}
               <ArrowIcon />
             </a>
             <a className="secondary-button" target="_blank" href={siteConfig.links.docs}>

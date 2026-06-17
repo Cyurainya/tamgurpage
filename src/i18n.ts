@@ -28,6 +28,7 @@ export type Messages = {
   heroOfficialPlatform: string;
   heroTamgurPlatform: string;
   start: string;
+  infiniteCanvas: string;
   viewPricing: string;
   docs: string;
   trust: string;
@@ -132,6 +133,7 @@ export const messages: Record<Locale, Messages> = {
     heroOfficialPlatform: '官方平台',
     heroTamgurPlatform: 'Tamgur',
     start: '开始使用',
+    infiniteCanvas: '无限画布',
     viewPricing: '查看价格',
     docs: '开发文档',
     trust: '联系客服领取免费额度/充值折扣',
@@ -274,6 +276,7 @@ export const messages: Record<Locale, Messages> = {
     heroOfficialPlatform: 'Official Platform',
     heroTamgurPlatform: 'Tamgur',
     start: 'Start for free',
+    infiniteCanvas: 'Infinite Canvas',
     viewPricing: 'View Pricing',
     docs: 'Documentation',
     trust: 'Contact support to claim free credits / top-up discounts',
@@ -416,6 +419,7 @@ export const messages: Record<Locale, Messages> = {
     heroOfficialPlatform: 'Plateforme officielle',
     heroTamgurPlatform: 'Tamgur',
     start: 'Commencer gratuitement',
+    infiniteCanvas: 'Infinite Canvas',
     viewPricing: 'Voir les tarifs',
     docs: 'Documentation',
     trust: "Contactez le support pour obtenir des crédits offerts / une remise sur votre recharge",
@@ -558,6 +562,7 @@ export const messages: Record<Locale, Messages> = {
     heroOfficialPlatform: 'Официальная платформа',
     heroTamgurPlatform: 'Tamgur',
     start: 'Начать бесплатно',
+    infiniteCanvas: 'Infinite Canvas',
     viewPricing: 'Посмотреть цены',
     docs: 'Документация',
     trust: 'Свяжитесь с поддержкой, чтобы получить бесплатные кредиты / скидку на пополнение',
@@ -700,6 +705,7 @@ export const messages: Record<Locale, Messages> = {
     heroOfficialPlatform: '公式プラットフォーム',
     heroTamgurPlatform: 'Tamgur',
     start: '無料で始める',
+    infiniteCanvas: 'Infinite Canvas',
     viewPricing: '料金を見る',
     docs: 'ドキュメント',
     trust: 'サポートに連絡して無料クレジット / チャージ割引を受け取る',
@@ -842,6 +848,7 @@ export const messages: Record<Locale, Messages> = {
     heroOfficialPlatform: 'Nền tảng chính thức',
     heroTamgurPlatform: 'Tamgur',
     start: 'Bắt đầu miễn phí',
+    infiniteCanvas: 'Infinite Canvas',
     viewPricing: 'Xem giá',
     docs: 'Tài liệu',
     trust: 'Liên hệ hỗ trợ để nhận lượt dùng miễn phí / ưu đãi nạp tiền',
