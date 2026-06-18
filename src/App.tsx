@@ -260,11 +260,10 @@ export default function App() {
             {/* <strong className="hero-savings-number">{t.heroHighlight}</strong> */}
           </h1>
 
-          <p className="hero-model-line">{t.heroModelLine}</p>
-
-          <div className="hero-compatibility">
-            <strong>{t.heroDescription}</strong>
-            {/* <span>{t.heroMigration}</span> */}
+          <div className="hero-description hero-copy-lines">
+            <p className="hero-model-line">{t.heroModelLine}</p>
+            <p>{t.heroDescription}</p>
+            <p>{t.heroMigration}</p>
           </div>
 
           <div className="hero-price-card">

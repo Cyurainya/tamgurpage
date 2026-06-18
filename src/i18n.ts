@@ -124,11 +124,11 @@ export type Messages = {
 export const messages: Record<Locale, Messages> = {
   'zh-CN': {
     eyebrow: '稳定可靠的 AI API 平台',
-    heroTitle: '摆脱 Claude Max 与 Codex 订阅和额度限制',
+    heroTitle: 'Tamgur-大模型中转平台',
     heroHighlight: '低至 1 折',
-    heroModelLine: '按量付费，随用随充',
-    heroDescription: '一个 API 接入 GPT-5、Claude、Gemini',
-    heroMigration: '兼容 OpenAI SDK，修改 Base URL 即可迁移',
+    heroModelLine: '一站式接入全球顶尖大模型，支持 GPT, Claude, Gemini 等。',
+    heroDescription: '无缝对接OpenAI、Claude、Gemini 等API 格式，零成本迁移，释放无限潜能。',
+    heroMigration: '告别繁琐调试，让 AI 开发回归纯粹。',
     heroPriceTitle: '典型月度成本',
     heroOfficialPlatform: '官方平台',
     heroTamgurPlatform: 'Tamgur',
