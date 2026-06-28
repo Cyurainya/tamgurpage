@@ -108,7 +108,7 @@ function WechatIcon() {
 const audienceMarks = ['</>', '↗', 'AI', '01'];
 
 export default function App() {
-  const { resolved } = useTheme();
+  useTheme();
   const { t } = useLocale();
   const pageRef = useRef<HTMLDivElement>(null);
   const communityRef = useRef<HTMLDivElement>(null);
@@ -234,7 +234,7 @@ export default function App() {
   if (isDocsView) {
     return (
       <div className="page docs-page-shell" ref={pageRef}>
-        <ParticleTrail theme={resolved} />
+        <ParticleTrail />
         <div className="cursor-glow" aria-hidden="true" />
         <DocsCenter t={t} />
       </div>
@@ -243,7 +243,7 @@ export default function App() {
 
   return (
     <div className="page landing-page" ref={pageRef}>
-      <ParticleTrail theme={resolved} />
+      <ParticleTrail />
       <div className="cursor-glow" aria-hidden="true" />
       <div className="grid-background" aria-hidden="true" />
       <div className="top-glow" aria-hidden="true" />
@@ -362,7 +362,7 @@ export default function App() {
                     <span className="trust-contact-label">WeChat</span>
                     <span className="trust-contact-value">cyuCyin</span>
                   </div>
-                  <button type="button" onClick={() => copyContact('cyuCyin', 'wechat')}>
+                  <button type="button" onClick={() => copyContact('chloeYanCyu', 'wechat')}>
                     {copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
                   </button>
                 </div>

@@ -28,23 +28,6 @@
         --focus: rgba(19, 158, 217, 0.32);
       }
 
-      html[data-theme="dark"] {
-        color-scheme: dark;
-        --bg: #0d1119;
-        --surface: rgba(22, 28, 40, 0.72);
-        --surface-strong: rgba(27, 34, 48, 0.96);
-        --text: #f5f7fb;
-        --text-soft: #a9b3c5;
-        --text-muted: #79859a;
-        --border: rgba(255, 255, 255, 0.08);
-        --control-border: rgba(255, 255, 255, 0.11);
-        --shadow: 0 30px 100px rgba(0, 0, 0, 0.34);
-        --blue: #42bff1;
-        --purple: #bd78ff;
-        --green: #4ac9b9;
-        --focus: rgba(66, 191, 241, 0.36);
-      }
-
       * {
         box-sizing: border-box;
       }
@@ -135,24 +118,6 @@
         min-width: 142px;
         padding: 0 38px 0 14px;
         cursor: pointer;
-      }
-
-      .theme-button {
-        display: inline-grid;
-        width: 42px;
-        padding: 0;
-        cursor: pointer;
-        place-items: center;
-      }
-
-      .theme-button svg {
-        width: 19px;
-        height: 19px;
-        fill: none;
-        stroke: currentColor;
-        stroke-linecap: round;
-        stroke-linejoin: round;
-        stroke-width: 1.7;
       }
 
       .heading {
@@ -390,12 +355,6 @@
             <option value="vi">Tiếng Việt</option>
           </select>
         </label>
-        <button class="control theme-button" id="theme-button" type="button">
-          <svg viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6 7 7M17 17l1.4 1.4M18.4 5.6 17 7M7 17l-1.4 1.4" />
-            <circle cx="12" cy="12" r="4" />
-          </svg>
-        </button>
       </div>
 
       <header class="heading">
@@ -483,10 +442,7 @@
             codexTitle: "Codex 简单版对接 API 教程",
             codexDescription: "快速配置 API 地址、密钥与模型，帮助 Codex 新用户完成基础接入",
             enter: "进入查阅",
-            back: "返回首页",
-            themeAuto: "主题：跟随系统",
-            themeLight: "主题：浅色",
-            themeDark: "主题：深色"
+            back: "返回首页"
           },
           en: {
             eyebrow: "DOCUMENTATION",
@@ -499,10 +455,7 @@
             codexTitle: "Codex API quickstart",
             codexDescription: "Configure the endpoint, key and model to get Codex connected quickly",
             enter: "Explore",
-            back: "Back home",
-            themeAuto: "Theme: System",
-            themeLight: "Theme: Light",
-            themeDark: "Theme: Dark"
+            back: "Back home"
           },
           fr: {
             eyebrow: "DOCUMENTATION",
@@ -515,10 +468,7 @@
             codexTitle: "Démarrage rapide Codex",
             codexDescription: "Configurez l'adresse, la clé et le modèle pour connecter Codex",
             enter: "Consulter",
-            back: "Retour à l'accueil",
-            themeAuto: "Thème : système",
-            themeLight: "Thème : clair",
-            themeDark: "Thème : sombre"
+            back: "Retour à l'accueil"
           },
           ru: {
             eyebrow: "ДОКУМЕНТАЦИЯ",
@@ -531,10 +481,7 @@
             codexTitle: "Быстрое подключение Codex",
             codexDescription: "Настройте адрес API, ключ и модель для подключения Codex",
             enter: "Открыть",
-            back: "На главную",
-            themeAuto: "Тема: системная",
-            themeLight: "Тема: светлая",
-            themeDark: "Тема: тёмная"
+            back: "На главную"
           },
           ja: {
             eyebrow: "DOCUMENTATION",
@@ -547,10 +494,7 @@
             codexTitle: "Codex API クイックスタート",
             codexDescription: "API アドレス、キー、モデルを設定して Codex を接続",
             enter: "詳しく見る",
-            back: "ホームへ戻る",
-            themeAuto: "テーマ：システム",
-            themeLight: "テーマ：ライト",
-            themeDark: "テーマ：ダーク"
+            back: "ホームへ戻る"
           },
           vi: {
             eyebrow: "TÀI LIỆU",
@@ -563,10 +507,7 @@
             codexTitle: "Khởi động nhanh Codex API",
             codexDescription: "Cấu hình địa chỉ API, khóa và mô hình để kết nối Codex",
             enter: "Xem tài liệu",
-            back: "Về trang chủ",
-            themeAuto: "Giao diện: Hệ thống",
-            themeLight: "Giao diện: Sáng",
-            themeDark: "Giao diện: Tối"
+            back: "Về trang chủ"
           }
         };
 
@@ -580,11 +521,8 @@
           ja: "ja",
           vi: "vi"
         };
-        const themeOrder = ["auto", "light", "dark"];
         const params = new URLSearchParams(location.search);
-        const media = matchMedia("(prefers-color-scheme: dark)");
         const languageSelect = document.getElementById("language-select");
-        const themeButton = document.getElementById("theme-button");
         const themeMeta = document.querySelector('meta[name="theme-color"]');
         const apiDocsLink = document.getElementById("api-docs-link");
 
@@ -616,12 +554,6 @@
           normalizeLocale(navigator.language) ||
           "zh-CN";
 
-        const initialTheme = params.get("theme");
-        let themeMode =
-          themeOrder.includes(initialTheme) ? initialTheme :
-          themeOrder.includes(readStored("tamgur-docs-theme")) ? readStored("tamgur-docs-theme") :
-          "auto";
-
         const updateUrl = (key, value, defaultValue) => {
           const url = new URL(location.href);
           if (value === defaultValue) {
@@ -649,17 +581,8 @@
         };
 
         const applyTheme = () => {
-          const resolved = themeMode === "auto" ? (media.matches ? "dark" : "light") : themeMode;
-          const dictionary = translations[locale];
-          const label = dictionary[
-            themeMode === "auto" ? "themeAuto" :
-            themeMode === "light" ? "themeLight" :
-            "themeDark"
-          ];
-          document.documentElement.dataset.theme = resolved;
-          themeButton.title = label;
-          themeButton.setAttribute("aria-label", label);
-          themeMeta.setAttribute("content", resolved === "dark" ? "#0d1119" : "#f5f7fa");
+          document.documentElement.dataset.theme = "light";
+          themeMeta.setAttribute("content", "#f5f7fa");
         };
 
         languageSelect.addEventListener("change", () => {
@@ -667,17 +590,6 @@
           writeStored("tamgur-docs-language", locale);
           updateUrl("lang", locale, "zh-CN");
           applyLocale();
-        });
-
-        themeButton.addEventListener("click", () => {
-          themeMode = themeOrder[(themeOrder.indexOf(themeMode) + 1) % themeOrder.length];
-          writeStored("tamgur-docs-theme", themeMode);
-          updateUrl("theme", themeMode, "auto");
-          applyTheme();
-        });
-
-        media.addEventListener("change", () => {
-          if (themeMode === "auto") applyTheme();
         });
 
         applyLocale();

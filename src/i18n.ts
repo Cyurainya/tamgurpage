@@ -128,7 +128,7 @@ export const messages: Record<Locale, Messages> = {
     heroHighlight: '低至 1 折',
     heroModelLine: '一站式接入全球顶尖大模型，支持 GPT, Claude, Gemini 等。',
     heroDescription: '无缝对接OpenAI、Claude、Gemini 等API 格式，零成本迁移，释放无限潜能。',
-    heroMigration: '告别繁琐调试，让 AI 开发回归纯粹。',
+    heroMigration: '无需魔法🪜，无需官方帐号，无需国外信用卡/手机号',
     heroPriceTitle: '典型月度成本',
     heroOfficialPlatform: '官方平台',
     heroTamgurPlatform: 'Tamgur',

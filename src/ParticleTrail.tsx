@@ -1,5 +1,4 @@
 import { useEffect, useRef } from 'react';
-import type { ResolvedTheme } from './theme';
 
 type Particle = {
   x: number;
@@ -10,7 +9,7 @@ type Particle = {
   size: number;
 };
 
-export function ParticleTrail({ theme }: { theme: ResolvedTheme }) {
+export function ParticleTrail() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -69,7 +68,7 @@ export function ParticleTrail({ theme }: { theme: ResolvedTheme }) {
     const draw = () => {
       if (!active) return;
       context.clearRect(0, 0, width, height);
-      const color = theme === 'dark' ? '255, 184, 51' : '240, 145, 0';
+      const color = '240, 145, 0';
 
       for (let index = particles.length - 1; index >= 0; index -= 1) {
         const particle = particles[index];
@@ -111,8 +110,7 @@ export function ParticleTrail({ theme }: { theme: ResolvedTheme }) {
       window.removeEventListener('resize', resize);
       window.removeEventListener('pointermove', onPointerMove);
     };
-  }, [theme]);
+  }, []);
 
   return <canvas ref={canvasRef} className="particle-canvas" aria-hidden="true" />;
 }
-
