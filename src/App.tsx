@@ -362,7 +362,7 @@ export default function App() {
                     <span className="trust-contact-label">WeChat</span>
                     <span className="trust-contact-value">cyuCyin</span>
                   </div>
-                  <button type="button" onClick={() => copyContact('chloeYanCyu', 'wechat')}>
+                  <button type="button" onClick={() => copyContact('cyuCyin', 'wechat')}>
                     {copiedContact === 'wechat' ? t.copiedWechat : t.copyWechat}
                   </button>
                 </div>
